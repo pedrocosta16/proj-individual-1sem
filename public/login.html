@@ -15,7 +15,7 @@
 
         <ul class="header-pags">
             <li><a href="#secao-2">Sobre Pilates</a></li>
-            <li><a href="#">Minha História</a></li>
+            <li><a href="minha-historia.html">Minha História</a></li>
         </ul>
 
         <div class="header-botao">
@@ -54,26 +54,31 @@
 
 <script>
 
-    function entrar() {
+    function entrar()
+    {
         //aguardar();
 
         var emailVar = ipt_email_user.value;
         var senhaVar = ipt_senha_user.value;
 
-        if (emailVar == "" || senhaVar == "") {
+        if (emailVar == "" || senhaVar == "")
+        {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
             //finalizarAguardar();
             return false;
         }
-        else {
+
+        else
+        {
             setInterval(5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/usuario/autenticar", {
+        fetch("/usuario/autenticar",
+        {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -82,10 +87,12 @@
                 emailServer: emailVar,
                 senhaServer: senhaVar
             })
-        }).then(function (resposta) {
+        }).then(function (resposta)
+        {
             console.log("ESTOU NO THEN DO entrar()!")
 
-            if (resposta.ok) {
+            if (resposta.ok)
+            {
                 console.log(resposta);
 
                 resposta.json().then(json => {
@@ -96,13 +103,17 @@
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
-                    setTimeout(function () {
-                        window.location = "dashboard.html";
+                    setTimeout(function ()
+                    {
+                        window.location = "inicio.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
 
-            } else {
+            }
+            
+            else
+            {
 
                 console.log("Houve um erro ao tentar realizar o login!");
 
@@ -112,7 +123,8 @@
                 });
             }
 
-        }).catch(function (erro) {
+        }).catch(function (erro)
+        {
             console.log(erro);
         })
 

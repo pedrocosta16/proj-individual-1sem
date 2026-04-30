@@ -254,13 +254,13 @@ footer
 
 .login
 {
-    min-height: 85vh;
     display: flex;
+    min-height: 85vh;
     flex-direction: column;
     align-items: center;
     padding: 90px 8%;
     background: #f6f7f6;
-    gap: 30px   ;
+    gap: 30px
 }
 
 .login h1
@@ -281,7 +281,7 @@ footer
 
 .login input
 {
-    padding: 20px 8%;
+    padding: 20px;
     font-size: 0.9rem;
     font-weight: bold;
     border-radius: 1rem;

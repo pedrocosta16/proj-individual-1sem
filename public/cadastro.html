@@ -15,7 +15,7 @@
 
         <ul class="header-pags">
             <li><a href="#secao-2">Sobre Pilates</a></li>
-            <li><a href="#">Minha História</a></li>
+            <li><a href="minha-historia.html">Minha História</a></li>
         </ul>
 
         <div class="header-botao">
@@ -73,7 +73,8 @@
 
         console.log(nomeVar, emailVar, senhaVar, confirmacaoSenhaVar);
 
-        var campos = [
+        var campos =
+        [
             {valor: nomeVar, mensagem: "O campo NOME está vazio!"},
             {valor: nascimentoVar, mensagem: "O campo NASCIMENTO está vazio!"},
             {valor: emailVar, mensagem: "O campo EMAIL está vazio!"},
@@ -81,8 +82,10 @@
             {valor: confirmacaoSenhaVar, mensagem: "O campo CONFIRME A SENHA está vazio!"}
         ];
 
-        for (var i = 0; i < campos.length; i++) {
-            if (campos[i].valor == "") {
+        for (var i = 0; i < campos.length; i++)
+        {
+            if (campos[i].valor == "")
+            {
                 cardErro.style.display = "block";
                 mensagem_erro.innerHTML = campos[i].mensagem;
                 return false;
@@ -106,12 +109,11 @@
             //setInterval(sumirMensagem, 5000);
         }*/
 
-        if (
-            nomeVar.length < 1 ||
+        if (nomeVar.length < 1 ||
             (!emailVar.includes("@") || !emailVar.includes(".")) ||
             senhaVar.length < 6 ||
-            confirmacaoSenhaVar != senhaVar
-        ) {
+            confirmacaoSenhaVar != senhaVar)
+        {
             cardErro.style.display = "block";
             mensagem_erro.innerHTML =
                 "(Mensagem de erro para campos não preenchidos corretamente)";
@@ -120,12 +122,14 @@
             return false;
         }
 
-        else {
+        else
+        {
             //setInterval(sumirMensagem, 5000);
         }
 
         // Enviando o valor da nova input
-        fetch("/usuario/cadastrar", {
+        fetch("/usuario/cadastrar",
+        {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -140,10 +144,12 @@
                 confSenhaServer: confirmacaoSenhaVar
             }),
         })
-            .then(function (resposta) {
+            .then(function (resposta)
+            {
                 console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
+                if (resposta.ok)
+                {
                     cardErro.style.display = "block";
 
                     mensagem_erro.innerHTML =
@@ -155,11 +161,15 @@
 
                     //limparFormulario();
                     //finalizarAguardar();
-                } else {
+                }
+                
+                else
+                {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
             })
-            .catch(function (resposta) {
+            .catch(function (resposta)
+            {
                 console.log(`#ERRO: ${resposta}`);
                 //finalizarAguardar();
             });
