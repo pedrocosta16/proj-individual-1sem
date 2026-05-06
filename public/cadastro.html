@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilates - Página de Cadastro</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -24,21 +25,36 @@
 
     </header>
 
-    <div class="login">
+    <div class="form">
 
         <h1>Cadastre-se agora</h1>
 
-        <input type="text" id="ipt_nome_user" placeholder="NOME">
+        <div class="campo">
+            <p>Nome Completo:</p>
+            <input type="text" id="ipt_nome_user" placeholder="Digite seu nome">
+        </div>
         
-        <input type="text" id="ipt_nascimento_user" placeholder="NASCIMENTO">
+        <div class="campo">
+            <p>Data de Nascimento (AAAA/MM/DD):</p>
+            <input type="text" id="ipt_nascimento_user" placeholder="Digite sua data de nascimento">
+        </div>
 
-        <input type="email" id="ipt_email_user" placeholder="EMAIL">
+        <div class="campo">
+            <p>Email:</p>
+            <input type="email" id="ipt_email_user" placeholder="Digite seu email">
+        </div>
 
-        <input type="password" id="ipt_senha_user" placeholder="SENHA">
+        <div class="campo">
+            <p>Senha:</p>
+            <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+        </div>
 
-        <input type="password" id="ipt_conf_senha_user" placeholder="CONFIRME A SENHA">
+        <div class="campo"> 
+            <p>Confirme a senha:</p>
+            <input type="password" id="ipt_conf_senha_user" placeholder="Digite sua senha novamente">
+        </div>
 
-        <div class="login-botao">
+        <div class="campo">
             <button onclick="cadastrar()">Cadastrar</button>
         </div>
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilates - Página de Login</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -24,15 +25,21 @@
 
     </header>
 
-    <div class="login">
+    <div class="form">
 
         <h1>Entre em sua conta</h1>
 
-        <input type="email" id="ipt_email_user" placeholder="EMAIL">
+        <div class="campo">
+            <p>Email:</p>
+            <input type="email" id="ipt_email_user" placeholder="Digite seu email">
+        </div>
 
-        <input type="password" id="ipt_senha_user" placeholder="SENHA">
+        <div class="campo">
+            <p>Senha:</p>
+            <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+        </div>
 
-        <div class="login-botao">
+        <div class="campo">
             <button onclick="entrar()">Entrar</button>
         </div>
 
@@ -103,11 +110,13 @@
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
+                    console.log("SALVEI:", sessionStorage.EMAIL_USUARIO, sessionStorage.NOME_USUARIO);
+
                     setTimeout(function ()
                     {
                         window.location = "inicio.html";
                     }, 1000); // apenas para exibir o loading
-
+                    console.log("ANTES DE REDIRECIONAR:", sessionStorage);
                 });
 
             }

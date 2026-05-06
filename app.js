@@ -29,7 +29,8 @@ app.use("/preferencia", preferenciaRouter);
 app.use("/treino", treinoRouter);
 app.use("/quiz", quizRouter);
 
-app.listen(PORTA_APP, function () {
+app.listen(PORTA_APP, function ()
+{
     console.log(`
     ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
     ##   ##  ##       ##  ##            ## ##     ####      ##      ####             ##  ##     ##         ##  

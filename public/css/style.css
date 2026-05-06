@@ -31,6 +31,11 @@ header
     padding: 16px 8%;
 }
 
+button
+{
+    font-family: 'Inter', sans-serif;
+}
+
 .header-pags
 {
     display: flex;
@@ -252,58 +257,96 @@ footer
 }
 
 
-.login
-{
+
+
+
+
+
+
+
+.inicio {
+    min-height: 100vh;
+    background: #f6f7f6;
+    padding: 40px 8%;
     display: flex;
-    min-height: 85vh;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* topo */
+.inicio-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1d2221;
+}
+
+.inicio-topo-info h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: bold;
+}
+
+.inicio-topo-info p {
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+.inicio-topo-acoes {
+    display: flex;
+    gap: 14px;
+}
+
+.btn-perfil {
+    color: #1d2221;
+    border: 1px solid #1d2221;
+    padding: 10px 22px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    transition: 0.2s ease;
+}
+
+.btn-dashboard {
+    background: #1d2221;
+    color: #f6f7f6;
+    border: 1px solid #1d2221;
+    padding: 10px 22px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    transition: 0.2s ease;
+}
+
+.pref-vazio {
+    
+    border-radius: 20px;
+    padding: 36px 20px;
+    text-align: center;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 90px 8%;
-    background: #f6f7f6;
-    gap: 30px
+    gap: 16px;
 }
 
-.login h1
-{
-    font-size: clamp(3rem, 5vw, 4rem);
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #1d2221;
-}
-
-.login p
-{
-    font-size: 1rem;
-    margin-bottom: 28px;
-    max-width: 380px;
-    color: #1d2221;
-}
-
-.login input
-{
-    padding: 20px;
+.pref-vazio p {
     font-size: 0.9rem;
-    font-weight: bold;
-    border-radius: 1rem;
-    border: 1px solid #1d2221;
-    color: #1d2221;
-    text-align: left;
+    opacity: 0.55;
+    max-width: 300px;
+    line-height: 1.5;
 }
 
-.login-botao button
-{
+.btn-preencher {
     background-color: #222222;
     color: #f6f7f6;
     border: none;
-    padding: 20px 90px;
+    padding: 15px 40px;
     font-size: 0.9rem;
     font-weight: bold;
-    border-radius: 1rem;
-}
-
-.erro
-{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
+    border-radius: 2rem;
 }
