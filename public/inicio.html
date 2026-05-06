@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilates - Página Inicial</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body onload="validarSessao()">
+
+    <div class="inicio">
+
+        <div class="inicio-topo">
+            <div class="inicio-topo-info">
+                <h1>Olá, <span id="b_usuario"></span>!</h1>
+                <p id="b_email"></p>
+            </div>
+            <div class="inicio-topo-acoes">
+                <button class="btn-perfil">Editar perfil</button>
+                <button class="btn-dashboard">Dashboard</button>
+                
+            </div>
+        </div>
+
+        <!-- sem preferências -->
+        <div class="pref-vazio">
+            <p>Preencha suas preferências para personalizarmos sua experiência.</p>
+            <a href="preferencias.html">
+                <button class="btn-preencher">Preencher agora</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    function validarSessao()
+    {
+        console.log("SESSION INICIO:", sessionStorage);
+        var email = sessionStorage.EMAIL_USUARIO;
+        var nome = sessionStorage.NOME_USUARIO;
+
+        var b_usuario = document.getElementById("b_usuario");
+        var b_email = document.getElementById("b_email");
+
+        if (email != null && nome != null)
+        {
+            b_usuario.innerHTML = nome;
+            b_email.innerHTML = email;
+        }
+        
+        else
+        {
+            window.location = "login.html";
+        }
+    }
+
+</script>
