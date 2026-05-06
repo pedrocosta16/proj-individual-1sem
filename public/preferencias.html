@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilates - Página de Cadastro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="form">
+
+        <h1>Cadastre suas preferências</h1>
+        <p>Preencha para personalizar sua experiência.</p>
+
+        <div class="campo">
+            <p>Gênero musical</p>
+            <select name="" id="">
+                <option value="">Selecione...</option>
+                <option value=""></option>
+                <option value=""></option>
+            </select>
+        </div>
+        
+        <div class="campo">
+            <p>Objetivo com o Pilates:</p>
+            <input type="text" id="ipt_nascimento_user" placeholder="Digite sua data de nascimento">
+        </div>
+
+        <div class="campo">
+            <p>Quando você começou a praticar? (AAAA/MM/DD)</p>
+            <input type="email" id="ipt_email_user" placeholder="Digite a data de início">
+        </div>
+
+        <div class="campo">
+            <button onclick="cadastrarPreferencias()">Salvar Preferências</button>
+        </div>
+
+        <div class="erro" id="cardErro" style="display: none; color: red; margin-top: 10px;">
+            <p id="mensagem_erro"></p>
+        </div>
+
+    </div>
+
+    
+</body>
+</html>
