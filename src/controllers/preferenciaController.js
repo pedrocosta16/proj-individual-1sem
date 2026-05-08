@@ -27,27 +27,37 @@ function buscarUsuariosPorEmpresa(req, res)
 
 function cadastrar(req, res)
 {
-  var genero_musical = req.body.genero_musical;
-  var objetivo_pilates = req.body.objetivo_pilates;
-  var idUsuario = req.body.idUsuario;
+  var genero_musical = req.body.generoMusicalServer;
+  var objetivo_pilates = req.body.objetivoPilatesServer;
+  var tempo_treino = req.body.tempoTreinoServer;
+  var fk_usuario = req.body.fkUsuarioServer;
 
   if (genero_musical == undefined){
     res.status(400).send("genero_musical está undefined!");
   }
   
-  else if (idUsuario == undefined) {
-    res.status(400).send("idUsuario está undefined!");
+  else if (objetivo_pilates == undefined) {
+    res.status(400).send("Objetivo pilates está undefined!");
   }
+
+  else if (tempo_treino == undefined) {
+    res.status(400).send("Tempo de treino está undefined!");
+  }
+
+  else if (fk_usuario == undefined) {
+    res.status(400).send("Fk usuário está undefined!");
+  }
+
   
   else {
-    preferenciaModel.cadastrar(genero_musical, objetivo_pilates, idUsuario)
+    preferenciaModel.cadastrar(genero_musical, objetivo_pilates, tempo_treino, fk_usuario)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
       ).catch((erro) => {
         console.log(erro);
         console.log(
-          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          "\nHouve um erro ao realizar o cadastro de preferências! Erro: ",
           erro.sqlMessage
         );
         res.status(500).json(erro.sqlMessage);
