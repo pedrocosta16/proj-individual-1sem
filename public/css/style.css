@@ -46,7 +46,7 @@ button
 .header-pags a
 {
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .titulo
@@ -66,153 +66,106 @@ button
     color: #f6f7f6;
     border: none;
     padding: 6%;
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: bold;
     border-radius: 1rem;
     letter-spacing: 1.2px;
 }
 
-.secao-1
+.secao
 {
-    min-height: 85vh;
+    min-height: auto;
+    padding: 80px 0;
     display: flex;
     justify-content: space-between;
-    padding: 0 8%;
     background: #f6f7f6;
     align-items: center;
 }
 
-.secao-1-principal
+.secao-principal
 {
+    flex: 1;
+    padding: 0 8%;
     max-width: 750px;
     color: #1d2221;
 }
 
-.secao-1-principal h1
+
+.secao-principal h1
 {
-    font-size: clamp(3rem, 5vw, 4rem);
+    font-size: 64px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.secao-1-principal p
+.secao-principal p
 {
-    font-size: 1rem;
+    font-size: 16px;
     margin-bottom: 28px;
     max-width: 380px;
+    text-align: justify;
+
 }
 
-.secao-1-principal button
+.secao-principal button
 {
     background: transparent;
     color: #1d2221;
     border: 1px solid #1d2221;
     padding: 12px 28px;
-    font-size: 0.95rem;
+    font-size: 15px;
     border-radius: 999px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.secao-1-img
+.secao-img, .secao-img-esquerda
 {
+    flex: 1;
     display: flex;
     align-items: flex-end;
+}
+
+.secao-img
+{
     justify-content: flex-end;
 }
 
-.secao-1-img img
+.secao-img-esquerda
 {
-    max-width: 600px;
+    justify-content: flex-start;
+}
+
+.secao-img img, .secao-img-esquerda img
+{
     width: 100%;
+    max-width: 100%;
 }
 
 
 
 
 
-.secao-2
-{
-    min-height: 85vh;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 8%;
-    background: #f6f7f6;
-    align-items: center;
-}
 
-.secao-2-principal
-{
-    max-width: 750px;
-    color: #1d2221;
-}
-
-.secao-2-principal h1
-{
-    font-size: clamp(3rem, 5vw, 4rem);
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.secao-2-principal p
-{
-    font-size: 1rem;
-    margin-bottom: 28px;
-    max-width: 570px;
-    text-align: justify;
-    line-height: 1.3;
-}
-
-.secao-2-img
-{
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
-
-.secao-2-img img
-{
-    max-width: 600px;
-    width: 100%;
-}
-
-
-
-
-
-.secao-3
-{
-    min-height: 85vh;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 8%;
-    background: #f6f7f6;
-    align-items: center;
-}
-
-.secao-3-conteudo
+.secao-conteudo
 {
     display: flex;
     flex-direction: column;
-}
-
-.secao-3-principal
-{
-    max-width: 750px;
-    color: #1d2221;
+    padding: 0 8%;
 }
 
 .secao-3-principal h1
 {
-    font-size: clamp(3rem, 5vw, 4rem);
+    font-size: 64px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #1d2221;
 }
 
 .secao-3-principal p
 {
-    font-size: 1rem;
+    font-size: 16px;
     margin-bottom: 28px;
     max-width: 570px;
     text-align: justify;
@@ -265,7 +218,7 @@ footer
 
 
 
-
+/*TELA DE INÍCIO, APÓS O LOGIN DO USUÁRIO*/
 .inicio
 {
     display: flex;
@@ -275,33 +228,37 @@ footer
     gap: 40px;
 }
 
-/* topo */
-.inicio-topo {
+.inicio-topo
+{
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #1d2221;
 }
 
-.inicio-topo-info h1 {
+.inicio-topo-info h1
+{
     font-size: 45px;
     font-weight: bold;
 }
 
-.inicio-topo-info p {
+.inicio-topo-info p
+{
     font-size: 15px;
     margin-top: 4px;
 }
 
 
 
-.inicio-topo-acoes {
+.inicio-topo-acoes
+{
     display: flex;
     gap: 14px;
 }
 
 
-.btn-perfil {
+.btn-perfil
+{
     color: #1d2221;
     border: 1px solid #1d2221;
     padding: 10px 22px;
@@ -336,7 +293,7 @@ footer
 
 .pref-vazio p
 {
-    font-size: 0.9rem;
+    font-size: 14px;
     opacity: 0.55;
     max-width: 300px;
     line-height: 1.5;
@@ -348,13 +305,10 @@ footer
     color: #f6f7f6;
     border: none;
     padding: 15px 40px;
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: bold;
     border-radius: 2rem;
 }
-
-
-
 
 .pref
 {
@@ -389,7 +343,7 @@ footer
 
 .pref-item .pref-label
 {
-    font-size: 0.72rem;
+    font-size: 11px;
     font-weight: 600;
     margin-bottom: 6px;
     color: #4b5251;
@@ -397,7 +351,7 @@ footer
 
 .pref-item .pref-valor
 {
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 600;
 }
 

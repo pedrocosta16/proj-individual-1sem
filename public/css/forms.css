@@ -1,3 +1,4 @@
+/* Container principal: centraliza tudo em coluna */
 .form
 {
     display: flex;
@@ -10,19 +11,21 @@
     color: #1d2221;
 }
 
+/* Título da página */
 .form h1
 {
-    font-size: clamp(3rem, 5vw, 4rem);
+    font-size: 64px;
     font-weight: bold;
 }
 
+/* Subtítulo centralizado */
 .form p
 {
     text-align: center;
     margin: 0;
-    
 }
 
+/* Agrupa label e input em coluna, limitando largura */
 .campo {
     display: flex;
     flex-direction: column;
@@ -31,48 +34,51 @@
     gap: 5px;
 }
 
+/* nome do campo */
 .campo p {
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: 600;
     margin: 0;
     text-align: left;
 }
 
-
+/* Input de texto */
 .campo input {
     width: 100%; /* faz ocupar todo o container */
     padding: 14px 16px;
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: 500;
     border-radius: 14px;
     border: 1px solid #1d2221;
     font-family: 'Inter', sans-serif;
 }
 
+/* Select: mesma aparência do input */
 .campo select
 {
     width: 100%; /* faz ocupar todo o container */
     padding: 14px 16px;
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: 500;
     border-radius: 14px;
     border: 1px solid #1d2221;
     font-family: 'Inter', sans-serif;
 }
 
+/* Botão de submit: mesmas dimensões do input*/
 .campo button
 {
     width: 100%; /* mesma largura do input */
     padding: 14px 16px; /* igual ao input pra ficar consistente */
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: bold;
     border-radius: 14px;
     border: none;
     background-color: #222222;
     color: #f6f7f6;
-    cursor: pointer;
 }
 
+/* Mensagem de erro */
 .erro
 {
     display: flex;
