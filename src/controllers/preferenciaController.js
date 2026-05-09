@@ -1,10 +1,11 @@
 var preferenciaModel = require("../models/preferenciaModel");
-/*
-function buscarUsuariosPorEmpresa(req, res)
-{
-  var idUsuario = req.params.idUsuario;
 
-  aquarioModel.buscarAquariosPorEmpresa(idUsuario).then((resultado) =>
+function visualizar(req, res)
+{
+  var fkUsuario = req.params.fkUsuario;
+
+  preferenciaModel.visualizar(fkUsuario)
+  .then((resultado) =>
   {
     if (resultado.length > 0)
     {
@@ -19,11 +20,11 @@ function buscarUsuariosPorEmpresa(req, res)
   }).catch(function (erro)
   {
     console.log(erro);
-    console.log("Houve um erro ao buscar os aquarios: ", erro.sqlMessage);
+    console.log("Houve um erro ao buscar as preferências: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
   });
 }
-*/
+
 
 function cadastrar(req, res)
 {
@@ -66,6 +67,6 @@ function cadastrar(req, res)
 }
 
 module.exports = {
-  //buscarAquariosPorEmpresa,
+  visualizar,
   cadastrar
 }
