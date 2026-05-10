@@ -1,0 +1,172 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    font-family: 'Inter', sans-serif;
+    background: #f6f7f6;
+    padding: 32px 48px;
+}
+
+a
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+ul
+{
+    list-style: none;
+}
+
+.topo
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.perfil-user
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.foto-user
+{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background-color: gray;
+    text-align: center;
+    align-items: center;
+    border-radius: 50%;
+
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+}
+
+.titulo
+{
+    font-size: 30px;
+    color: #1d2221;
+    text-align: center;
+    background: #f6f7f6;
+    font-weight: bold;
+}
+
+
+.kpis
+{
+    background: #f6f7f6;
+    padding: 10px 0;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    border-radius: 18px;
+}
+
+
+.kpi-item
+{
+    background: #f6f7f6;
+    border-radius: 18px;
+    padding: 20px 16px;
+    background-color: #fafafa;
+    border: 1px solid #777c7b;
+    flex: 1;
+}
+
+.kpi-conteudo
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.kpi-conteudo img
+{
+    width: 42px;
+    height: 42px;
+}
+
+.pref-titulo
+{
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4b5251;
+}
+
+.pref-valor
+{
+    font-size: 25px;
+    font-weight: 600;
+    color: #1d2221;
+    margin-bottom: 6px;
+}
+
+.alert
+{
+    font-size: 11px;
+    padding: 3px;
+    border-radius: 18px;
+    display: inline;
+    background-color: #177917;
+    color: #56f756;
+}
+
+.grafico-1
+{
+    width: 100%;
+    min-height: 420px;
+
+    background-color: white;
+    border-radius: 18px;
+
+    padding: 24px;
+    box-sizing: border-box;
+    border: 1px solid #777c7b;
+    margin-bottom: 10px;
+}
+
+.infos-grafico
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #1d2221;
+}
+
+.g1
+{
+    width: 100%;
+
+    background-color: white;
+    
+
+    padding: 20px;
+    position: relative;
+    width: 100%;
+    height: 320px;
+}
+
+.graficos {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+}
+
+.graficos .grafico-1 {
+    flex: 1;
+}

@@ -4,33 +4,352 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilates - Página Inicial</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     
-    <header>
+    <header class="topo">
 
-        <div class="titulo"><a href="index.html">PILATES</a></div>
+        <p><a href="inicio.html">← Voltar</a></p>
 
-        <ul class="header-pags">
-            <li><a href="#secao-2">Sobre Pilates</a></li>
-            <li><a href="#">Minha História</a></li>
-        </ul>
+        <div class="titulo">Visão Geral</div>
 
-        <div class="header-botao">
-            <button><a href="login.html">Login/Cadastro</a></button>
+        <div class="perfil-user">
+            <p>Pedro Costa</p>
+            <div class="foto-user"><a href="editar-perfil.html">PC</a></div>
         </div>
-
+        
     </header>
 
-    <div class="secao-1">
+    <div class="kpis">
+        <div class="kpi-item">
+            <h1 class="pref-titulo">Pontuação atual</h1>
 
-        <div class="secao-1-principal">
-            <h1>FUTURA PÁGINA DO DASH</h1>
+            <div class="kpi-conteudo">
+                <img src="assets/icons/trophy.png" alt="">
+                <p class="pref-valor" id="val-genero">84 pts</p>
+            </div>
+            
+            <p class="alert">Nivel Avançado</p>
         </div>
 
+        <div class="kpi-item">
+            <h1 class="pref-titulo">Sua evolução</h1>
 
+            <div class="kpi-conteudo">
+                <img src="assets/icons/increase.png" alt="">
+                <p class="pref-valor" id="val-objetivo">+19 pts</p>
+            </div>
+            
+            <p class="alert">Em crescimento</p>
+        </div>
+        
+        <div class="kpi-item">
+            <h1 class="pref-titulo">Ranking</h1>
+
+            <div class="kpi-conteudo">
+                <img src="assets/icons/user.png" alt="">
+                <p class="pref-valor" id="val-tempo">10º lugar</p>
+            </div>
+            
+            <p class="alert">Destaque</p>
+        </div>
+
+        <div class="kpi-item">
+            <h1 class="pref-titulo">Quizzes feitos</h1>
+
+            <div class="kpi-conteudo">
+                <img src="assets/icons/checklist.png" alt="">
+                <p class="pref-valor" id="val-tempo">5</p>
+            </div>
+            
+            <p class="alert">Acima da média</p>
+        </div>
     </div>
+
+    <div class="grafico-1">
+        <div class="infos-grafico">
+            <h1>Minha evolução no quiz</h1>
+            <p>Suas tentativas comparadas com a média geral.</p>
+        </div>
+
+        <div class="g1">
+            <canvas id="id_grafico_linhas"></canvas>
+        </div>
+    </div>
+
+    <div class="graficos">
+        <div class="grafico-1">
+            <div class="infos-grafico">
+                <h1>Onde você está entre os usuários</h1>
+                <p>Distribuição geral de pontuações. Sua faixa destacada.</p>
+            </div>
+
+            <div class="g1">
+                <canvas id="id_grafico_barras"></canvas>
+            </div>
+        </div>
+
+        <div class="grafico-1">
+            <div class="infos-grafico">
+                <h1>Média de pontuação por objetivo</h1>
+                <p>Distribuição geral de pontuações. Sua faixa destacada.</p>
+            </div>
+
+            <div class="g1">
+                <canvas id="id_grafico_barras_deitadas"></canvas>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    const grafico_linhas = document.getElementById('id_grafico_linhas');
+    const grafico_barras = document.getElementById('id_grafico_barras');
+    const grafico_barras_deitadas = document.getElementById('id_grafico_barras_deitadas');
+
+    Chart.defaults.font.family = 'Inter';
+
+    new Chart(grafico_linhas,
+    {
+        type: 'line',
+        data:
+        {
+            labels: ['1º Quiz', '2º Quiz', '3º Quiz', '4º Quiz', '5º Quiz'],
+
+            datasets: [
+                { // Métricas
+                    label: 'Minha pontuação',
+                    data: [10, 20, 40, 70, 90],
+                    borderWidth: 1,
+                    fill: false,
+                    borderWidth: 2
+                }
+            ]
+        },
+
+        options:
+        {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales:
+            {
+                y:
+                {
+                    beginAtZero: true,
+
+                    title:
+                    {
+                        display: true,
+                        text: 'Pontuação',
+                        color: '#1d2221'
+                    },
+
+                    ticks:
+                    {
+                        color: '#1d2221',
+                        stepSize: 20 // Exibe de 20 em 20 pontos
+                    }
+                },
+
+                x: {
+                    offset: false,
+                    stacked: true,
+
+                    title:
+                    {
+                        display: true,
+                        text: 'Tentativas',
+                        color: '#1d2221'
+                    },
+
+                    ticks:
+                    {
+                        color: '#1d2221'
+                    }
+                }
+            },
+
+            plugins: {
+
+                legend:
+                {
+                    labels:
+                    {
+                        color: '#1d2221'
+                    }
+                }
+            }
+        }
+    });
+
+    new Chart(grafico_barras,
+    {
+        type: 'bar',
+        data:
+        {
+            labels: ['0–20', '20–40', '40–60', '60–80', '80–100'],
+
+            datasets: [
+                { // Métricas
+                    label: 'Outros usuários',
+                    data: [8, 15, 27, 63, 25],
+                    backgroundColor: [
+                        '#b9b6b0',
+                        '#b9b6b0',
+                        '#b9b6b0',
+                        '#b9b6b0',
+                        '#26a37a'
+                    ]
+                },
+            ]
+        },
+
+        options:
+        {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales:
+            {
+                y:
+                {
+                    beginAtZero: true,
+
+                    title:
+                    {
+                        display: true,
+                        text: 'Quantidade de usuários',
+                        color: '#1d2221'
+                    },
+
+                    ticks:
+                    {
+                        color: '#1d2221',
+                    }
+                },
+
+                x: {
+                    offset: true,
+
+                    title:
+                    {
+                        display: true,
+                        text: 'Pontuação',
+                        color: '#1d2221'
+                    },
+
+                    ticks:
+                    {
+                        color: '#1d2221'
+                    }
+                }
+            },
+
+            plugins: {
+
+                legend:
+                {
+                    labels:
+                    {
+                        color: '#1d2221',
+
+                        generateLabels(chart)
+                        {
+                            return [
+                                {
+                                    text: 'Outros usuários',
+                                    fillStyle: '#b9b6b0'
+                                },
+
+                                {
+                                    text: 'Sua faixa',
+                                    fillStyle: '#26a37a'
+                                }
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    new Chart(grafico_barras_deitadas,
+    {
+        type: 'bar',
+        data:
+        {
+            labels: ['Postura', 'Flexibilidade', 'Fortalecimento', 'Reabilitação', 'Qualidade de Vida'],
+
+            datasets: [
+                { // Métricas
+                    label: 'Pontuação média',
+                    data: [81, 74, 62, 55, 80]
+                }
+            ]
+        },
+
+        options:
+        {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales:
+            {
+                y:
+                {
+                    beginAtZero: true,
+
+                    title:
+                    {
+                        display: true,
+                        text: 'Objetivo',
+                        color: '#1d2221'
+                    },
+
+                    ticks:
+                    {
+                        color: '#1d2221',
+                    }
+                },
+
+                x: {
+                    offset: true,
+
+                    title:
+                    {
+                        display: true,
+                        text: 'Pontuação média',
+                        color: '#1d2221'
+                    },
+
+                    ticks:
+                    {
+                        color: '#1d2221'
+                    }
+                }
+            },
+
+            plugins: {
+
+                legend:
+                {
+                    labels:
+                    {
+                        color: '#1d2221'
+                    }
+                }
+            }
+        }
+    });
+
+
+</script>
