@@ -50,7 +50,8 @@ function cadastrar(req, res)
   }
 
   
-  else {
+  else
+  {
     preferenciaModel.cadastrar(genero_musical, objetivo_pilates, tempo_treino, fk_usuario)
       .then((resultado) => {
         res.status(201).json(resultado);

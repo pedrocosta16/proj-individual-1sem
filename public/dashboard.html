@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onload="pontuacaoAtual(), evolucao(), ranking(), quizzesFeitos()">
     
     <header class="topo">
 
@@ -28,10 +28,10 @@
 
             <div class="kpi-conteudo">
                 <img src="assets/icons/trophy.png" alt="">
-                <p class="pref-valor" id="val-genero">84 pts</p>
+                <p class="pref-valor" id="id_pontuacao_atual">-</p>
             </div>
             
-            <p class="alert">Nivel Avançado</p>
+            <p class="alert" id="alerta-kpi_1">-</p>
         </div>
 
         <div class="kpi-item">
@@ -39,10 +39,10 @@
 
             <div class="kpi-conteudo">
                 <img src="assets/icons/increase.png" alt="">
-                <p class="pref-valor" id="val-objetivo">+19 pts</p>
+                <p class="pref-valor" id="id_evolucao">-</p>
             </div>
             
-            <p class="alert">Em crescimento</p>
+            <p class="alert" id="alerta-kpi_2">-</p>
         </div>
         
         <div class="kpi-item">
@@ -50,10 +50,10 @@
 
             <div class="kpi-conteudo">
                 <img src="assets/icons/user.png" alt="">
-                <p class="pref-valor" id="val-tempo">10º lugar</p>
+                <p class="pref-valor" id="id_ranking">-</p>
             </div>
             
-            <p class="alert">Destaque</p>
+            <p class="alert" id="alerta-kpi_3"></p>
         </div>
 
         <div class="kpi-item">
@@ -61,10 +61,10 @@
 
             <div class="kpi-conteudo">
                 <img src="assets/icons/checklist.png" alt="">
-                <p class="pref-valor" id="val-tempo">5</p>
+                <p class="pref-valor" id="id_qtd_quizzes">-</p>
             </div>
             
-            <p class="alert">Acima da média</p>
+            <p class="alert" id="alerta-kpi_4">Acima da média</p>
         </div>
     </div>
 
@@ -350,6 +350,168 @@
             }
         }
     });
+
+
+    function pontuacaoAtual()
+    {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+        var idPontuacao = document.getElementById("id_pontuacao_atual");
+        var alerta = document.getElementById("alerta-kpi_1");
+
+        fetch(`dashboard/pontuacao-atual/${fkUsuario}`)
+        .then(function (resposta)
+        {
+            if (resposta.ok)
+            {
+                resposta.json().then(function (dados)
+                {
+                    idPontuacao.innerHTML = dados[0].pontuacao_quiz;
+
+                    if (dados[0].pontuacao_quiz >= 90)
+                    {
+                        alerta.innerHTML = "nivel avançado";
+                        alerta.style.backgroundColor = "#177917";
+                    }
+
+                    else if (dados[0].pontuacao_quiz >= 60)
+                    {
+                        alerta.innerHTML = "nivel intermediário";
+                        alerta.style.backgroundColor = "#a1ad17";
+                    }
+
+                    else
+                    {
+                        alerta.innerHTML = "nivel iniciante";
+                        alerta.style.backgroundColor = "#f52a2a";
+                    }
+                });
+            }
+        });
+    }
+
+    function evolucao()
+    {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+        var idEvolucao = document.getElementById("id_evolucao");
+        var alerta = document.getElementById("alerta-kpi_2");
+
+        fetch(`dashboard/evolucao/${fkUsuario}`)
+        .then(function (resposta)
+        {
+            if (resposta.ok)
+            {
+                resposta.json().then(function (dados)
+                {
+                    if (dados.evolucao === null)
+                    {
+                        idEvolucao.innerHTML = dados.mensagem;
+                        alerta.innerHTML = "faça mais quizzes";
+                        alerta.style.backgroundColor = "#555";
+                    }
+                    
+                    else if (dados.evolucao > 0)
+                    {
+                        idEvolucao.innerHTML = "+" + dados.evolucao + " pts";
+                        alerta.innerHTML = "em crescimento";
+                        alerta.style.backgroundColor = "#177917";
+                    }
+
+                    else
+                    {
+                        idEvolucao.innerHTML = dados.evolucao + " pts";
+                        alerta.innerHTML = "queda na pontuação";
+                        alerta.style.backgroundColor = "#a1ad17";
+                    }
+                });
+            }
+        });
+    }
+
+    function ranking()
+    {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+        var idRanking = document.getElementById("id_ranking");
+        var alerta = document.getElementById("alerta-kpi_3");
+
+        fetch(`dashboard/ranking/${fkUsuario}`)
+        .then(function (resposta)
+        {
+            if (resposta.ok)
+            {
+                resposta.json().then(function (dados)
+                {
+                    idRanking.innerHTML = dados[0].posicao + 'º lugar';
+
+                    if (dados[0].posicao == 1)
+                    {
+                        alerta.innerHTML = "invencível!";
+                        alerta.style.backgroundColor = "#177917";
+                    }
+
+                    else if (dados[0].posicao <= 3)
+                    {
+                        alerta.innerHTML = "você está no pódio";
+                        alerta.style.backgroundColor = "#3b82f6";
+                    }
+
+                    else if (dados[0].posicao <= 10)
+                    {
+                        alerta.innerHTML = "ótimo desempenho";
+                        alerta.style.backgroundColor = "#a1ad17";
+                    }
+
+                    else
+                    {
+                        alerta.innerHTML = "continue praticando";
+                        alerta.style.backgroundColor = "#f52a2a";
+                    }
+                });
+            }
+        });
+    }
+
+    function quizzesFeitos()
+    {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+        var idQuizzes = document.getElementById("id_qtd_quizzes");
+        var alerta = document.getElementById("alerta-kpi_4");
+
+        fetch(`dashboard/quizzes-feitos/${fkUsuario}`)
+        .then(function (resposta)
+        {
+            if (resposta.ok)
+            {
+                resposta.json().then(function (dados)
+                {
+                    idQuizzes.innerHTML = dados[0].qtd_quiz;
+
+                    if (dados[0].qtd_quiz <= 5)
+                    {
+                        alerta.innerHTML = "iniciante promissor";
+                        alerta.style.backgroundColor = "#f52a2a";
+                    }
+
+                    else if (dados[0].qtd_quiz <= 15)
+                    {
+                        alerta.innerHTML = "amador habilidoso";
+                        alerta.style.backgroundColor = "#a1ad17";
+                    }
+
+                    else if (dados[0].qtd_quiz <= 30)
+                    {
+                        alerta.innerHTML = "gênio dos quizzes";
+                        alerta.style.backgroundColor = "#3b82f6";
+                    }
+
+                    else
+                    {
+                        alerta.innerHTML = "invencível";
+                        alerta.style.backgroundColor = "#177917";
+                    }
+                });
+            }
+        });
+    }
 
 
 </script>

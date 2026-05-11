@@ -14,7 +14,7 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuario");
 var preferenciaRouter = require("./src/routes/preferencia");
-var treinoRouter = require("./src/routes/treino");
+var dashboardRouter = require("./src/routes/dashboard");
 var quizRouter = require("./src/routes/quiz");
 
 app.use(express.json());
@@ -26,7 +26,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuario", usuarioRouter);
 app.use("/preferencia", preferenciaRouter);
-app.use("/treino", treinoRouter);
+app.use("/dashboard", dashboardRouter);
 app.use("/quiz", quizRouter);
 
 app.listen(PORTA_APP, function ()
