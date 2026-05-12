@@ -2,7 +2,13 @@ var database = require("../database/config");
 
 function pontuacaoAtual(fkUsuario)
 {
-  var instrucaoSql = `SELECT pontuacao_quiz FROM resultado_quiz WHERE fk_usuario = ${fkUsuario} ORDER BY id_quiz DESC LIMIT 1;`;
+  var instrucaoSql = `
+  SELECT pontuacao_quiz
+  FROM resultado_quiz
+  WHERE fk_usuario = ${fkUsuario}
+  ORDER BY id_quiz
+  DESC LIMIT 1;
+  `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -62,11 +68,26 @@ function quizzesFeitos(fkUsuario)
   return database.executar(instrucaoSql);
 }
 
+function graficoEvolucao(fkUsuario, limite_linhas) {
+
+    var instrucaoSql = `
+    SELECT 
+    pontuacao_quiz
+    FROM resultado_quiz
+    WHERE fk_usuario = ${fkUsuario}
+    ORDER BY id_quiz DESC LIMIT ${limite_linhas};
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports =
 {
   pontuacaoAtual,
   evolucao,
   ranking,
-  quizzesFeitos
+  quizzesFeitos,
+  graficoEvolucao
 }
