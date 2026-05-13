@@ -25,7 +25,7 @@ function cadastrar(genero_musical, objetivo_pilates, tempo_treino, fk_usuario) {
 }
 
 function visualizar(fkUsuario) {
-  var instrucaoSql = `SELECT genero_musical, objetivo_pilates, tempo_treino FROM preferencia_usuario WHERE fk_usuario = ${fkUsuario};`;
+  var instrucaoSql = `SELECT genero_musical, objetivo_pilates, DATE_FORMAT(tempo_treino, '%d/%m/%Y') AS tempo_treino FROM preferencia_usuario WHERE fk_usuario = ${fkUsuario};`;
 
   return database.executar(instrucaoSql);
 }

@@ -9,7 +9,7 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body onload="validarSessao(), vizualizarPreferencias()">
+<body onload="validarSessao(), vizualizarPreferencias(), vizualizarQuizzes()">
 
     <div class="inicio">
 
@@ -40,7 +40,7 @@
         </div>
 
         <!-- com preferências -->
-        <div class="pref hidden" id="pref">
+        <div class="pref escondido" id="pref">
             <div>
                 <h1>Suas preferências:</h1>
             </div>
@@ -63,18 +63,13 @@
             </div>
         </div>
 
-        <div class="pref" id="pref">
+        <div class="quiz escondido" id="quiz">
             <div>
                 <h1>Suas tentativas no quiz:</h1>
             </div>
 
-            <div class="pref-cards">
-                <div class="pref-item">
-                    <div class="pref-label">Tentativa 1 - 20/08/2025</div>
-                    <div class="pref-valor" id="val-genero">80 pts</div>
-                </div>
-
-                
+            <div class="cards-quiz" id="cards-quiz">
+                <!-- CARDS DAS TENTATIVAS DO QUIZ AQUI -->
             </div>
         </div>
 
@@ -88,6 +83,7 @@
     function validarSessao()
     {
         console.log("SESSION INICIO:", sessionStorage);
+
         var email = sessionStorage.EMAIL_USUARIO;
         var nome = sessionStorage.NOME_USUARIO;
 
@@ -111,24 +107,53 @@
         var fkUsuario = sessionStorage.ID_USUARIO;
 
         fetch(`/preferencia/visualizar/${fkUsuario}`)
-        .then(function (resposta) {
-
+        .then(function (resposta)
+        {
             if (resposta.ok)
             {
                 resposta.json().then(function (dados)
                 {
-                    document.getElementById("val-genero").innerHTML =
-                        dados[0].genero_musical;
-
-                    document.getElementById("val-objetivo").innerHTML =
-                        dados[0].objetivo_pilates;
-
-                    document.getElementById("val-tempo").innerHTML =
-                        dados[0].tempo_treino;
-
+                    document.getElementById("val-genero").innerHTML = dados[0].genero_musical;
+                    document.getElementById("val-objetivo").innerHTML = dados[0].objetivo_pilates;
+                    document.getElementById("val-tempo").innerHTML = dados[0].tempo_treino;
                     
-                    document.getElementById("pref").classList.remove("hidden");
-                    document.getElementById('pref-vazio').classList.add('hidden');
+                    document.getElementById("pref").classList.remove("escondido");
+                    
+                    document.getElementById('pref-vazio').classList.add('escondido');
+                });
+            }
+        });
+    }
+
+    function vizualizarQuizzes()
+    {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+
+        fetch(`/quiz/vizualizar-quizzes/${fkUsuario}`)
+        .then(function (resposta)
+        {
+
+            if (resposta.ok)
+            {
+                
+
+                resposta.json().then(function (dados)
+                {
+                    for (let i = 0; i < dados.length; i++)
+                    {
+                        console.log(dados);
+
+                        let card = `
+                            <div class="quiz-item">
+                                <div class="quiz-label" id="val-dt-quiz">Tentativa ${i + 1} - ${dados[i].data_quiz}</div>
+                                <div class="quiz-valor" id="val-pontuacao">${dados[i].pontuacao_quiz} pts</div>
+                            </div>
+                        `;
+                        
+                        document.getElementById("quiz").classList.remove("escondido");
+                        document.getElementById("cards-quiz").innerHTML += card
+
+                    }
                 });
             }
         });

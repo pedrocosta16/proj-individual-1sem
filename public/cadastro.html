@@ -82,7 +82,14 @@
         // aguardar();
 
         var nomeVar = ipt_nome_user.value;
-        var nascimentoVar = ipt_nascimento_user.value;
+        var dataBruta = ipt_nascimento_user.value;
+
+        var dia = dataBruta[0] + dataBruta[1];
+        var mes = dataBruta[3] + dataBruta[4];
+        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9]
+
+        var nascimentoVar = ano + `-` + mes + `-` + dia;
+
         var emailVar = ipt_email_user.value;
         var senhaVar = ipt_senha_user.value;
         var confirmacaoSenhaVar = ipt_conf_senha_user.value;
@@ -104,6 +111,7 @@
             {
                 cardErro.style.display = "block";
                 mensagem_erro.innerHTML = campos[i].mensagem;
+                
                 return false;
             }
         }

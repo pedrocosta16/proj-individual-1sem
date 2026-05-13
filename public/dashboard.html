@@ -456,7 +456,7 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(fkUsuario)
+    function obterDadosGrafico()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
         proximaAtualizacao = null;
@@ -522,9 +522,10 @@
         console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++)
+        for (let i = 0; i < resposta.length; i++)
         {
             let registro = resposta[i];
+
             labels.push(`${i + 1}º Quiz`);
             dados.datasets[0].data.push(registro.pontuacao_quiz);
         }
@@ -612,8 +613,8 @@
     // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
     // buscando a última medida inserida em tabela contendo as capturas, 
 
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
+    // Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    // Para ajustar o "select", ajuste o comando sql em src/models
     function atualizarGrafico(fkUsuario, dados, myChart)
     {
         fetch(`/dashboard/grafico-evolucao/${fkUsuario}`,

@@ -214,10 +214,6 @@ footer
 
 
 
-
-
-
-
 /*TELA DE INÍCIO, APÓS O LOGIN DO USUÁRIO*/
 .inicio
 {
@@ -314,7 +310,6 @@ footer
 {
     display: flex;
     flex-direction: column;
-    gap: 14px;
 }
 
 .pref h1
@@ -332,13 +327,11 @@ footer
     border-radius: 18px;
     border: 1px solid #1d2221;
 }
-
 .pref-item
 {
     background: #f6f7f6;
     border-radius: 18px;
     padding: 18px 16px;
-    
 }
 
 .pref-item .pref-label
@@ -355,7 +348,56 @@ footer
     font-weight: 600;
 }
 
-.hidden
+
+
+
+
+
+.quiz
+{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.quiz h1
+{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #1d2221;
+}
+
+.cards-quiz
+{
+    display: flex;
+    gap: 14px;
+    border-radius: 18px;
+    flex-wrap: wrap;
+}
+
+.quiz-item
+{
+    background: #f6f7f6;
+    border-radius: 18px;
+    padding: 18px 16px;
+    border: 1px solid #1d2221;
+}
+
+.quiz-item .quiz-label
+{
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4b5251;
+}
+
+.quiz-item .quiz-valor
+{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.escondido
 {
     display: none;
 }

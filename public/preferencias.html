@@ -68,7 +68,13 @@
 
         var generoMusicalVar = ipt_genero_musical.value;
         var objetivoPilatesVar = ipt_objetivo_pilates.value;
-        var tempoTreinoVar = ipt_tempo_treino.value;
+        var dataBruta = ipt_tempo_treino.value;
+
+        var dia = dataBruta[0] + dataBruta[1];
+        var mes = dataBruta[3] + dataBruta[4];
+        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9]
+
+        var tempoTreinoVar = ano + `-` + mes + `-` + dia;
 
         var fkUsuario = sessionStorage.ID_USUARIO;
 

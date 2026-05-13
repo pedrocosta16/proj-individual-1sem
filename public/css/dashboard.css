@@ -45,7 +45,6 @@ ul
     width: 40px;
     height: 40px;
     background-color: gray;
-    text-align: center;
     align-items: center;
     border-radius: 50%;
 
@@ -151,9 +150,7 @@ ul
 .g1
 {
     width: 100%;
-
     background-color: white;
-    
 
     padding: 20px;
     position: relative;
@@ -161,12 +158,14 @@ ul
     height: 320px;
 }
 
-.graficos {
+.graficos
+{
     display: flex;
     gap: 24px;
     width: 100%;
 }
 
-.graficos .grafico-1 {
+.graficos .grafico-1
+{
     flex: 1;
 }

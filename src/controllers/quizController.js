@@ -1,19 +1,31 @@
 var quizModel = require("../models/quizModel");
 
-function listar(req, res) {
-    quizModel.listar().then(function (resultado) {
-        if (resultado.length > 0) {
+function vizualizarQuizzes(req, res)
+{
+    var fkUsuario = req.params.fkUsuario;
+
+    quizModel.vizualizarQuizzes(fkUsuario).then(function (resultado)
+    {
+        
+        if (resultado.length > 0)
+        {
             res.status(200).json(resultado);
-        } else {
+        }
+        
+        else
+        {
             res.status(204).send("Nenhum resultado encontrado!")
         }
-    }).catch(function (erro) {
+    }).catch(function (erro)
+    {
         console.log(erro);
-        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar os quizzes: ", erro.sqlMessage);
+
         res.status(500).json(erro.sqlMessage);
     });
 }
 
+/*
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
 
@@ -126,12 +138,13 @@ function deletar(req, res) {
             }
         );
 }
+*/
 
 module.exports = {
     //listar,
     //listarPorUsuario,
     //pesquisardata_quiz,
-    publicar,
+    vizualizarQuizzes,
     //editar,
     //deletar
 }
