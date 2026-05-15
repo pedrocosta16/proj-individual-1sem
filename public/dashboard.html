@@ -110,7 +110,6 @@
 
 <script>
 
-    
     const grafico_barras = document.getElementById('id_grafico_barras');
     const grafico_barras_deitadas = document.getElementById('id_grafico_barras_deitadas');
 
@@ -280,6 +279,7 @@
         }
     });
     */
+
     // KPIS
     function pontuacaoAtual()
     {
@@ -445,6 +445,7 @@
 
     
     // BRINCADIERA GRAFICOS 
+
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
     // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
@@ -454,9 +455,13 @@
     // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
     // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
 
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico()
+    // Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    // Para ajustar o "select", ajuste o comando sql em src/models
+    obterDadosGrafico('nommeGraficografico')
+    obterDadosGrafico(grafico)
+
+
+    function obterDadosGrafico(grafico)
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
         proximaAtualizacao = null;
@@ -478,7 +483,7 @@
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta, fkUsuario);
+                    plotarGrafico(resposta, grafico, fkUsuario);
 
                 });
             }

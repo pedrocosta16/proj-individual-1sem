@@ -109,8 +109,33 @@ function cadastrar(req, res) {
     }
 }
 
+function vizualizar(req, res) {
+    var fkUsuario = req.params.fkUsuario;
+
+    usuarioModel.visualizar(fkUsuario)
+    .then((resultado) =>
+    {
+    if (resultado.length > 0)
+    {
+        res.status(200).json(resultado);
+    }
+    
+    else
+    {
+        res.status(204).json([]);
+    }
+
+    }).catch(function (erro)
+    {
+    console.log(erro);
+    console.log("Houve um erro ao buscar as preferências: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports =
 {
     autenticar,
-    cadastrar
+    cadastrar,
+    vizualizar
 }
