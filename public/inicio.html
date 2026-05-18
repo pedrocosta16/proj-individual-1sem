@@ -135,8 +135,6 @@
 
             if (resposta.ok)
             {
-                
-
                 resposta.json().then(function (dados)
                 {
                     for (let i = 0; i < dados.length; i++)
@@ -152,7 +150,6 @@
                         
                         document.getElementById("quiz").classList.remove("escondido");
                         document.getElementById("cards-quiz").innerHTML += card
-
                     }
                 });
             }

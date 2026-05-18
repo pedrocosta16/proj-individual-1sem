@@ -12,8 +12,12 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
-router.post("/vizualizar", function (req, res) {
-    usuarioController.vizualizar(req, res);
+router.get("/visualizar/:fkUsuario", function (req, res) {
+    usuarioController.visualizar(req, res);
+})
+
+router.post("/atualizar/:fkUsuario", function (req, res) {
+    usuarioController.atualizar(req, res);
 })
 
 module.exports = router;

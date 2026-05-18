@@ -108,28 +108,55 @@ function cadastrar(req, res) {
             );
     }
 }
-
-function vizualizar(req, res) {
+//                  requisição, resposta
+function visualizar(req, res)
+{
     var fkUsuario = req.params.fkUsuario;
 
     usuarioModel.visualizar(fkUsuario)
     .then((resultado) =>
     {
-    if (resultado.length > 0)
+        if (resultado.length > 0)
+        {
+            res.status(200).json(resultado);
+            console.log(resultado);
+            
+        }
+        
+        else
+        {
+            res.status(204).json([]);
+        }
+    }).catch(function (erro)
     {
-        res.status(200).json(resultado);
-    }
-    
-    else
+        console.log(erro);
+        console.log("Houve um erro ao buscar as preferências: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function atualizar(req, res)
+{
+    var fkUsuario = req.params.fkUsuario;
+
+    usuarioModel.atualizar(fkUsuario)
+    .then((resultado) =>
     {
-        res.status(204).json([]);
-    }
+        if (resultado.length > 0)
+        {
+            res.status(200).json(resultado);
+        }
+        
+        else
+        {
+            res.status(204).json([]);
+        }
 
     }).catch(function (erro)
     {
-    console.log(erro);
-    console.log("Houve um erro ao buscar as preferências: ", erro.sqlMessage);
-    res.status(500).json(erro.sqlMessage);
+        console.log(erro);
+        console.log("Houve um erro ao buscar as preferências: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
     });
 }
 
@@ -137,5 +164,6 @@ module.exports =
 {
     autenticar,
     cadastrar,
-    vizualizar
+    visualizar,
+    atualizar
 }

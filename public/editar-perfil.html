@@ -9,18 +9,17 @@
     <link rel="stylesheet" href="css/forms.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body onload="vizualizar()">
+<body onload="visualizar()">
 
-    <header class="">
+    <header>
 
         <p><a href="inicio.html">← Voltar</a></p>
         
-
     </header>
 
     <div class="form">
 
-        <h1>Editar Perfik</h1>
+        <h1>Editar Perfil</h1>
 
         <div class="campo">
             <p>Nome Completo:</p>
@@ -28,7 +27,7 @@
         </div>
         
         <div class="campo">
-            <p>Data de Nascimento (AAAA/MM/DD):</p>
+            <p>Data de Nascimento:</p>
             <input type="text" id="ipt_nascimento_user" placeholder="Digite sua data de nascimento">
         </div>
 
@@ -48,43 +47,36 @@
         </div>
 
         <div class="campo">
-            <button onclick="atualizar()">Cadastrar</button>
+            <button onclick="atualizar()">Atualizar Dados</button>
         </div>
-
-        <p>Já possui conta? <a href="login.html">Entre aqui!</a></p>
 
         <div class="erro" id="cardErro" style="display: none; color: red; margin-top: 10px;">
             <p id="mensagem_erro"></p>
         </div>
 
     </div>
-
-    <footer>
-
-        <div class="titulo">Copyright © 2026 Pedro Costa Pereira - Todos os direitos reservados | <a href="http://www.linkedin.com/in/pedrocosta6/">Open Linkedln</a></div>
-
-    </footer>
     
 </body>
 </html>
 
 <script>
 
-    function vizualizar()
+    function visualizar()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`/usuario/vizualizar/${fkUsuario}`)
+        fetch(`/usuario/visualizar/${fkUsuario}`)
         .then(function (resposta)
         {
             if (resposta.ok)
             {
                 resposta.json().then(function (dados)
-                {
-                    document.getElementById("ipt_nome_user").innerHTML = dados[0].nome_usuario;
-                    document.getElementById("ipt_nascimento_user").innerHTML = dados[0].dt_nasc_usuario;
-                    document.getElementById("ipt_email_user").innerHTML = dados[0].email_usuario;
-                    document.getElementById("ipt_senha_user").innerHTML = dados[0].senha_usuario;
+                {  
+                    document.getElementById("ipt_nome_user").value = dados[0].nome_usuario;
+                    document.getElementById("ipt_nascimento_user").value = dados[0].dt_nasc_usuario;
+                    document.getElementById("ipt_email_user").value = dados[0].email_usuario;
+                    document.getElementById("ipt_senha_user").value = dados[0].senha_usuario;
+                    document.getElementById("ipt_conf_senha_user").value = dados[0].senha_usuario;
                 });
             }
         });
