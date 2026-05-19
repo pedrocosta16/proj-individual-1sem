@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilates - Página de Cadastro</title>
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/sessao.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body onload="visualizar()">
+
+    <header>
+
+        <p><a href="inicio.html">← Voltar</a></p>
+        
+    </header>
+
+    <div class="form" id="form">
+
+        <h1>Iniciar Quiz</h1>
+
+        <p id="id-orientacao">Clique no botão abaixo para iniciar sua tentativa:</p>
+
+        <div class="campo">
+            <button onclick="iniciarQuiz()">Iniciar Quiz</button>
+        </div>
+
+    </div>
+
+    <div class="perguntas escondido" id="perguntas">
+
+        <h1>Responda as questões</h1>
+
+        <div class="pergunta">
+            <div class="enunciado" id="enunciado">1. qual seu nome?</div>
+            <div class="alternativas" id="alternativas">
+                <input type="radio" name="" id="">
+                <label for="">resposta certa</label> <br>
+
+                <input type="radio" name="" id="">
+                <label for="">resposta certa</label> <br>
+
+                <input type="radio" name="" id="">
+                <label for="">resposta certa</label> <br>
+
+                <input type="radio" name="" id="">
+                <label for="">resposta certa</label>
+
+            </div>
+        </div>
+
+        
+        <div class="campo">
+            <button onclick="finalizarQuiz()">Finalizar Quiz</button>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+
+    function iniciarQuiz()
+    {
+        document.getElementById('form').classList.add('escondido');
+        document.getElementById('perguntas').classList.remove('escondido');
+    }
+
+</script>

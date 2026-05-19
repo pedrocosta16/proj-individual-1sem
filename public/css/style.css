@@ -397,6 +397,35 @@ footer
     font-weight: 600;
 }
 
+
+
+.perguntas
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 90px 8%;
+    background: #f6f7f6;
+    gap: 35px;
+    color: #1d2221;
+}
+
+
+.pergunta
+{
+    width: 50%;
+    background: #f6f7f6;
+    border-radius: 18px;
+    padding: 20px;
+    background-color: #fafafa;
+    border: 1px solid #777c7b;
+}
+
+.alternativas
+{
+    margin-top: 20px;
+}
+
 .escondido
 {
     display: none;
