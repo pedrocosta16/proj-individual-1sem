@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/forms.css">
+    <script src="js/sessao.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body onload="visualizar()">
+<body onload="validarSessao(), visualizar()">
 
     <header>
 
@@ -80,6 +81,130 @@
                 });
             }
         });
+    }
+
+    function atualizar()
+    {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+
+        var nomeVar = ipt_nome_user.value;
+        var dataBruta = ipt_nascimento_user.value;
+
+        var dia = dataBruta[0] + dataBruta[1];
+        var mes = dataBruta[3] + dataBruta[4];
+        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9]
+
+        var nascimentoVar = ano + `-` + mes + `-` + dia;
+
+        var emailVar = ipt_email_user.value;
+        var senhaVar = ipt_senha_user.value;
+        var confirmacaoSenhaVar = ipt_conf_senha_user.value;
+
+        console.log(nomeVar, emailVar, senhaVar, confirmacaoSenhaVar);
+
+        var campos =
+        [
+            {valor: nomeVar, mensagem: "O campo NOME está vazio!"},
+            {valor: nascimentoVar, mensagem: "O campo NASCIMENTO está vazio!"},
+            {valor: emailVar, mensagem: "O campo EMAIL está vazio!"},
+            {valor: senhaVar, mensagem: "O campo SENHA está vazio!"},
+            {valor: confirmacaoSenhaVar, mensagem: "O campo CONFIRME A SENHA está vazio!"}
+        ];
+
+        for (var i = 0; i < campos.length; i++)
+        {
+            if (campos[i].valor == "")
+            {
+                cardErro.style.display = "block";
+                mensagem_erro.innerHTML = campos[i].mensagem;
+                
+                return false;
+            }
+        }
+        /*
+        // Verificando se há algum campo em branco
+        if (
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            confirmacaoSenhaVar == ""
+        ) {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para todos os campos em branco)";
+
+            finalizarAguardar();
+            return false;
+        } else {
+            //setInterval(sumirMensagem, 5000);
+        }*/
+
+        if (nomeVar.length < 1 ||
+            (!emailVar.includes("@") || !emailVar.includes(".")) ||
+            senhaVar.length < 6 ||
+            confirmacaoSenhaVar != senhaVar)
+        {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para campos não preenchidos corretamente)";
+
+            //finalizarAguardar();
+            return false;
+        }
+
+        else
+        {
+            //setInterval(sumirMensagem, 5000);
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuario/atualizar",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkUsuarioServer: fkUsuario,
+                nomeServer: nomeVar,
+                dtNascServer: nascimentoVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            }),
+        })
+            .then(function (resposta)
+            {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok)
+                {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                    setTimeout(() => {
+                        window.location = "inicio.html";
+                    }, "2000");
+
+                    //limparFormulario();
+                    //finalizarAguardar();
+                }
+                
+                else
+                {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta)
+            {
+                console.log(`#ERRO: ${resposta}`);
+                //finalizarAguardar();
+            });
+
+        return false;
     }
 
 </script>

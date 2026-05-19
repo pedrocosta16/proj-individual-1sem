@@ -47,11 +47,10 @@ function atualizar(nome, dt_nasc, email, senha, fkUsuario) {
 
     var instrucaoSql = `
         UPDATE usuario SET
-        nome_usuario = ${nome},
-        DATE_FORMAT(dt_nasc_usuario, '%d/%m/%Y') AS dt_nasc_usuario,
-        email_usuario,
-        senha_usuario
-        FROM usuario
+        nome_usuario = '${nome}',
+        dt_nasc_usuario = '${dt_nasc}',
+        email_usuario = '${email}',
+        senha_usuario = '${senha}'
         WHERE id_usuario = ${fkUsuario};
     `;
 

@@ -6,6 +6,7 @@
     <title>Pilates - Página Inicial</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/sessao.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
@@ -80,28 +81,6 @@
 
 <script>
 
-    function validarSessao()
-    {
-        console.log("SESSION INICIO:", sessionStorage);
-
-        var email = sessionStorage.EMAIL_USUARIO;
-        var nome = sessionStorage.NOME_USUARIO;
-
-        var b_usuario = document.getElementById("b_usuario");
-        var b_email = document.getElementById("b_email");
-
-        if (email != null && nome != null)
-        {
-            b_usuario.innerHTML = nome;
-            b_email.innerHTML = email;
-        }
-        
-        else
-        {
-            window.location = "login.html";
-        }
-    }
-
     function vizualizarPreferencias()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
@@ -156,10 +135,6 @@
         });
     }
 
-    function limparSessao()
-    {
-        sessionStorage.clear();
-        window.location = "index.html";
-    }
+    
 
 </script>

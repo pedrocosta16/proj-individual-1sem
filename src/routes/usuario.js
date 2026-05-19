@@ -16,7 +16,7 @@ router.get("/visualizar/:fkUsuario", function (req, res) {
     usuarioController.visualizar(req, res);
 })
 
-router.post("/atualizar/:fkUsuario", function (req, res) {
+router.post("/atualizar", function (req, res) {
     usuarioController.atualizar(req, res);
 })
 

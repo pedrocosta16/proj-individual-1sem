@@ -6,6 +6,7 @@
     <title>Pilates - Página de Login</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/forms.css">
+    <script src="js/sessao.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -27,6 +28,12 @@
 
     <div class="form">
 
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+
         <h1>Entre em sua conta</h1>
 
         <div class="campo">
@@ -44,6 +51,10 @@
         </div>
 
         <p>Não possui conta? <a href="cadastro.html">Cadastre-se aqui!</a></p>
+
+        <div id="div_aguardar" class="loading-div">
+            <img src="assets/icons/ocircle-loading.gif" id="loading-gif">
+        </div>
 
         <div class="erro" id="div_erros_login"></div>
 
@@ -63,7 +74,7 @@
 
     function entrar()
     {
-        //aguardar();
+        aguardar();
 
         var emailVar = ipt_email_user.value;
         var senhaVar = ipt_senha_user.value;
@@ -72,13 +83,13 @@
         {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            //finalizarAguardar();
+            finalizarAguardar();
             return false;
         }
 
         else
         {
-            setInterval(5000)
+            setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
@@ -108,7 +119,6 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    //sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
                     console.log("SALVEI:", sessionStorage.EMAIL_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.ID_USUARIO);
 
@@ -128,7 +138,7 @@
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    //finalizarAguardar(texto);
+                    finalizarAguardar(texto);
                 });
             }
 
@@ -140,8 +150,8 @@
         return false;
     }
 
-    /*function sumirMensagem() {
+    function sumirMensagem() {
         cardErro.style.display = "none"
-    }*/
+    }
 
 </script>
