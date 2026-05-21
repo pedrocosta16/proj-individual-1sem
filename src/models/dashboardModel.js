@@ -44,7 +44,7 @@ function ranking(fkUsuario)
   WHERE id_quiz IN (
       SELECT MAX(id_quiz)
       FROM resultado_quiz
-      GROUP BY fk_usuario
+      GROUP BY fk_usuario 
   )
   AND pontuacao_quiz >
   (

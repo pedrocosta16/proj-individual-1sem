@@ -53,7 +53,7 @@ function quizzesFeitos(req, res)
 
 function graficoEvolucao(req, res) {
 
-    const limite_linhas = 7;
+    const limite_linhas = 10;
 
     var fkUsuario = req.params.fkUsuario;
 

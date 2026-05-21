@@ -9,7 +9,7 @@
     <script src="js/sessao.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body onload="visualizar()">
+<body>
 
     <header>
 
@@ -31,29 +31,33 @@
 
     <div class="perguntas escondido" id="perguntas">
 
+        <span>Questão atual: <span id="spanNumeroDaQuestao_atual"></span> de <span id="qtdQuestoes"></span> questões.</span>
+
         <h1>Responda as questões</h1>
 
         <div class="pergunta">
-            <div class="enunciado" id="enunciado">1. qual seu nome?</div>
+            <div class="enunciado" id="enunciado">-</div>
+            
             <div class="alternativas" id="alternativas">
-                <input type="radio" name="" id="">
-                <label for="">resposta certa</label> <br>
+                <input type="radio" name="opcao" id="alternativa_a" value="alternativa_a">
+                <label for="alternativa_a" id="opcao_a">-</label> <br>
 
-                <input type="radio" name="" id="">
-                <label for="">resposta certa</label> <br>
+                <input type="radio" name="opcao" id="alternativa_b" value="alternativa_b">
+                <label for="alternativa_b" id="opcao_b">-</label> <br>
 
-                <input type="radio" name="" id="">
-                <label for="">resposta certa</label> <br>
+                <input type="radio" name="opcao" id="alternativa_c" value="alternativa_c">
+                <label for="alternativa_c" id="opcao_c">-</label> <br>
 
-                <input type="radio" name="" id="">
-                <label for="">resposta certa</label>
-
+                <input type="radio" name="opcao" id="alternativa_d" value="alternativa_d">
+                <label for="alternativa_d" id="opcao_d">-</label>
             </div>
         </div>
-
         
         <div class="campo">
-            <button onclick="finalizarQuiz()">Finalizar Quiz</button>
+            <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+            <button onclick="avancar()" id="btnProx" disabled>Próxima pergunta</button>
+            <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+            
         </div>
 
     </div>
@@ -63,10 +67,308 @@
 
 <script>
 
+    let questoes = [
+        // 1
+        {
+            pergunta: '1. Quem criou o método Pilates',
+            alt_a: 'Pehr Henrik',
+            alt_b: 'Brian Mulligan',
+            alt_c: 'Joseph Hubertus',
+            alt_d: 'Robin McKenzie',
+            alt_correta: 'alternativa_c'
+        },
+        // 2
+        {
+            pergunta: '2. O Pilates é conhecido por unir principalmente:',
+            alt_a: 'Força e velocidade',
+            alt_b: 'Mente e corpo',
+            alt_c: 'Competição e resistência',
+            alt_d: 'Carga e impacto',
+            alt_correta: 'alternativa_b'
+        },
+        // 3
+        {
+            pergunta: '3. Qual destes públicos pode praticar Pilates?',
+            alt_a: 'Somente atletas',
+            alt_b: 'Apenas idosos',
+            alt_c: 'Somente pessoas lesionadas',
+            alt_d: 'Pessoas de diferentes idades',
+            alt_correta: 'alternativa_d'
+        },
+        // 4
+        {
+            pergunta: '4. Qual dos benefícios abaixo está associado à prática regular de Pilates?',
+            alt_a: 'Melhora da postura e estabilidade corporal',
+            alt_b: 'Perda instantânea de gordura',
+            alt_c: 'Aumento exclusivo da força dos braços',
+            alt_d: 'Substituição total de exercícios cardiovasculares',
+            alt_correta: 'alternativa_a'
+        },
+        // 5
+        {
+            pergunta: '5. Qual benefício emocional pode estar associado à prática de Pilates?',
+            alt_a: 'Aumento do estresse',
+            alt_b: 'Melhora da concentração',
+            alt_c: 'Fadiga constante',
+            alt_d: 'Perda de coordenação',
+            alt_correta: 'alternativa_b'
+        },
+        // 6
+        {
+            pergunta: '6. Qual modalidade de Pilates é realizada apenas com o peso do próprio corpo, sem uso de aparelhos?',
+            alt_a: 'Pilates no Reformer',
+            alt_b: 'Pilates Clínico',
+            alt_c: 'Pilates Mat',
+            alt_d: 'Pilates Aéreo',
+            alt_correta: 'alternativa_c'
+        },
+        // 7
+        {
+            pergunta: '7. Qual dos aparelhos abaixo NÃO é destinado para a prática de Pilates?',
+            alt_a: 'Cadillac',
+            alt_b: 'Smith',
+            alt_c: 'Reformer',
+            alt_d: 'Chair',
+            alt_correta: 'alternativa_b'
+        },
+        // 8
+        {
+            pergunta: '8. Qual era o nome original que Joseph Pilates deu ao seu método?',
+            alt_a: 'Bodyflow',
+            alt_b: 'Contrology',
+            alt_c: 'Core Training',
+            alt_d: 'Kinesis',
+            alt_correta: 'alternativa_b'
+        },
+        // 9
+        {
+            pergunta: '9. Em qual cidade os primeiros estúdios de Pilates se popularizaram, atraindo bailarinos e artistas?',
+            alt_a: 'Nova York',
+            alt_b: 'Los Angeles',
+            alt_c: 'Londres',
+            alt_d: 'Berlim',
+            alt_correta: 'alternativa_a'
+        },
+        // 10
+        {
+            pergunta: '10. Para qual grupo Joseph Pilates desenvolveu originalmente seu método durante a Primeira Guerra Mundial?',
+            alt_a: 'Soldados do exército alemão em campo de batalha',
+            alt_b: 'Atletas olímpicos dos jogos de 1916',
+            alt_c: 'Bailarinos da Ópera de Berlim',
+            alt_d: 'Internos de um campo de detenção na ilha de Man, na Inglaterra',
+            alt_correta: 'alternativa_d'
+        }
+    ]
+
+    // variáveis globais    
+    let numero_da_questao_atual = 0;
+    let pontuacao_final = 0;
+    let tentativa_incorreta = 0;
+    let certas = 0;
+    let erradas = 0;
+    let qtd_questoes = questoes.length;
+
     function iniciarQuiz()
     {
         document.getElementById('form').classList.add('escondido');
         document.getElementById('perguntas').classList.remove('escondido');
+
+        document.getElementById('qtdQuestoes').innerHTML = qtd_questoes
+
+        preencherHTMLcomQuestao_atual(0);
+
+        btnSubmeter.disabled = false;
+        btnProx.disabled = true;
+        btnTentarNovamente.disabled = true;
     }
+
+    function preencherHTMLcomQuestao_atual(index)
+    {
+        habilitarAlternativas(true);
+
+        const questao_atual = questoes[index];
+        numero_da_questao_atual = index;
+
+        console.log("questao_atual")
+        console.log(questao_atual)
+
+        document.getElementById("spanNumeroDaQuestao_atual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("enunciado").innerHTML = questao_atual.pergunta;
+        document.getElementById("opcao_a").innerHTML = questao_atual.alt_a;
+        document.getElementById("opcao_b").innerHTML = questao_atual.alt_b;
+        document.getElementById("opcao_c").innerHTML = questao_atual.alt_c;
+        document.getElementById("opcao_d").innerHTML = questao_atual.alt_d;
+    }
+
+    function submeter()
+    {
+        const opcoes = document.getElementsByName("opcao"); // recupera alternativas no html
+        let alternativa_selecionada = false;
+        
+        for (let i = 0; i < opcoes.length; i++)
+        {
+            if (opcoes[i].checked)
+            {
+                alternativa_selecionada = true;
+                break;
+            }
+        }
+
+        if (!alternativa_selecionada)
+        {
+            alert("Não há alternativas escolhidas. Escolha uma opção.")
+        }
+
+        else
+        {
+            btnSubmeter.disabled = true
+            btnProx.disabled = false
+
+            habilitarAlternativas(false)
+
+            checarResposta()
+        }
+    }
+
+    function habilitarAlternativas(trueOrFalse)
+    {
+        let opcao_escolhida = trueOrFalse ? false : true
+
+        alternativa_a.disabled = opcao_escolhida;
+        alternativa_b.disabled = opcao_escolhida;
+        alternativa_c.disabled = opcao_escolhida;
+        alternativa_d.disabled = opcao_escolhida;
+    }
+
+    function avancar() 
+    {
+        btnProx.disabled = true
+        btnSubmeter.disabled = false
+
+        desmarcarRadioButtons()
+
+        if (numero_da_questao_atual < qtd_questoes - 1)
+        {
+            preencherHTMLcomQuestao_atual(numero_da_questao_atual)
+        }
+        
+        else if (numero_da_questao_atual == qtd_questoes - 1)
+        {
+            alert("Atenção... a próxima é a ultima questão!")
+            preencherHTMLcomQuestao_atual(numero_da_questao_atual)
+        }
+        
+        else
+        {
+            finalizarJogo()
+        }
+
+        //limparCoresBackgroundOpcoes()
+    }
+
+    function tentarNovamente()
+    {
+        // atualiza a página
+        window.location.reload()
+    }
+
+    function checarResposta()
+    {
+        const questao_atual = questoes[numero_da_questao_atual] // questão atual 
+        const resposta_questao_atual = questao_atual.alt_correta // qual é a resposta correta da questão atual
+
+        const opcoes = document.getElementsByName("opcao"); // recupera alternativas no html
+
+        let alternativa_correta = null // variável para armazenar a alternativa correta
+
+        opcoes.forEach((option) => {
+            if (option.value === resposta_questao_atual)
+            {
+                console.log("alternativa_correta está no componente: " + alternativa_correta)
+
+                alternativa_correta = option.labels[0].id
+            }
+        })
+
+        // verifica se resposta assinalada é correta
+        opcoes.forEach((option) => {
+            if (option.checked === true && option.value === resposta_questao_atual)
+            {
+                //document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
+                pontuacao_final += 10;
+                certas++
+                //document.getElementById("spanCertas").innerHTML = certas
+                numero_da_questao_atual++
+            }
+            
+            else if (option.checked && option.value !== resposta_questao_atual)
+            {
+                //const wrongLabelId = option.labels[0].id
+
+                //document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+                //document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
+                tentativa_incorreta++
+                erradas++
+                //document.getElementById("spanErradas").innerHTML = erradas
+                numero_da_questao_atual++
+            }
+        })
+    }
+
+    function desmarcarRadioButtons()
+    {
+        const opcoes = document.getElementsByName("opcao");
+
+        for (let i = 0; i < opcoes.length; i++)
+        {
+            opcoes[i].checked = false;
+        }
+    }
+
+    function finalizarJogo()
+    {/*
+        let textoParaMensagemFinal = null
+        let classComCoresParaMensagemFinal = null
+        const porcentagemFinalDeAcertos = pontuacaoFinal / qtd_questoes
+
+        if (porcentagemFinalDeAcertos <= 0.3) {
+            textoParaMensagemFinal = "Parece que você não estudou..."
+            classComCoresParaMensagemFinal = "text-danger-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+            textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
+            classComCoresParaMensagemFinal = "text-warning-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos >= 0.9) {
+            textoParaMensagemFinal = "Uau, parabéns!"
+            classComCoresParaMensagemFinal = "text-success-with-bg"
+        }
+
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+
+
+        document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+
+        document.getElementById('jogo').classList.add("text-new-gray") 
+
+        btnProx.disabled = true
+        btnSubmeter.disabled = true
+        // btnConcluir.disabled = true
+        btnTentarNovamente.disabled = false*/
+        console.log(`PARABENSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS`);
+        console.log(`final: ${pontuacao_final}`);
+        console.log(`erros: ${erradas}`);
+        console.log(`certas: ${certas}`);
+        
+        
+        
+        
+    }
+
+
+
+    
 
 </script>
