@@ -29,11 +29,24 @@
 
     </div>
 
+    <div class="form escondido" id="formm">
+
+        <h1>Parabéns pela sua tentativa!</h1>
+
+        <div class="resultado">
+            <span>Quantidade de acertos: <span id="spanCertas"></span></span>
+            <span>Quantidade de erros: <span id="spanErradas"></span></span>
+            <span id="pontuacaoFinal">Pontuação Final: <span id="spanPontuacaoFinal">-</span></span>
+            <span id="msgFinal">-</span>  
+        </div>
+
+    </div>
+
     <div class="perguntas escondido" id="perguntas">
 
         <span>Questão atual: <span id="spanNumeroDaQuestao_atual"></span> de <span id="qtdQuestoes"></span> questões.</span>
 
-        <h1>Responda as questões</h1>
+        <h1>Responda a questão</h1>
 
         <div class="pergunta">
             <div class="enunciado" id="enunciado">-</div>
@@ -54,10 +67,11 @@
         </div>
         
         <div class="campo">
-            <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
-            <button onclick="avancar()" id="btnProx" disabled>Próxima pergunta</button>
-            <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
-            
+            <div class="navegacao-quiz">
+                <button onclick="submeter()" id="btnSubmeter">Verificar resposta</button>
+                <button onclick="avancar()" id="btnProx" disabled>Próxima pergunta</button>
+            </div>
+            <button onclick="tentarNovamente()" id="btnTentarNovamente" class="escondido" disabled>Tentar novamente</button>
         </div>
 
     </div>
@@ -70,7 +84,7 @@
     let questoes = [
         // 1
         {
-            pergunta: '1. Quem criou o método Pilates',
+            pergunta: '1. Quem criou o método Pilates?',
             alt_a: 'Pehr Henrik',
             alt_b: 'Brian Mulligan',
             alt_c: 'Joseph Hubertus',
@@ -225,7 +239,6 @@
             btnProx.disabled = false
 
             habilitarAlternativas(false)
-
             checarResposta()
         }
     }
@@ -263,19 +276,19 @@
             finalizarJogo()
         }
 
-        //limparCoresBackgroundOpcoes()
+        limparCoresBackgroundOpcoes()
     }
 
     function tentarNovamente()
     {
         // atualiza a página
-        window.location.reload()
+        window.location.reload();
     }
 
     function checarResposta()
     {
         const questao_atual = questoes[numero_da_questao_atual] // questão atual 
-        const resposta_questao_atual = questao_atual.alt_correta // qual é a resposta correta da questão atual
+        const resposta_questao_atual = questao_atual.alt_correta; // qual é a resposta correta da questão atual
 
         const opcoes = document.getElementsByName("opcao"); // recupera alternativas no html
 
@@ -294,7 +307,9 @@
         opcoes.forEach((option) => {
             if (option.checked === true && option.value === resposta_questao_atual)
             {
-                //document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
+                document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
+                
+
                 pontuacao_final += 10;
                 certas++
                 //document.getElementById("spanCertas").innerHTML = certas
@@ -303,15 +318,23 @@
             
             else if (option.checked && option.value !== resposta_questao_atual)
             {
-                //const wrongLabelId = option.labels[0].id
+                const wrongLabelId = option.labels[0].id
 
-                //document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
-                //document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
+                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+                document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
                 tentativa_incorreta++
                 erradas++
                 //document.getElementById("spanErradas").innerHTML = erradas
                 numero_da_questao_atual++
             }
+        })
+    }
+
+    function limparCoresBackgroundOpcoes() {
+        const opcoes = document.getElementsByName("opcao");
+        opcoes.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
         })
     }
 
@@ -326,30 +349,30 @@
     }
 
     function finalizarJogo()
-    {/*
+    {
         let textoParaMensagemFinal = null
         let classComCoresParaMensagemFinal = null
-        const porcentagemFinalDeAcertos = pontuacaoFinal / qtd_questoes
+        const porcentagemFinalDeAcertos = pontuacao_final / qtd_questoes
 
         if (porcentagemFinalDeAcertos <= 0.3) {
-            textoParaMensagemFinal = "Parece que você não estudou..."
-            classComCoresParaMensagemFinal = "text-danger-with-bg"
+            textoParaMensagemFinal = "<br>Parece que você não estudou..."
+            //classComCoresParaMensagemFinal = "text-danger-with-bg"
         }
         else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
-            textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
-            classComCoresParaMensagemFinal = "text-warning-with-bg"
+            textoParaMensagemFinal = "<br>Pode melhorar na próxima, hein!"
+            //classComCoresParaMensagemFinal = "text-warning-with-bg"
         }
         else if (porcentagemFinalDeAcertos >= 0.9) {
-            textoParaMensagemFinal = "Uau, parabéns!"
-            classComCoresParaMensagemFinal = "text-success-with-bg"
+            textoParaMensagemFinal = "<br>Uau, parabéns!"
+            //classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
-        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+        //textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
 
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
-        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+        //document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        /*document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
 
         document.getElementById('jogo').classList.add("text-new-gray") 
 
@@ -357,18 +380,72 @@
         btnSubmeter.disabled = true
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = false*/
-        console.log(`PARABENSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS`);
-        console.log(`final: ${pontuacao_final}`);
-        console.log(`erros: ${erradas}`);
-        console.log(`certas: ${certas}`);
-        
-        
-        
-        
+
+        document.getElementById('btnSubmeter').classList.add('escondido') 
+        document.getElementById('btnProx').classList.add('escondido') 
+        document.getElementById('btnTentarNovamente').classList.remove('escondido') 
+
+        document.getElementById('perguntas').classList.add('escondido') 
+    
+        document.getElementById('formm').classList.remove('escondido') 
+
+        spanCertas.innerHTML = `<b>${certas}</b>`;
+        spanErradas.innerHTML = `<b>${erradas}</b>`;
+        spanPontuacaoFinal.innerHTML = `<b>${pontuacao_final}</b>pts de um máximo de 100pts`;
+
+        realizarQuiz(pontuacao_final);
     }
 
+    function realizarQuiz(pontuacao)
+    {
+        var pontuacaoFinalVar = pontuacao;
+        var fkUsuario = sessionStorage.ID_USUARIO;
 
+        fetch("/quiz/realizar/:fkUsuario",
+        {
+            method: "POST",
+            headers:
+            {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                pontuacaoQuizServer: pontuacaoFinalVar,
+                fkUsuarioServer: fkUsuario
+            }),
+        })
+            .then(function (resposta)
+            {
+                console.log("resposta: ", resposta);
 
-    
+                if (resposta.ok)
+                {
+                    //cardErro.style.display = "block";
+
+                    alert(`OIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII`) =
+                        "OIIIIIIIIIIIIII";
+
+                    /*setTimeout(() => {
+                        window.location = "inicio.html";
+                    }, "2000");*/
+
+                    //limparFormulario();
+                    //finalizarAguardar();
+                }
+                
+                else
+                {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta)
+            {
+                console.log(`#ERRO: ${resposta}`);
+                //finalizarAguardar();
+            });
+
+        return false;
+    }
 
 </script>

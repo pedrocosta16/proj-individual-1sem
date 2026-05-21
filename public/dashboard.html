@@ -25,7 +25,7 @@
 
     <div class="kpis">
         <div class="kpi-item">
-            <h1 class="pref-titulo">Pontuação atual</h1>
+            <h1 class="pref-titulo">Pontuação atual (última tentativa)</h1>
 
             <div class="kpi-conteudo">
                 <img src="assets/icons/trophy.png" alt="">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="kpi-item">
-            <h1 class="pref-titulo">Sua evolução</h1>
+            <h1 class="pref-titulo">Sua evolução no quiz</h1>
 
             <div class="kpi-conteudo">
                 <img src="assets/icons/increase.png" alt="">
@@ -295,7 +295,7 @@
             {
                 resposta.json().then(function (dados)
                 {
-                    idPontuacao.innerHTML = dados[0].pontuacao_quiz;
+                    idPontuacao.innerHTML = `${dados[0].pontuacao_quiz} pts de 100`;
 
                     if (dados[0].pontuacao_quiz >= 90)
                     {

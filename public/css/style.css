@@ -293,6 +293,7 @@ footer
     opacity: 0.55;
     max-width: 300px;
     line-height: 1.5;
+
 }
 
 .btn-preencher
@@ -399,6 +400,9 @@ footer
 
 
 
+
+
+
 .perguntas
 {
     display: flex;
@@ -424,6 +428,43 @@ footer
 .alternativas
 {
     margin-top: 20px;
+}
+
+
+.text-success-with-bg
+{
+    color: #198754;         
+    background-color: #d1e7dd;
+    /*padding: 10px;*/
+}
+
+.text-danger-with-bg
+{
+    color: #dc3545;         
+    background-color: #f8d7da;
+}
+
+.navegacao-quiz
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #f6f7f6;
+    color: #1d2221;
+    gap: 90px;
+}
+
+.resultado
+{
+    display: flex;
+    flex-direction: column;
+    background: #f6f7f6;
+    border-radius: 18px;
+    padding: 20px;
+
+    background-color: #fafafa;
+    border: 1px solid #777c7b;
+
 }
 
 .escondido

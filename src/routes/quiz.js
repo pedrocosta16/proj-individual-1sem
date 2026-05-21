@@ -7,7 +7,7 @@ router.get("/vizualizar-quizzes/:fkUsuario", function (req, res) {
     quizController.vizualizarQuizzes(req, res);
 });
 
-router.post("/realizar/:idUsuario", function (req, res) {
+router.post("/realizar/:fkUsuario", function (req, res) {
     quizController.realizarQuiz(req, res);
 });
 

@@ -14,6 +14,17 @@ function vizualizarQuizzes(fkUsuario)
     return database.executar(instrucaoSql);
 }
 
+function realizarQuiz(pontuacao_quiz, fkUsuario)
+{
+    var instrucaoSql = `
+        INSERT INTO resultado_quiz(pontuacao_quiz, data_quiz, fk_usuario) VALUES
+        (${pontuacao_quiz}, NOW(), ${fkUsuario})
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 /*
 function pesquisarDescricao(texto) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()");
@@ -89,6 +100,7 @@ module.exports = {
     //listarPorUsuario,
     //pesquisarDescricao,
     vizualizarQuizzes,
+    realizarQuiz
     //editar,
     //deletar
 }

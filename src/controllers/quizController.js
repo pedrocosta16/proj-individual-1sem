@@ -25,6 +25,33 @@ function vizualizarQuizzes(req, res)
     });
 }
 
+function realizarQuiz(req, res)
+{
+    var fkUsuario = req.body.fkUsuarioServer;
+    var pontuacao_quiz = req.body.pontuacaoQuizServer;
+
+    if (pontuacao_quiz == undefined) {
+        res.status(400).send("A pontuação está indefinida!");
+    }
+
+    else
+    {
+        quizModel.realizarQuiz(pontuacao_quiz, fkUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            )
+            .catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 /*
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
@@ -145,6 +172,7 @@ module.exports = {
     //listarPorUsuario,
     //pesquisardata_quiz,
     vizualizarQuizzes,
+    realizarQuiz
     //editar,
     //deletar
 }
