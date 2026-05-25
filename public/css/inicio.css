@@ -1,0 +1,152 @@
+.inicio
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    flex-direction: column; /* Elementos ficam em colunas*/
+    padding: 40px 100px; /* Espaçamento interno -> 40px cima e baixo | 100px laterais*/
+    gap: 35px; /* Espaço entre os elementos*/
+}
+
+.inicio-topo
+{
+    display: flex; /* Alinhar elementos horizontalmente*/   
+    justify-content: space-between; /* Espaço entre elementos*/
+    align-items: center; /* Centraliza elementos */
+    color: #1d2221; /* Cor do texto*/
+}
+
+.inicio-topo-info h1
+{
+    font-size: 45px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+}
+
+.inicio-topo-acoes
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    gap: 14px; /* Espaço entre os elementos*/
+}
+
+.btn-perfil
+{
+    color: #1d2221; /* Cor do texto*/
+    background: transparent; /* Botão transparente*/
+    border: 1px solid #1d2221; /* Borda do botão*/
+    padding: 10px 22px; /* Espaçamento interno -> 12px cima e baixo | 28px laterais*/
+    font-size: 15px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+    border-radius: 999px; /* Botão totalmente arredondado*/
+}
+
+.btn-dashboard
+{
+    color: #f6f7f6; /* Cor do texto*/
+    background: #1d2221; /* Cor do botão*/
+    border: 1px solid #1d2221; /* Borda do botão*/
+    padding: 10px 22px; /* Espaçamento interno -> 12px cima e baixo | 28px laterais*/
+    font-size: 15px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+    border-radius: 999px; /* Botão totalmente arredondado*/
+}
+
+.btn-sair
+{
+    background: transparent; /* Botão transparente*/
+    border: none; /* Tira a borda padrão*/
+}
+
+.pref-vazio
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    flex-direction: column; /* Elementos ficam em colunas*/
+    align-items: center; /* Centraliza elementos */
+    text-align: center; /* Centraliza texto */
+    padding: 45px; /* Espaçamento interno -> 45px pros 4 lados*/
+    gap: 15px; /* Espaço entre os elementos*/
+}
+
+.pref-vazio p
+{
+    font-size: 14px; /* Tamanho da escrita*/
+    color: #4b5251; /* Cor do texto*/
+}
+
+.btn-preencher
+{
+    background-color: #1d2221; /* Cor do botão*/
+    color: #f6f7f6; /* Cor do texto*/
+    border: none; /* Tira a borda padrão*/
+    padding: 15px 50px; /* Espaçamento interno -> 15px cima e baixo | 50px laterais*/
+    font-size: 14px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+    border-radius: 999px; /* Botão totalmente arredondado*/
+}
+
+.pref h1
+{
+    color: #1d2221; /* Cor do texto*/
+}
+
+.pref-cards
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    justify-content: space-between; /* Espaço entre elementos*/
+    border-radius: 20px; /* Arredonda os cantos*/
+    border: 1px solid #1d2221; /* Borda do card*/
+}
+.pref-item
+{
+    padding: 18px 16px; /* Espaçamento interno -> 18px cima e baixo | 16px laterais*/
+}
+
+.pref-item .pref-label
+{
+    font-size: 11px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+    margin-bottom: 10px; /* Espaço embaixo do elemento*/
+    color: #4b5251; /* Cor do texto*/
+}
+
+.pref-item .pref-valor
+{
+    font-size: 16px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+}
+
+.quiz h1
+{
+    color: #1d2221; /* Cor do texto*/
+}
+
+.cards-quiz
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    gap: 14px; /* Espaço entre os elementos*/
+    border-radius: 20px; /* Arredonda os cantos*/
+    flex-wrap: wrap; /* Elemento vai pra baixo quando não tiver espaço*/
+}
+
+.quiz-item
+{
+    border-radius: 20px; /* Arredonda os cantos*/
+    padding: 18px 16px; /* Espaçamento interno -> 18px cima e baixo | 16px laterais*/
+    border: 1px solid #1d2221; /* Borda do quiz*/
+}
+
+.quiz-item .quiz-label
+{
+    font-size: 11px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+    margin-bottom: 10px; /* Espaço embaixo do elemento*/
+    color: #4b5251; /* Cor do texto*/
+}
+
+.quiz-item .quiz-valor
+{
+    font-size: 16px; /* Tamanho da escrita*/
+    font-weight: bold; /* Negrito */
+}
+
+.escondido
+{
+    display: none; /* Elemento se inicia escondido*/
+}

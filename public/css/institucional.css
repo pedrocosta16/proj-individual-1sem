@@ -1,0 +1,145 @@
+body
+{
+    font-family: 'Inter', sans-serif; /* Fonte padrão escolhida*/
+    background: #f6f7f6; /* Cor de fundo padrão*/
+}
+
+a
+{
+    text-decoration: none; /* Tira sublinhado dos links*/
+    color: inherit; /* Tira azul automatico do link*/
+    
+}
+
+button
+{
+    cursor: pointer; /* 'Maozinha' do mouse aparece, inidica que é clicável*/
+}
+
+header
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    align-items: center; /* Centraliza elementos */
+    justify-content: space-between; /* Espaço entre elementos'*/
+    padding: 10px 100px; /* Espaçamento interno -> 16px cima e baixo | 110px laterais*/
+}
+
+.header-pags
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    gap: 40px; /* Espaço entre os links*/
+}
+
+.titulo
+{
+    font-weight: bold; /* Negrito */
+}
+
+.header-botao button
+{
+    background-color: #222222; /* Cor do botão */
+    color: #f6f7f6; /* Cor do conteudo do botao*/
+    border: none; /* Tira a borda padrão*/
+    padding: 9px 10px; /* Espaçamento interno -> 9px cima e baixo | 10px laterais*/
+    font-size: 14px; /* Tamanho da escrita do botão*/
+    font-weight: bold; /* Negrito */
+    border-radius: 999px; /* Botão totalmente arredondado*/
+}
+
+.secao
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    align-items: center; /* Centraliza elementos */
+    justify-content: space-between; /* Espaço entre elementos'*/
+    padding: 50px 0px; /* Espaçamento interno -> 50px cima e baixo | 0 laterais*/
+    margin-bottom: 60px; /* Espaço entre uma seção e outra*/
+}
+
+.secao-principal
+{
+    flex: 1; /* Texto ocupa espaço proporcional com outro elemento*/
+    padding: 0 100px; /* Espaçamento interno -> 0 cima e baixo | 100px laterais*/
+    color: #1d2221; /* Cor do texto*/
+}
+
+
+.secao-principal h1
+{
+    font-size: 64px; /* Tamanho da escrita*/
+    margin-bottom: 20px; /* Espaço embaixo do titulo (h1)*/
+}
+
+.secao-principal p
+{
+    font-size: 16px; /* Tamanho da escrita*/
+    text-align: justify; /* Texto justificado*/
+}
+
+.secao-principal button
+{
+    color: #1d2221; /* Cor do texto*/
+    background: transparent; /* Botão transparente*/
+    border: 1px solid #1d2221; /* Borda do botão*/
+    padding: 12px 28px; /* Espaçamento interno -> 12px cima e baixo | 28px laterais*/
+    font-size: 15px; /* Tamanho da escrita*/
+    border-radius: 999px; /* Botão totalmente arredondado*/
+}
+
+.secao-img
+{
+    flex: 1; /* img ocupa espaço proporcional com outro elemento*/
+    padding-right: 100px; /* Espaçamento direito da img até a 'parede'*/
+}
+
+.secao-img-esquerda
+{
+    flex: 1; /* img ocupa espaço proporcional com outro elemento*/
+    padding-left: 100px; /* Espaçamento esquerdo da img até a 'parede'*/
+}
+
+.secao-img img, .secao-img-esquerda img
+{
+    width: 100%; /* img ocupa toda a largura da div*/
+    border-radius: 20px; /* Arredonda os cantos*/
+}
+
+.secao-conteudo
+{
+    padding: 0 100px; /* Espaçamento interno -> 0 cima e baixo | 100px laterais*/
+}
+
+.secao-cards-principal h1
+{
+    font-size: 64px; /* Tamanho da escrita*/
+    margin-bottom: 20px; /* Espaço embaixo do titulo (h1)*/
+    color: #1d2221; /* Cor do texto*/
+}
+
+.secao-cards
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    margin-top: 50px; /* Espaço encima dos cards*/
+    gap: 30px; /* Espaço entre os cards*/
+    color: #1d2221; /* Cor do texto*/
+}
+
+.card
+{
+    border-radius: 40px; /* Arredonda os cantos*/
+    border: 1px solid #1d2221; /* Borda do card*/
+    padding:30px 20px; /* Espaçamento interno -> 30px cima e baixo | 20px laterais*/
+}
+
+.card .card-titulo
+{
+    margin-top: 10px; /* Espaço encima do titulo do card*/
+    margin-bottom: 30px; /* Espaço embaixo do titulo*/
+}
+
+footer
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    justify-content: center; /* Centraliza elementos */
+    padding: 16px; /* Espaçamento interno -> 16px pros 4 lados*/
+    color: #1d2221; /* Cor do texto*/
+}

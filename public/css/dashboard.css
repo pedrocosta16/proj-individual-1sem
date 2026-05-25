@@ -1,107 +1,84 @@
 *
 {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; /* Remove as margens padrão que os navegadores colocam automaticamente*/
+    box-sizing: border-box; /* Evitar que elementos cresçam a mais*/
 }
 
 body
 {
-    font-family: 'Inter', sans-serif;
-    background: #f6f7f6;
-    padding: 32px 48px;
+    font-family: 'Inter', sans-serif; /* Fonte padrão do site*/
+    background: #f6f7f6; /* Cor de fundo global*/
+    padding: 10px 90px; /* paçamento interno -> 10px cima e baixo | 90px laterais*/
+}
+
+header
+{
+    display: flex; /* Alinhar elementos horizontalmente*/
+    align-items: center; /* Centraliza elementos */
+    justify-content: space-between; /* Espaço entre elementos'*/
+    padding: 10px 0; /* Espaçamento interno -> 10px cima e baixo | 0 laterais*/
 }
 
 a
 {
-    text-decoration: none;
-    color: inherit;
-}
-
-ul
-{
-    list-style: none;
+    text-decoration: none; /* Tira sublinhado dos links*/
+    color: inherit; /* Tira azul automatico do link*/
 }
 
 .topo
 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 12px;
+    display: flex; /* Alinhar elementos horizontalmente*/   
+    align-items: center; /* Centraliza elementos */
+    justify-content: center; /* Centraliza elementos */
+    margin-bottom: 12px; /* Espaço embaixo do elemento*/
 }
 
-.perfil-user
+.titulo-dash
 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    color: #1d2221; /* Cor do texto*/
 }
 
-.foto-user
+.voltar
 {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    background-color: gray;
-    align-items: center;
-    border-radius: 50%;
-
-    justify-content: center;
-    text-align: center;
-    font-size: 13px;
-}
-
-.titulo
-{
-    font-size: 30px;
-    color: #1d2221;
-    text-align: center;
-    background: #f6f7f6;
-    font-weight: bold;
+    flex: 1; /* Texto ocupa espaço proporcional com outro elemento*/
 }
 
 
 .kpis
 {
-    background: #f6f7f6;
-    padding: 10px 0;
-
-    display: flex;
-    justify-content: space-between;
-    gap: 14px;
-    border-radius: 18px;
+    padding: 10px 0; /* Espaçamento interno -> 10px cima e baixo | 0 laterais*/
+    display: flex; /* Alinhar elementos horizontalmente*/   
+    justify-content: space-between; /* Espaço entre elementos'*/
+    gap: 14px; /* Espaço entre os elementos*/
 }
 
 
 .kpi-item
 {
-    background: #f6f7f6;
-    border-radius: 18px;
-    padding: 20px 16px;
-    background-color: #fafafa;
-    border: 1px solid #777c7b;
-    flex: 1;
+    border-radius: 20px; /* Arredonda os cantos*/
+    padding: 20px 16px; /* Espaçamento interno -> 20px cima e baixo | 16px laterais*/
+    background-color: #fafafa; /* Cor de fundo KPI*/
+    border: 1px solid #777c7b; /* Borda da KPI*/
+    flex: 1; /* KPI ocupa espaço proporcional com outro elemento*/
 }
 
 .kpi-conteudo
 {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
+    display: flex; /* Alinhar elementos horizontalmente*/   
+    align-items: center; /* Centraliza elementos */
+    gap: 12px; /* Espaço entre os elementos*/
+    margin-bottom: 8px; /* Espaço embaixo do elemento*/
 }
 
 .kpi-conteudo img
 {
-    width: 42px;
-    height: 42px;
+    width: 42px; /* Largura*/
+    height: 42px; /* Altura*/
 }
 
 .pref-titulo
 {
-    font-size: 15px;
+    font-size: 15px; /* Tamanho da escrita*/
     font-weight: 600;
     margin-bottom: 10px;
     color: #4b5251;
@@ -109,7 +86,7 @@ ul
 
 .pref-valor
 {
-    font-size: 25px;
+    font-size: 25px; /* Tamanho da escrita*/
     font-weight: 600;
     color: #1d2221;
     margin-bottom: 6px;
