@@ -1,69 +1,59 @@
-
 .perguntas
 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 90px 8%;
-    background: #f6f7f6;
-    gap: 35px;
-    color: #1d2221;
+    display: flex; /* Alinhar elementos horizontalmente*/
+    flex-direction: column; /* Elementos ficam em colunas*/
+    align-items: center; /* Centraliza elementos */
+    padding: 0 100px; /* Espaçamento interno -> 0 cima e baixo | 100px laterais*/
+    gap: 25px; /* Espaço entre os elementos*/
+    color: #1d2221; /* Cor do texto*/
 }
-
 
 .pergunta
 {
-    width: 50%;
-    background: #f6f7f6;
-    border-radius: 18px;
-    padding: 20px;
-    background-color: #fafafa;
-    border: 1px solid #777c7b;
+    width: 500px; /* pergunta ocupa parte da largura da div*/
+    border-radius: 20px; /* Arredonda os cantos*/
+    padding: 20px; /* Espaçamento interno -> 20px pros 4 lados*/
+    background-color: #fafafa; /* Cor de fundo da div da pergunta*/
+    border: 1px solid #777c7b; /* Borda da pergunta*/
 }
 
 .alternativas
 {
-    margin-top: 20px;
+    margin-top: 20px; /* Espaço entre o conteudo de cima e as alternativas*/
 }
 
 
 .text-success-with-bg
 {
-    color: #198754;         
-    background-color: #d1e7dd;
-    /*padding: 10px;*/
+    color: #198754; /* Cor do texto*/
+    background-color: #d1e7dd; /* Cor de fundo da div da pergunta certa*/
 }
 
 .text-danger-with-bg
 {
-    color: #dc3545;         
-    background-color: #f8d7da;
+    color: #dc3545; /* Cor do texto*/
+    background-color: #f8d7da; /* Cor de fundo da div da pergunta certa*/
 }
 
 .navegacao-quiz
 {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    background: #f6f7f6;
-    color: #1d2221;
-    gap: 90px;
+    display: flex; /* Alinhar elementos horizontalmente*/
+    justify-content: space-between; /* Espaço entre elementos'*/
+    width: 100%; /* botões ocupa toda a largura da div*/
+    color: #1d2221; /* Cor do texto*/
 }
 
 .resultado
 {
-    display: flex;
-    flex-direction: column;
-    background: #f6f7f6;
-    border-radius: 18px;
-    padding: 20px;
-
-    background-color: #fafafa;
-    border: 1px solid #777c7b;
-
+    display: flex; /* Alinhar elementos horizontalmente*/
+    flex-direction: column; /* Elementos ficam em colunas*/
+    border-radius: 20px; /* Arredonda os cantos*/
+    padding: 20px; /* Espaçamento interno -> 20px pros 4 lados*/
+    background-color: #fafafa; /* Cor de fundo da div do resultado*/
+    border: 1px solid #777c7b; /* Borda do resultado*/
 }
 
 .escondido
 {
-    display: none;
+    display: none; /* Elemento se inicia escondido*/
 }

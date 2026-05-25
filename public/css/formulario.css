@@ -76,3 +76,8 @@
     width: 50px; /* Largura*/
     height: 50px; /* Altura*/
 }   
+
+.escondido
+{
+    display: none;
+}

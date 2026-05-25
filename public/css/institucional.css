@@ -143,3 +143,8 @@ footer
     padding: 16px; /* Espaçamento interno -> 16px pros 4 lados*/
     color: #1d2221; /* Cor do texto*/
 }
+
+.escondido
+{
+    display: none; /* Elemento se inicia escondido*/
+}
