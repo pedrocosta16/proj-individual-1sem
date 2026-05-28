@@ -17,6 +17,8 @@ router.get("/kpi-pontuacao-atual/:fkUsuario", function (req, res)
 {
     // Chamando a função kpiPontuacaoAtual do dashboardController.js
 
+    // :fkUsuario -> parâmetro de rota, o valor será dinâmico dependendo do usuario logado
+
     // req -> requisição: Possui todas as informações da requisição
     // res -> resposta: Retornar uma resposta pro usuario
 
@@ -32,6 +34,8 @@ router.get("/kpi-pontuacao-atual/:fkUsuario", function (req, res)
 router.get("/kpi-evolucao/:fkUsuario", function (req, res)
 {
     // Chamando a função kpiEvolucao do dashboardController.js
+
+    // :fkUsuario -> parâmetro de rota, o valor será dinâmico dependendo do usuario logado
 
     // req -> requisição: Possui todas as informações da requisição
     // res -> resposta: Retornar uma resposta pro usuario
@@ -49,6 +53,8 @@ router.get("/kpi-ranking/:fkUsuario", function (req, res)
 {
     // Chamando a função kpiRanking do dashboardController.js
 
+    // :fkUsuario -> parâmetro de rota, o valor será dinâmico dependendo do usuario logado
+
     // req -> requisição: Possui todas as informações da requisição
     // res -> resposta: Retornar uma resposta pro usuario
 
@@ -59,11 +65,13 @@ router.get("/kpi-ranking/:fkUsuario", function (req, res)
 
 
 
-// ROTA GET para visualizar as preferências de um usuário
+// ROTA GET para visualizar a quantidade de quizzes feito de um usuário
 // GET para buscar dados do servidor
 router.get("/kpi-quizzes-feitos/:fkUsuario", function (req, res)
 {
     // Chamando a função kpiQuizzesFeitos do dashboardController.js
+
+    // :fkUsuario -> parâmetro de rota, o valor será dinâmico dependendo do usuario logado
 
     // req -> requisição: Possui todas as informações da requisição
     // res -> resposta: Retornar uma resposta pro usuario
@@ -75,11 +83,13 @@ router.get("/kpi-quizzes-feitos/:fkUsuario", function (req, res)
 
 
 
-// ROTA GET para visualizar as preferências de um usuário
+// ROTA GET para visualizar a evolução de pontuação do quiz de um usuário
 // GET para buscar dados do servidor
 router.get("/grafico-evolucao-quiz/:fkUsuario", function (req, res)
 {
     // Chamando a função graficoEvolucaoQuiz do dashboardController.js
+
+    // :fkUsuario -> parâmetro de rota, o valor será dinâmico dependendo do usuario logado
 
     // req -> requisição: Possui todas as informações da requisição
     // res -> resposta: Retornar uma resposta pro usuario
