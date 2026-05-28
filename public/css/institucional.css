@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 body
 {
     font-family: 'Inter', sans-serif; /* Fonte padrão escolhida*/
@@ -35,7 +37,7 @@ header
     font-weight: bold; /* Negrito */
 }
 
-.header-botao button
+.header-botao a
 {
     background-color: #222222; /* Cor do botão */
     color: #f6f7f6; /* Cor do conteudo do botao*/
@@ -44,6 +46,7 @@ header
     font-size: 14px; /* Tamanho da escrita do botão*/
     font-weight: bold; /* Negrito */
     border-radius: 999px; /* Botão totalmente arredondado*/
+    display: flex; /* Alinhar elementos horizontalmente*/
 }
 
 .secao

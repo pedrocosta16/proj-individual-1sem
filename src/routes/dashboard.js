@@ -23,12 +23,12 @@ router.get("/grafico-evolucao/:fkUsuario", function (req, res) {
     dashboardController.graficoEvolucao(req, res);
 });
 
-router.get("/grafico-posicao/:fkUsuario", function (req, res) {
+/*router.get("/grafico-posicao/:fkUsuario", function (req, res) {
     dashboardController.graficoPosicao(req, res);
 });
 
 router.get("/grafico-objetivo/:fkUsuario", function (req, res) {
     dashboardController.graficoObjetivo(req, res);
-});
+});*/
 
 module.exports = router;

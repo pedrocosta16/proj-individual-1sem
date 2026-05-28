@@ -23,13 +23,13 @@
 }
 
 
-.text-success-with-bg
+.pergunta_certa
 {
     color: #198754; /* Cor do texto*/
     background-color: #d1e7dd; /* Cor de fundo da div da pergunta certa*/
 }
 
-.text-danger-with-bg
+.pergunta_errada
 {
     color: #dc3545; /* Cor do texto*/
     background-color: #f8d7da; /* Cor de fundo da div da pergunta certa*/

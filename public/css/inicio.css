@@ -18,6 +18,7 @@
 {
     font-size: 45px; /* Tamanho da escrita*/
     font-weight: bold; /* Negrito */
+    margin-bottom: 10px; /* Espaço embaixo do elemento*/ 
 }
 
 .inicio-topo-acoes

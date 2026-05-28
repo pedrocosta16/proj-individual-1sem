@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Pilates - Dashboard</title>
-    <link rel="stylesheet" href="css/dashboard.css">
+
     <script src="js/sessao.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="assets/icons/icone.png">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body onload="pontuacaoAtual(), evolucao(), ranking(), quizzesFeitos(), obterDadosGrafico()">
     
@@ -463,9 +466,9 @@
     //obterDadosGrafico(grafico)
 
     var fkUsuario = sessionStorage.ID_USUARIO;
+
     function obterDadosGrafico(grafico)
     {
-        
         proximaAtualizacao = null;
 
         if (proximaAtualizacao != undefined)
@@ -486,7 +489,6 @@
                     resposta.reverse();
 
                     plotarGrafico(resposta, grafico, fkUsuario);
-
                 });
             }
             
@@ -534,6 +536,7 @@
             let registro = resposta[i];
 
             labels.push(`${i + 1}º Quiz`);
+
             dados.datasets[0].data.push(registro.pontuacao_quiz);
         }
 
@@ -554,56 +557,7 @@
             options:
             {
                 responsive: true,
-                maintainAspectRatio: false,
-
-                scales:
-                {
-                    y:
-                    {
-                        beginAtZero: true,
-
-                        title:
-                        {
-                            display: true,
-                            text: 'Pontuação',
-                            color: '#1d2221'
-                        },
-
-                        ticks:
-                        {
-                            color: '#1d2221',
-                            stepSize: 20
-                        }
-                    },
-
-                    x:
-                    {
-                        offset: false,
-
-                        title:
-                        {
-                            display: true,
-                            text: 'Tentativas',
-                            color: '#1d2221'
-                        },
-
-                        ticks:
-                        {
-                            color: '#1d2221'
-                        }
-                    }
-                },
-
-                plugins:
-                {
-                    legend:
-                    {
-                        labels:
-                        {
-                            color: '#1d2221'
-                        }
-                    }
-                }
+                maintainAspectRatio: false
             }
         };
 
@@ -613,78 +567,7 @@
             config
         );
 
-        setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
+        //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
     }
-
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    // Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    // Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(fkUsuario, dados, myChart)
-    {
-        fetch(`/dashboard/grafico-evolucao/${fkUsuario}`,
-        {
-            cache: 'no-store'
-        }).then(function (response)
-        {
-            if (response.ok) {
-                response.json().then(function (novoRegistro)
-                {
-                    obterDadosGrafico(fkUsuario);
-
-                    // alertar(novoRegistro, fkUsuario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-                    /*
-                    let avisoCaptura = document.getElementById(`avisoCaptura${fkUsuario}`)
-                    avisoCaptura.innerHTML = ""*/
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1])
-                    {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    }
-                    
-                    else // FEAT
-                    {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        
-                        //dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
-                });
-            }
-            
-            else
-            {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
-            }
-        })
-            .catch(function (error)
-            {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-    }
-
 
 </script>

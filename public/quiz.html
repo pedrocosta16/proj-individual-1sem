@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilates - Página de Cadastro</title>
+
+    <title>Pilates - Quiz</title>
+
+    <script src="js/sessao.js"></script>
+    
+    <link rel="icon" href="assets/icons/icone.png">
     <link rel="stylesheet" href="css/quiz.css">
     <link rel="stylesheet" href="css/formulario.css">
     <link rel="stylesheet" href="css/institucional.css">
-    <script src="js/sessao.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -308,7 +311,7 @@
         opcoes.forEach((option) => {
             if (option.checked === true && option.value === resposta_questao_atual)
             {
-                document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
+                document.getElementById(alternativa_correta).classList.add("pergunta_certa")
                 
 
                 pontuacao_final += 10;
@@ -321,8 +324,8 @@
             {
                 const wrongLabelId = option.labels[0].id
 
-                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
-                document.getElementById(alternativa_correta).classList.add("text-success-with-bg")
+                document.getElementById(wrongLabelId).classList.add("pergunta_errada")
+                document.getElementById(alternativa_correta).classList.add("pergunta_certa")
                 tentativa_incorreta++
                 erradas++
                 //document.getElementById("spanErradas").innerHTML = erradas
@@ -334,8 +337,8 @@
     function limparCoresBackgroundOpcoes() {
         const opcoes = document.getElementsByName("opcao");
         opcoes.forEach((option) => {
-            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
-            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("pergunta_errada")
+            document.getElementById(option.labels[0].id).classList.remove("pergunta_certa")
         })
     }
 
