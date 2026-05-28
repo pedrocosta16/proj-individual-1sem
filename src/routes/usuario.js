@@ -1,23 +1,83 @@
+// Importando framework express
+// Utilizado para criar o servidor e gerenciar rotas HTTP do projeto
 var express = require("express");
+
+// Criando um objeto Router do express
+// Utilizado para separar e organizar as rotas do projeto
 var router = express.Router();
 
+// Importando o arquivo usuarioController
 var usuarioController = require("../controllers/usuarioController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
-router.post("/cadastrar", function (req, res) {
-    usuarioController.cadastrar(req, res);
+
+
+
+// Rota POST para cadastrar um usuário
+// POST para enviar dados ao servidor
+router.post("/cadastrar-usuario", function (req, res)
+{
+    // Chamando a função cadastrarUsuario do usuarioController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    usuarioController.cadastrarUsuario(req, res);
 })
 
-router.post("/autenticar", function (req, res) {
-    usuarioController.autenticar(req, res);
+
+
+
+// Rota POST para autenticar um usuário
+// POST para enviar dados ao servidor
+router.post("/autenticar-usuario", function (req, res)
+{
+    // Chamando a função autenticarUsuario do usuarioController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    usuarioController.autenticarUsuario(req, res);
 });
 
-router.get("/visualizar/:fkUsuario", function (req, res) {
-    usuarioController.visualizar(req, res);
+
+
+
+// ROTA GET para visualizar os dados um usuário
+// GET para buscar dados do servidor
+router.get("/visualizar-usuario/:fkUsuario", function (req, res)
+{
+    // Chamando a função visualizarUsuario do usuarioController.js
+
+    // :fkUsuario -> parâmetro de rota, o valor será dinâmico dependendo do usuario logado
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    usuarioController.visualizarUsuario(req, res);
 })
 
-router.post("/atualizar", function (req, res) {
-    usuarioController.atualizar(req, res);
+
+
+
+// Rota POST para atualizar os dados de um usuário
+// POST para enviar dados ao servidor
+router.post("/atualizar-usuario", function (req, res)
+{
+    // Chamando a função atualizarUsuario do usuarioController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    usuarioController.atualizarUsuario(req, res);
 })
 
+
+
+
+// Exportando o router
+// Permite utilizar essas rotas em outras partes do projeto
 module.exports = router;

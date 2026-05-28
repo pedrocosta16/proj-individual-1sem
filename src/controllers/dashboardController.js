@@ -1,20 +1,20 @@
 var dashboardModel = require("../models/dashboardModel");
 
-function pontuacaoAtual(req, res)
+function kpiPontuacaoAtual(req, res)
 {
   var fkUsuario = req.params.fkUsuario;
 
-  dashboardModel.pontuacaoAtual(fkUsuario).then((resultado) =>
+  dashboardModel.kpiPontuacaoAtual(fkUsuario).then((resultado) =>
   {
     res.status(200).json(resultado);
   });
 }
 
-function evolucao(req, res)
+function kpiEvolucao(req, res)
 {
   var fkUsuario = req.params.fkUsuario;
 
-  dashboardModel.evolucao(fkUsuario).then((resultado) =>
+  dashboardModel.kpiEvolucao(fkUsuario).then((resultado) =>
   {
     var evolucao = resultado[0].evolucao;
 
@@ -31,27 +31,27 @@ function evolucao(req, res)
   });
 }
 
-function ranking(req, res)
+function kpiRanking(req, res)
 {
   var fkUsuario = req.params.fkUsuario;
 
-  dashboardModel.ranking(fkUsuario).then((resultado) =>
+  dashboardModel.kpiRanking(fkUsuario).then((resultado) =>
   {
     res.status(200).json(resultado);
   });
 }
 
-function quizzesFeitos(req, res)
+function kpiQuizzesFeitos(req, res)
 {
   var fkUsuario = req.params.fkUsuario;
 
-  dashboardModel.quizzesFeitos(fkUsuario).then((resultado) =>
+  dashboardModel.kpiQuizzesFeitos(fkUsuario).then((resultado) =>
   {
     res.status(200).json(resultado);
   });
 }
 
-function graficoEvolucao(req, res) {
+function graficoEvolucaoQuiz(req, res) {
 
     const limite_linhas = 10;
 
@@ -59,7 +59,7 @@ function graficoEvolucao(req, res) {
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    dashboardModel.graficoEvolucao(fkUsuario, limite_linhas).then(function (resultado) {
+    dashboardModel.graficoEvolucaoQuiz(fkUsuario, limite_linhas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -76,9 +76,9 @@ function graficoEvolucao(req, res) {
 
 
 module.exports = {
-  pontuacaoAtual,
-  evolucao,
-  ranking,
-  quizzesFeitos,
-  graficoEvolucao
+  kpiPontuacaoAtual,
+  kpiEvolucao,
+  kpiRanking,
+  kpiQuizzesFeitos,
+  graficoEvolucaoQuiz
 };

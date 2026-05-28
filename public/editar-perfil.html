@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/formulario.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<body onload="visualizar()">
+<body onload="visualizarUsuario()">
 
     <header>
 
@@ -50,7 +50,7 @@
         </div>
 
         <div class="campo">
-            <button onclick="atualizar()">Atualizar Dados</button>
+            <button onclick="atualizarUsuario()">Atualizar Dados</button>
         </div>
 
         <div class="erro" id="cardErro" style="display: none; color: red; margin-top: 10px;">
@@ -64,11 +64,11 @@
 
 <script>
 
-    function visualizar()
+    function visualizarUsuario()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`/usuario/visualizar/${fkUsuario}`)
+        fetch(`/usuario/visualizar-usuario/${fkUsuario}`) 
         .then(function (resposta)
         {
             if (resposta.ok)
@@ -85,7 +85,7 @@
         });
     }
 
-    function atualizar()
+    function atualizarUsuario()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
 
@@ -160,7 +160,7 @@
         }
 
         // Enviando o valor da nova input
-        fetch("/usuario/atualizar",
+        fetch("/usuario/atualizar-usuario",
         {
             method: "POST",
             headers: {

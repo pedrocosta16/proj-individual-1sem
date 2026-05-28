@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function autenticar(email, senha) {
+function autenticarUsuario(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     
     var instrucaoSql = `
@@ -15,7 +15,7 @@ function autenticar(email, senha) {
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, dt_nasc, email, senha) {
+function cadastrarUsuario(nome, dt_nasc, email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
     
     var instrucaoSql = `
@@ -25,7 +25,7 @@ function cadastrar(nome, dt_nasc, email, senha) {
     return database.executar(instrucaoSql);
 }
 
-function visualizar(fkUsuario) {
+function visualizarUsuario(fkUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >>Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar(): ")
 
     var instrucaoSql = `
@@ -42,7 +42,7 @@ function visualizar(fkUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function atualizar(nome, dt_nasc, email, senha, fkUsuario) {
+function atualizarUsuario(nome, dt_nasc, email, senha, fkUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >>Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar(): ")
 
     var instrucaoSql = `
@@ -59,8 +59,8 @@ function atualizar(nome, dt_nasc, email, senha, fkUsuario) {
 }
 
 module.exports = {
-    autenticar,
-    cadastrar,
-    visualizar,
-    atualizar
+    autenticarUsuario,
+    cadastrarUsuario,
+    visualizarUsuario,
+    atualizarUsuario
 };

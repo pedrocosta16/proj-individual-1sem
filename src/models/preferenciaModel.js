@@ -18,13 +18,13 @@ function buscarPorCnpj(cnpj) {
   return database.executar(instrucaoSql);
 }*/
 
-function cadastrar(genero_musical, objetivo_pilates, tempo_treino, fk_usuario) {
+function cadastrarPreferencias(genero_musical, objetivo_pilates, tempo_treino, fk_usuario) {
   var instrucaoSql = `INSERT INTO preferencia_usuario (genero_musical, objetivo_pilates, tempo_treino, fk_usuario) VALUES ('${genero_musical}', '${objetivo_pilates}', '${tempo_treino}', '${fk_usuario}')`;
 
   return database.executar(instrucaoSql);
 }
 
-function visualizar(fkUsuario) {
+function visualizarPreferencias(fkUsuario) {
   var instrucaoSql = `SELECT genero_musical, objetivo_pilates, DATE_FORMAT(tempo_treino, '%d/%m/%Y') AS tempo_treino FROM preferencia_usuario WHERE fk_usuario = ${fkUsuario};`;
 
   return database.executar(instrucaoSql);
@@ -34,7 +34,7 @@ module.exports =
 {
     //buscarPorCnpj,
     //buscarPorId,
-    cadastrar,
-    visualizar
+    cadastrarPreferencias,
+    visualizarPreferencias
     //listar
 };

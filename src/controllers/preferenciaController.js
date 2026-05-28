@@ -1,10 +1,10 @@
 var preferenciaModel = require("../models/preferenciaModel");
 
-function visualizar(req, res)
+function visualizarPreferencias(req, res)
 {
   var fkUsuario = req.params.fkUsuario;
 
-  preferenciaModel.visualizar(fkUsuario)
+  preferenciaModel.visualizarPreferencias(fkUsuario)
   .then((resultado) =>
   {
     if (resultado.length > 0)
@@ -26,7 +26,7 @@ function visualizar(req, res)
 }
 
 
-function cadastrar(req, res)
+function cadastrarPreferencias(req, res)
 {
   var genero_musical = req.body.generoMusicalServer;
   var objetivo_pilates = req.body.objetivoPilatesServer;
@@ -52,7 +52,7 @@ function cadastrar(req, res)
   
   else
   {
-    preferenciaModel.cadastrar(genero_musical, objetivo_pilates, tempo_treino, fk_usuario)
+    preferenciaModel.cadastrarPreferencias(genero_musical, objetivo_pilates, tempo_treino, fk_usuario)
       .then((resultado) => {
         res.status(201).json(resultado);
       }
@@ -68,6 +68,6 @@ function cadastrar(req, res)
 }
 
 module.exports = {
-  visualizar,
-  cadastrar
+  visualizarPreferencias,
+  cadastrarPreferencias
 }

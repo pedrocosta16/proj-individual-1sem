@@ -45,7 +45,6 @@ a
     flex: 1; /* Texto ocupa espaço proporcional com outro elemento*/
 }
 
-
 .kpis
 {
     padding: 10px 0; /* Espaçamento interno -> 10px cima e baixo | 0 laterais*/
@@ -53,7 +52,6 @@ a
     justify-content: space-between; /* Espaço entre elementos'*/
     gap: 14px; /* Espaço entre os elementos*/
 }
-
 
 .kpi-item
 {

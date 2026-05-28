@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/inicio.css">
     <link rel="stylesheet" href="css/institucional.css">
 </head>
-<body onload="validarSessao(), vizualizarPreferencias(), vizualizarQuizzes()">
+<body onload="validarSessao(), visualizarPreferencias(), visualizarQuizzes()">
 
     <div class="inicio">
 
@@ -105,11 +105,11 @@
 
 <script>
 
-    function vizualizarPreferencias()
+    function visualizarPreferencias() 
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`/preferencia/visualizar/${fkUsuario}`)
+        fetch(`/preferencia/visualizar-preferencias/${fkUsuario}`)
         .then(function (resposta)
         {
             if (resposta.ok)
@@ -128,11 +128,11 @@
         });
     }
 
-    function vizualizarQuizzes()
+    function visualizarQuizzes()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`/quiz/vizualizar-quizzes/${fkUsuario}`)
+        fetch(`/quiz/visualizar-quizzes/${fkUsuario}`)
         .then(function (resposta)
         {
 

@@ -1,6 +1,6 @@
 var usuarioModel = require("../models/usuarioModel");
 
-function autenticar(req, res) {
+function autenticarUsuario(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
@@ -10,7 +10,7 @@ function autenticar(req, res) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
+        usuarioModel.autenticarUsuario(email, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
@@ -25,20 +25,6 @@ function autenticar(req, res) {
                             nome: resultadoAutenticar[0].nome
                         });
 
-                        /*aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoAquarios) => {
-                                if (resultadoAquarios.length > 0) {
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
-                                    });
-                                } else {
-                                    res.status(204).json({ aquarios: [] });
-                                }
-                            })*/
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -56,7 +42,7 @@ function autenticar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+function cadastrarUsuario(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var dtNasc = req.body.dtNascServer;
@@ -87,7 +73,7 @@ function cadastrar(req, res) {
     else
     {
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, dtNasc, email, senha)
+        usuarioModel.cadastrarUsuario(nome, dtNasc, email, senha)
             .then(
                 function (resultado)
                 {
@@ -108,11 +94,11 @@ function cadastrar(req, res) {
     }
 }
 //                  requisição, resposta
-function visualizar(req, res)
+function visualizarUsuario(req, res)
 {
     var fkUsuario = req.params.fkUsuario;
 
-    usuarioModel.visualizar(fkUsuario)
+    usuarioModel.visualizarUsuario(fkUsuario)
     .then((resultado) =>
     {
         if (resultado.length > 0)
@@ -134,7 +120,7 @@ function visualizar(req, res)
     });
 }
 
-function atualizar(req, res)
+function atualizarUsuario(req, res)
 {
     var fk_usuario = req.body.fkUsuarioServer;
 
@@ -167,7 +153,7 @@ function atualizar(req, res)
     else
     {
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.atualizar(nome, dtNasc, email, senha, fk_usuario)
+        usuarioModel.atualizarUsuario(nome, dtNasc, email, senha, fk_usuario)
             .then(
                 function (resultado)
                 {
@@ -190,8 +176,8 @@ function atualizar(req, res)
 
 module.exports =
 {
-    autenticar,
-    cadastrar,
-    visualizar,
-    atualizar
+    autenticarUsuario,
+    cadastrarUsuario,
+    visualizarUsuario,
+    atualizarUsuario
 }

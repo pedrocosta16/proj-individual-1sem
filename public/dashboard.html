@@ -11,7 +11,7 @@
     <link rel="icon" href="assets/icons/icone.png">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<body onload="pontuacaoAtual(), evolucao(), ranking(), quizzesFeitos(), obterDadosGrafico()">
+<body onload="kpiPontuacaoAtual(), kpiEvolucao(), kpiRanking(), kpiQuizzesFeitos(), obterDadosGrafico()">
     
     <header class="topo">
 
@@ -286,13 +286,13 @@
     */
 
     // KPIS
-    function pontuacaoAtual()
+    function kpiPontuacaoAtual()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
         var idPontuacao = document.getElementById("id_pontuacao_atual");
         var alerta = document.getElementById("alerta-kpi_1");
 
-        fetch(`dashboard/pontuacao-atual/${fkUsuario}`)
+        fetch(`dashboard/kpi-pontuacao-atual/${fkUsuario}`)
         .then(function (resposta)
         {
             if (resposta.ok)
@@ -323,13 +323,13 @@
         });
     }
 
-    function evolucao()
+    function kpiEvolucao()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
         var idEvolucao = document.getElementById("id_evolucao");
         var alerta = document.getElementById("alerta-kpi_2");
 
-        fetch(`dashboard/evolucao/${fkUsuario}`)
+        fetch(`dashboard/kpi-evolucao/${fkUsuario}`)
         .then(function (resposta)
         {
             if (resposta.ok)
@@ -361,13 +361,13 @@
         });
     }
 
-    function ranking()
+    function kpiRanking()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
         var idRanking = document.getElementById("id_ranking");
         var alerta = document.getElementById("alerta-kpi_3");
 
-        fetch(`dashboard/ranking/${fkUsuario}`)
+        fetch(`dashboard/kpi-ranking/${fkUsuario}`)
         .then(function (resposta)
         {
             if (resposta.ok)
@@ -404,13 +404,13 @@
         });
     }
 
-    function quizzesFeitos()
+    function kpiQuizzesFeitos()
     {
         var fkUsuario = sessionStorage.ID_USUARIO;
         var idQuizzes = document.getElementById("id_qtd_quizzes");
         var alerta = document.getElementById("alerta-kpi_4");
 
-        fetch(`dashboard/quizzes-feitos/${fkUsuario}`)
+        fetch(`dashboard/kpi-quizzes-feitos/${fkUsuario}`)
         .then(function (resposta)
         {
             if (resposta.ok)
@@ -449,6 +449,18 @@
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
     // BRINCADIERA GRAFICOS  
 
     // O gráfico é construído com três funções:
@@ -476,7 +488,7 @@
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/dashboard/grafico-evolucao/${fkUsuario}`,
+        fetch(`/dashboard/grafico-evolucao-quiz/${fkUsuario}`,
         {
             cache: 'no-store'
         }).then(function (response)

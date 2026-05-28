@@ -7,7 +7,7 @@
     <title>Pilates - Quiz</title>
 
     <script src="js/sessao.js"></script>
-    
+
     <link rel="icon" href="assets/icons/icone.png">
     <link rel="stylesheet" href="css/quiz.css">
     <link rel="stylesheet" href="css/formulario.css">
@@ -405,7 +405,7 @@
         var pontuacaoFinalVar = pontuacao;
         var fkUsuario = sessionStorage.ID_USUARIO;
 
-        fetch("/quiz/realizar/:fkUsuario",
+        fetch("/quiz/realizar-quiz/",
         {
             method: "POST",
             headers:
@@ -427,8 +427,7 @@
                 {
                     //cardErro.style.display = "block";
 
-                    alert(`OIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII`) =
-                        "OIIIIIIIIIIIIII";
+                    alert(`OIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII`);
 
                     /*setTimeout(() => {
                         window.location = "inicio.html";

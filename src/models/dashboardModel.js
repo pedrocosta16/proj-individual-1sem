@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function pontuacaoAtual(fkUsuario)
+function kpiPontuacaoAtual(fkUsuario)
 {
   var instrucaoSql = `
   SELECT pontuacao_quiz
@@ -14,7 +14,7 @@ function pontuacaoAtual(fkUsuario)
   return database.executar(instrucaoSql);
 }
 
-function evolucao(fkUsuario)
+function kpiEvolucao(fkUsuario)
 {
   var instrucaoSql = `
   SELECT 
@@ -36,7 +36,7 @@ function evolucao(fkUsuario)
   return database.executar(instrucaoSql);
 }
 
-function ranking(fkUsuario)
+function kpiRanking(fkUsuario)
 {
   var instrucaoSql = `
   SELECT COUNT(*) + 1 AS posicao
@@ -60,7 +60,7 @@ function ranking(fkUsuario)
   return database.executar(instrucaoSql);
 }
 
-function quizzesFeitos(fkUsuario)
+function kpiQuizzesFeitos(fkUsuario)
 {
   var instrucaoSql = `SELECT COUNT(id_quiz) AS qtd_quiz FROM resultado_quiz WHERE fk_usuario = ${fkUsuario};`;
 
@@ -68,7 +68,7 @@ function quizzesFeitos(fkUsuario)
   return database.executar(instrucaoSql);
 }
 
-function graficoEvolucao(fkUsuario, limite_linhas) {
+function graficoEvolucaoQuiz(fkUsuario, limite_linhas) {
 
     var instrucaoSql = `
     SELECT 
@@ -85,9 +85,9 @@ function graficoEvolucao(fkUsuario, limite_linhas) {
 
 module.exports =
 {
-  pontuacaoAtual,
-  evolucao,
-  ranking,
-  quizzesFeitos,
-  graficoEvolucao
+  kpiPontuacaoAtual,
+  kpiEvolucao,
+  kpiRanking,
+  kpiQuizzesFeitos,
+  graficoEvolucaoQuiz
 }

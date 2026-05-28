@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function vizualizarQuizzes(fkUsuario)
+function visualizarQuizzes(fkUsuario)
 {
     var instrucaoSql = `
         SELECT
@@ -99,7 +99,7 @@ module.exports = {
     //listar,
     //listarPorUsuario,
     //pesquisarDescricao,
-    vizualizarQuizzes,
+    visualizarQuizzes,
     realizarQuiz
     //editar,
     //deletar

@@ -1,34 +1,96 @@
+// Importando framework express
+// Utilizado para criar o servidor e gerenciar rotas HTTP do projeto
 var express = require("express");
+
+// Criando um objeto Router do express
+// Utilizado para separar e organizar as rotas do projeto
 var router = express.Router();
 
+// Importando o arquivo dashboardController
 var dashboardController = require("../controllers/dashboardController");
 
-router.get("/pontuacao-atual/:fkUsuario", function (req, res) {
-    dashboardController.pontuacaoAtual(req, res);
+
+
+// ROTA GET para visualizar a pontuação atual (último quiz feito) de um usuário
+// GET para buscar dados do servidor
+router.get("/kpi-pontuacao-atual/:fkUsuario", function (req, res)
+{
+    // Chamando a função kpiPontuacaoAtual do dashboardController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    dashboardController.kpiPontuacaoAtual(req, res);
 });
 
-router.get("/evolucao/:fkUsuario", function (req, res) {
-    dashboardController.evolucao(req, res);
+
+
+
+// ROTA GET para visualizar a evolução (ultimo quiz - primeiro quiz) de um usuário
+// GET para buscar dados do servidor
+router.get("/kpi-evolucao/:fkUsuario", function (req, res)
+{
+    // Chamando a função kpiEvolucao do dashboardController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    dashboardController.kpiEvolucao(req, res);
 });
 
-router.get("/ranking/:fkUsuario", function (req, res) {
-    dashboardController.ranking(req, res);
+
+
+
+// ROTA GET para visualizar a posição de um usuário no ranking geral de pontos
+// GET para buscar dados do servidor
+router.get("/kpi-ranking/:fkUsuario", function (req, res)
+{
+    // Chamando a função kpiRanking do dashboardController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    dashboardController.kpiRanking(req, res);
 });
 
-router.get("/quizzes-feitos/:fkUsuario", function (req, res) {
-    dashboardController.quizzesFeitos(req, res);
+
+
+
+// ROTA GET para visualizar as preferências de um usuário
+// GET para buscar dados do servidor
+router.get("/kpi-quizzes-feitos/:fkUsuario", function (req, res)
+{
+    // Chamando a função kpiQuizzesFeitos do dashboardController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    dashboardController.kpiQuizzesFeitos(req, res);
 });
 
-router.get("/grafico-evolucao/:fkUsuario", function (req, res) {
-    dashboardController.graficoEvolucao(req, res);
+
+
+
+// ROTA GET para visualizar as preferências de um usuário
+// GET para buscar dados do servidor
+router.get("/grafico-evolucao-quiz/:fkUsuario", function (req, res)
+{
+    // Chamando a função graficoEvolucaoQuiz do dashboardController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    dashboardController.graficoEvolucaoQuiz(req, res);
 });
 
-/*router.get("/grafico-posicao/:fkUsuario", function (req, res) {
-    dashboardController.graficoPosicao(req, res);
-});
 
-router.get("/grafico-objetivo/:fkUsuario", function (req, res) {
-    dashboardController.graficoObjetivo(req, res);
-});*/
 
+
+// Exportando o router
+// Permite utilizar essas rotas em outras partes do projeto
 module.exports = router;

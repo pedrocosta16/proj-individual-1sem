@@ -1,10 +1,10 @@
 var quizModel = require("../models/quizModel");
 
-function vizualizarQuizzes(req, res)
+function visualizarQuizzes(req, res)
 {
     var fkUsuario = req.params.fkUsuario;
 
-    quizModel.vizualizarQuizzes(fkUsuario).then(function (resultado)
+    quizModel.visualizarQuizzes(fkUsuario).then(function (resultado)
     {
         
         if (resultado.length > 0)
@@ -171,7 +171,7 @@ module.exports = {
     //listar,
     //listarPorUsuario,
     //pesquisardata_quiz,
-    vizualizarQuizzes,
+    visualizarQuizzes,
     realizarQuiz
     //editar,
     //deletar
