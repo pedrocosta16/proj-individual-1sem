@@ -101,6 +101,38 @@ router.get("/grafico-evolucao-quiz/:fkUsuario", function (req, res)
 
 
 
+// ROTA GET para visualizar a média de pontuação do quiz por objetivo
+// GET para buscar dados do servidor
+router.get("/grafico-objetivos", function (req, res)
+{
+    // Chamando a função graficoObjetivos do dashboardController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    dashboardController.graficoObjetivos(req, res);
+});
+
+
+
+
+// ROTA GET para visualizar a média de pontuação do quiz por genero músical
+// GET para buscar dados do servidor
+router.get("/grafico-genero-musical", function (req, res)
+{
+    // Chamando a função graficoGeneroMusical do dashboardController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    dashboardController.graficoGeneroMusical(req, res);
+});
+
+
+
+
 // Exportando o router
 // Permite utilizar essas rotas em outras partes do projeto
 module.exports = router;

@@ -17,6 +17,7 @@ router.get("/", function (req, res)
     // res -> resposta: Resposta que o servidor vai devolver
 
     // Procura o arquivo index e transforma ele em HTML pra enviar pro navegador
+    // Quando abre http://localhost:3000/ ele vai pro arquivo index
     res.render("index");
 });
 

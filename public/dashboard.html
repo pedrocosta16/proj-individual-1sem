@@ -11,7 +11,7 @@
     <link rel="icon" href="assets/icons/icone.png">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<body onload="kpiPontuacaoAtual(), kpiEvolucao(), kpiRanking(), kpiQuizzesFeitos(), obterDadosGrafico()">
+<body onload="kpiPontuacaoAtual(), kpiEvolucao(), kpiRanking(), kpiQuizzesFeitos(), obterDadosGraficoEvolucaoQuiz(), obterDadosGraficoObjetivos(), obterDadosGraficoGeneroMusical()">
     
     <header class="topo">
 
@@ -43,7 +43,7 @@
             <h1 class="pref-titulo">Sua evolução no quiz</h1>
 
             <div class="kpi-conteudo">
-                <img src="assets/icons/increase.png" alt="">
+                <img src="assets/icons/increase.png" alt="" id="img-evolucao">
                 <p class="pref-valor" id="id_evolucao">-</p>
             </div>
             
@@ -87,7 +87,7 @@
     <div class="graficos">
         <div class="grafico-1">
             <div class="infos-grafico">
-                <h1>Onde você está entre os usuários</h1>
+                <h1>Média de pontuação por gênero musical</h1>
                 <p>Distribuição geral de pontuações. Sua faixa destacada.</p>
             </div>
 
@@ -115,15 +115,13 @@
 
 <script>
 
-    const grafico_barras = document.getElementById('id_grafico_barras');
-    const grafico_barras_deitadas = document.getElementById('id_grafico_barras_deitadas');
+    //const grafico_barras = document.getElementById('id_grafico_barras');
+    //const grafico_barras_deitadas = document.getElementById('id_grafico_barras_deitadas');
 
     Chart.defaults.font.family = 'Inter';
-    /*
-    new Chart(grafico_linhas,
-    {*/
-    /*
-    new Chart(grafico_barras,
+    
+   
+    /*new Chart(grafico_barras,
     {
         type: 'bar',
         data:
@@ -212,8 +210,8 @@
                 }
             }
         }
-    });
-
+    });*/
+/*
     new Chart(grafico_barras_deitadas,
     {
         type: 'bar',
@@ -299,7 +297,7 @@
             {
                 resposta.json().then(function (dados)
                 {
-                    idPontuacao.innerHTML = `${dados[0].pontuacao_quiz} pts de 100`;
+                    idPontuacao.innerHTML = `${dados[0].pontuacao_quiz}pts de 100pts`;
 
                     if (dados[0].pontuacao_quiz >= 90)
                     {
@@ -310,7 +308,8 @@
                     else if (dados[0].pontuacao_quiz >= 60)
                     {
                         alerta.innerHTML = "nivel intermediário";
-                        alerta.style.backgroundColor = "#a1ad17";
+                        alerta.style.backgroundColor = "#ffde59";
+                        alerta.style.color = `#707070`
                     }
 
                     else
@@ -354,7 +353,9 @@
                     {
                         idEvolucao.innerHTML = dados.evolucao + " pts";
                         alerta.innerHTML = "queda na pontuação";
-                        alerta.style.backgroundColor = "#a1ad17";
+                        alerta.style.backgroundColor = "#ffde59";
+                        alerta.style.color = `#707070`
+                        document.getElementById('img-evolucao').src = `assets/icons/decrease.png`;
                     }
                 });
             }
@@ -391,7 +392,8 @@
                     else if (dados[0].posicao <= 10)
                     {
                         alerta.innerHTML = "ótimo desempenho";
-                        alerta.style.backgroundColor = "#a1ad17";
+                        alerta.style.backgroundColor = "#ffde59";
+                        alerta.style.color = `#707070`
                     }
 
                     else
@@ -428,7 +430,8 @@
                     else if (dados[0].qtd_quiz <= 15)
                     {
                         alerta.innerHTML = "amador habilidoso";
-                        alerta.style.backgroundColor = "#a1ad17";
+                        alerta.style.backgroundColor = "#ffde59";
+                        alerta.style.color = `#707070`
                     }
 
                     else if (dados[0].qtd_quiz <= 30)
@@ -450,17 +453,6 @@
 
     
 
-
-
-
-
-
-
-
-
-
-
-
     // BRINCADIERA GRAFICOS  
 
     // O gráfico é construído com três funções:
@@ -479,7 +471,7 @@
 
     var fkUsuario = sessionStorage.ID_USUARIO;
 
-    function obterDadosGrafico(grafico)
+    function obterDadosGraficoEvolucaoQuiz(grafico)
     {
         proximaAtualizacao = null;
 
@@ -500,7 +492,7 @@
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta, grafico, fkUsuario);
+                    plotarGraficoEvolucaoQuiz(resposta, grafico, fkUsuario);
                 });
             }
             
@@ -515,10 +507,7 @@
             });
     }
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, fkUsuario)
+    function plotarGraficoEvolucaoQuiz(resposta, fkUsuario)
     {
         console.log('iniciando plotagem do gráfico...');
 
@@ -533,6 +522,7 @@
             datasets: [{
                 label: 'Minha pontuação',
                 data: [],
+                backgroundColor: 'rgba(91, 141, 239, 0.5)',
                 fill: true,
                 borderWidth: 2
             }]
@@ -569,8 +559,46 @@
             options:
             {
                 responsive: true,
-                maintainAspectRatio: false
-            }
+                maintainAspectRatio: false,
+
+                scales:
+                {
+                    y:
+                    {
+                        beginAtZero: true,
+
+                        title:
+                        {
+                            display: true,
+                            text: 'Pontuação',
+                            color: '#1d2221'
+                        },
+
+                        ticks:
+                        {
+                            color: '#1d2221',
+                            stepSize: 20
+                        }
+                    },
+
+                    x:
+                    {
+                        offset: false,
+
+                        title:
+                        {
+                            display: true,
+                            text: 'Tentativas',
+                            color: '#1d2221'
+                        },
+
+                        ticks:
+                        {
+                            color: '#1d2221'
+                        }
+                    }
+                },
+            }   
         };
 
         // Adicionando gráfico criado em div na tela
@@ -581,5 +609,297 @@
 
         //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
     }
+
+
+
+
+
+    function obterDadosGraficoObjetivos(grafico)
+    {
+        proximaAtualizacao = null;
+
+        if (proximaAtualizacao != undefined)
+        {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/dashboard/grafico-objetivos/`,
+        {
+            cache: 'no-store'
+        }).then(function (response)
+        {
+            if (response.ok)
+            {
+                response.json().then(function (resposta)
+                {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoObjetivos(resposta, grafico);
+                });
+            }
+            
+            else
+            {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error)
+            {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoObjetivos(resposta)
+    {
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+        let pontuacoes = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+
+            datasets: [{
+                label: 'Pontuação média',
+                data: [],
+                backgroundColor: 'rgba(217, 140, 95, 0.9)',
+                borderColor: '#d98c5f',
+                fill: true,
+                borderWidth: 2
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (let i = 0; i < resposta.length; i++)
+        {
+            let registro = resposta[i];
+
+            labels.push(registro.objetivo_pilates);
+
+            dados.datasets[0].data.push(registro.media_quiz);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config =
+        {
+            type: 'bar',
+            data: dados,
+
+            options:
+            {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales:
+                {
+                    y:
+                    {
+                        beginAtZero: true,
+
+                        title:
+                        {
+                            display: true,
+                            text: 'Objetivo',
+                            color: '#1d2221'
+                        },
+
+                        ticks:
+                        {
+                            color: '#1d2221',
+                            stepSize: 20
+                        }
+                    },
+
+                    x:
+                    {
+                        offset: false,
+
+                        title:
+                        {
+                            display: true,
+                            text: 'Pontuação média',
+                            color: '#1d2221'
+                        },
+
+                        ticks:
+                        {
+                            color: '#1d2221'
+                        }
+                    }
+                },
+            }   
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`id_grafico_barras_deitadas`),
+            config
+        );
+
+        //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
+    }
+
+
+
+
+    function obterDadosGraficoGeneroMusical(grafico)
+    {
+        proximaAtualizacao = null;
+
+        if (proximaAtualizacao != undefined)
+        {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/dashboard/grafico-genero-musical/`,
+        {
+            cache: 'no-store'
+        }).then(function (response)
+        {
+            if (response.ok)
+            {
+                response.json().then(function (resposta)
+                {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoGeneroMusical(resposta, grafico);
+                });
+            }
+            
+            else
+            {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error)
+            {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGraficoGeneroMusical(resposta)
+    {
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+        let pontuacoes = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+
+            datasets: [{
+                label: 'Pontuação média',
+                data: [],
+                backgroundColor: 'rgba(145, 106, 153, 0.7)',
+                borderColor: '#916a99',
+                fill: true,
+                borderWidth: 2
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (let i = 0; i < resposta.length; i++)
+        {
+            let registro = resposta[i];
+
+            labels.push(registro.genero_musical);
+
+            dados.datasets[0].data.push(registro.media_quiz);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config =
+        {
+            type: 'bar',
+            data: dados,
+
+            options:
+            {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales:
+                {
+                    y:
+                    {
+                        beginAtZero: true,
+
+                        title:
+                        {
+                            display: true,
+                            text: 'Pontuação média',
+                            color: '#1d2221'
+                        },
+
+                        ticks:
+                        {
+                            color: '#1d2221',
+                            stepSize: 20
+                        }
+                    },
+
+                    x:
+                    {
+                        offset: true,
+
+                        title:
+                        {
+                            display: true,
+                            text: 'Gênero musical',
+                            color: '#1d2221'
+                        },
+
+                        ticks:
+                        {
+                            color: '#1d2221'
+                        }
+                    }
+                },
+            }   
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`id_grafico_barras`),
+            config
+        );
+
+        //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
+    }
+
+
+
+
 
 </script>

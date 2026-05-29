@@ -82,6 +82,36 @@ function graficoEvolucaoQuiz(fkUsuario, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
+function graficoObjetivos()
+{
+  var instrucaoSql = `
+    SELECT
+    p.objetivo_pilates,
+    TRUNCATE(AVG(pontuacao_quiz), 0) as media_quiz
+    FROM resultado_quiz r
+    JOIN preferencia_usuario p ON r.fk_usuario = p.fk_usuario
+    GROUP BY p.objetivo_pilates;
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function graficoGeneroMusical()
+{
+  var instrucaoSql = `
+    SELECT
+    p.genero_musical,
+    TRUNCATE(AVG(pontuacao_quiz), 0) as media_quiz
+    FROM resultado_quiz r
+    JOIN preferencia_usuario p ON r.fk_usuario = p.fk_usuario
+    GROUP BY p.genero_musical;
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports =
 {
@@ -89,5 +119,7 @@ module.exports =
   kpiEvolucao,
   kpiRanking,
   kpiQuizzesFeitos,
-  graficoEvolucaoQuiz
+  graficoEvolucaoQuiz,
+  graficoObjetivos,
+  graficoGeneroMusical
 }
