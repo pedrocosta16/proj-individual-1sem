@@ -46,6 +46,22 @@ router.get("/visualizar-preferencias/:fkUsuario", function (req, res)
 
 
 
+// Rota POST para atualizar preferências
+// POST para enviar dados ao servidor
+router.post("/atualizar-preferencias", function (req, res)
+{
+    // Chamando a função atualizarPreferencias do preferenciaController.js
+
+    // req -> requisição: Possui todas as informações da requisição
+    // res -> resposta: Retornar uma resposta pro usuario
+
+    // Direcionando a requisição pro controller responsavel
+    preferenciaController.atualizarPreferencias(req, res);
+});
+
+
+
+
 // Exportando o router
 // Permite utilizar essas rotas em outras partes do projeto
 module.exports = router;

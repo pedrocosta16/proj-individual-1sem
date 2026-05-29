@@ -6,9 +6,12 @@
 
     <title>Pilates - Cadastre-se</title>
 
+    <script src="js/sessao.js"></script>
+
     <link rel="icon" href="assets/icons/icone.png">
     <link rel="stylesheet" href="css/institucional.css">
     <link rel="stylesheet" href="css/formulario.css">
+
 </head>
 <body>
 
@@ -37,8 +40,8 @@
         </div>
         
         <div class="campo">
-            <p>Data de Nascimento (AAAA/MM/DD):</p>
-            <input type="text" id="ipt_nascimento_user" placeholder="Digite sua data de nascimento">
+            <p>Data de Nascimento:</p>
+            <input type="text" id="ipt_nascimento_user" placeholder="Digite a data de início (DD/MM/AAAA)">
         </div>
 
         <div class="campo">
@@ -48,7 +51,10 @@
 
         <div class="campo">
             <p>Senha:</p>
-            <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+            <div id="div_olho" class="div_olho">
+                <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+                <img id="olho" onclick="verSenha()" class="olho-visivel" src="assets/icons/not-visible.png" alt="">
+            </div>
         </div>
 
         <div class="campo"> 

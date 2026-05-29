@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/formulario.css">
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<body onload="visualizarUsuario()">
+<body onload="visualizarUsuario(), visualizarPreferencias()">
 
     <header>
 
@@ -31,7 +31,7 @@
         
         <div class="campo">
             <p>Data de Nascimento:</p>
-            <input type="text" id="ipt_nascimento_user" placeholder="Digite sua data de nascimento">
+            <input type="text" id="ipt_nascimento_user" placeholder="Digite a data de nascimento (DD/MM/AAAA)">
         </div>
 
         <div class="campo">
@@ -41,7 +41,10 @@
 
         <div class="campo">
             <p>Senha:</p>
-            <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+            <div id="div_olho" class="div_olho">
+                <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+                <img id="olho" onclick="verSenha()" class="olho-visivel" src="assets/icons/not-visible.png" alt="">
+            </div>
         </div>
 
         <div class="campo"> 
@@ -58,11 +61,58 @@
         </div>
 
     </div>
+
+    <div class="form">
+
+        <h1>Editar Preferências</h1>
+
+        <div class="campo">
+            <p>Gênero musical</p>
+            <select name="" id="ipt_genero_musical">
+                <option value="">Selecione...</option>
+                <option value="Pop">Pop</option>
+                <option value="Rock">Rock</option>
+                <option value="Hip Hop">Hip Hop</option>
+                <option value="Sertanejo">Sertanejo</option>
+                <option value="Funk">Funk</option>
+                <option value="Reggae">Reggae</option>
+                <option value="MPB">MPB</option>
+            </select>
+        </div>
+        
+        <div class="campo">
+            <p>Objetivo com o Pilates</p>
+            <select name="" id="ipt_objetivo_pilates">
+                <option value="">Selecione...</option>
+                <option value="Postura">Melhorar a postura</option>
+                <option value="Flexibilidade">Ganhar flexibilidade</option>
+                <option value="Fortalecimento">Fortalecer o corpo</option>
+                <option value="Reabilitação">Reabilitação de lesões</option>
+                <option value="Qualidade de Vida">Melhorar a qualidade de vida</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <p>Quando você começou a praticar Pilates?</p>
+            <input type="text" id="ipt_tempo_treino" placeholder="Digite a data de início (DD/MM/AAAA)">
+        </div>
+
+        <div class="campo">
+            <button onclick="atualizarPreferencias()">Atualizar Dados</button>
+        </div>
+
+        <div class="erro" id="cardErro" style="display: none; color: red; margin-top: 10px;">
+            <p id="mensagem_erro"></p>
+        </div>
+
+    </div>
     
 </body>
 </html>
 
 <script>
+    
+    
 
     function visualizarUsuario()
     {
@@ -208,5 +258,125 @@
 
         return false;
     }
+
+    function visualizarPreferencias() 
+    {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+
+        fetch(`/preferencia/visualizar-preferencias/${fkUsuario}`)
+        .then(function (resposta)
+        {
+            if (resposta.ok)
+            {
+                resposta.json().then(function (dados)
+                {
+                    document.getElementById("ipt_genero_musical").value = dados[0].genero_musical;
+                    document.getElementById("ipt_objetivo_pilates").value = dados[0].objetivo_pilates;
+                    document.getElementById("ipt_tempo_treino").value = dados[0].tempo_treino;
+                });
+            }
+        });
+    }
+
+    function atualizarPreferencias()
+    {
+        var generoMusicalVar = ipt_genero_musical.value;
+        var objetivoPilatesVar = ipt_objetivo_pilates.value;
+        var dataBruta = ipt_tempo_treino.value;
+
+        var dia = dataBruta[0] + dataBruta[1];
+        var mes = dataBruta[3] + dataBruta[4];
+        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9]
+
+        var tempoTreinoVar = ano + `-` + mes + `-` + dia;
+
+        var fkUsuario = sessionStorage.ID_USUARIO;
+
+        /*
+        // Verificando se há algum campo em branco
+        if (
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            confirmacaoSenhaVar == ""
+        ) {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para todos os campos em branco)";
+
+            finalizarAguardar();
+            return false;
+        } else {
+            //setInterval(sumirMensagem, 5000);
+        }*/
+
+        /*if (nomeVar.length < 1 ||
+            (!emailVar.includes("@") || !emailVar.includes(".")) ||
+            senhaVar.length < 6 ||
+            confirmacaoSenhaVar != senhaVar)
+        {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para campos não preenchidos corretamente)";
+
+            //finalizarAguardar();
+            return false;
+        }
+
+        else
+        {
+            //setInterval(sumirMensagem, 5000);
+        }*/
+
+        // Enviando o valor da nova input
+        fetch("/preferencia/atualizar-preferencias/",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                fkUsuarioServer: fkUsuario,
+                objetivoPilatesServer: objetivoPilatesVar,
+                tempoTreinoServer: tempoTreinoVar,
+                generoMusicalServer: generoMusicalVar
+            }),
+        })
+            .then(function (resposta)
+            {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok)
+                {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                    setTimeout(() => {
+                        //window.location = "inicio.html";
+                        alert('OIIIIIJIJIJJIJ')
+                    }, "2000");
+
+                    //limparFormulario();
+                    //finalizarAguardar();
+                }
+                
+                else
+                {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta)
+            {
+                console.log(`#ERRO: ${resposta}`);
+                //finalizarAguardar();
+            });
+
+        return false;
+    }
+
 
 </script>

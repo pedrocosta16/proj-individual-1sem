@@ -46,7 +46,10 @@
 
         <div class="campo">
             <p>Senha:</p>
-            <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+            <div id="div_olho" class="div_olho">
+                <input type="password" id="ipt_senha_user" placeholder="Digite sua senha">
+                <img id="olho" onclick="verSenha()" class="olho-visivel" src="assets/icons/not-visible.png" alt="">
+            </div>
         </div>
 
         <div class="campo">
@@ -56,7 +59,7 @@
         <p>Não possui conta? <a href="cadastro.html">Cadastre-se aqui!</a></p>
 
         <div id="div_aguardar" class="loading-div">
-            <img src="assets/icons/ocircle-loading.gif" id="loading-gif">
+            <img src="assets/icons/loading.gif" id="loading-gif">
         </div>
 
         <div class="erro" id="div_erros_login"></div>

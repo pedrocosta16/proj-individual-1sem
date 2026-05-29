@@ -45,3 +45,25 @@ function finalizarAguardar(texto)
         divErrosLogin.innerHTML = texto;
     }
 }
+
+function verSenha()
+{
+    let senha = document.getElementById('ipt_senha_user');
+    let conf_senha = document.getElementById('ipt_conf_senha_user'); // quando houver na página
+
+    if (senha.type == 'password')
+    {
+        document.getElementById('olho').src = `assets/icons/visible.png`;
+
+        senha.type = 'text';
+        conf_senha.type = 'text';
+    }
+
+    else
+    {
+        document.getElementById('olho').src = `assets/icons/not-visible.png`;
+
+        senha.type = 'password';
+        conf_senha.type = 'password';
+    }
+}

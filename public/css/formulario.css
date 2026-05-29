@@ -1,3 +1,8 @@
+button
+{
+    cursor: pointer; /* 'Maozinha' do mouse aparece, inidica que é clicável*/
+}
+
 .form
 {
     display: flex; /* Alinhar elementos horizontalmente*/
@@ -6,6 +11,7 @@
     padding: 10px 100px; /* Espaçamento interno -> 10px cima e baixo | 100px laterais*/
     gap: 35px; /* Espaço entre os elementos*/
     color: #1d2221; /* Cor do texto*/
+    margin-bottom: 60px;
 }
 
 .form h1
@@ -35,6 +41,7 @@
     border-radius: 14px; /* Arredonda os cantos*/
     border: 1px solid #1d2221; /* Borda do input*/
     font-family: 'Inter', sans-serif; /* Fonte padrão do site*/
+    
 }
 
 .campo select
@@ -75,7 +82,30 @@
 {
     width: 50px; /* Largura*/
     height: 50px; /* Altura*/
-}   
+}
+
+
+
+
+.div_olho
+{
+    position: relative;
+}
+
+.div_olho input
+{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.olho-visivel
+{
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+}
+
 
 .escondido
 {
