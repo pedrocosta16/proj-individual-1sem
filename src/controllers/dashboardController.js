@@ -1,119 +1,212 @@
+// Importando o dashboardModel
 var dashboardModel = require("../models/dashboardModel");
 
+
+// KPI: última pontuação do usuário
 function kpiPontuacaoAtual(req, res)
 {
+  // id do usuário vindo da URL
   var fkUsuario = req.params.fkUsuario;
 
-  dashboardModel.kpiPontuacaoAtual(fkUsuario).then((resultado) =>
+  // busca no banco a última pontuação
+  dashboardModel.kpiPontuacaoAtual(fkUsuario).then(function (resultado)
   {
-    res.status(200).json(resultado);
-  });
-}
-
-function kpiEvolucao(req, res)
-{
-  var fkUsuario = req.params.fkUsuario;
-
-  dashboardModel.kpiEvolucao(fkUsuario).then((resultado) =>
-  {
-    var evolucao = resultado[0].evolucao;
-
-    if (evolucao === 0)
-    {
-      res.status(200).json({ evolucao: null, mensagem: "Faça mais quizzes!" });
+    // Verifica se algum registro foi encontrado
+    if (resultado.length > 0)
+      {
+      // Retorna os dados encontrados em JSON
+      res.status(200).json(resultado);
+      console.log(resultado);
     }
-    
+
     else
     {
-      res.status(200).json({ evolucao: evolucao, mensagem: null });
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
+  });
+}
+
+
+
+
+// KPI: evolução entre ultimo e 1º quiz
+function kpiEvolucao(req, res)
+{
+  // id do usuário
+  var fkUsuario = req.params.fkUsuario;
+
+  // consulta evolução no model
+  dashboardModel.kpiEvolucao(fkUsuario).then(function (resultado)
+  {
+    // valor do SQL
+    var evolucao = resultado[0].evolucao;
+
+    // tratando caso sem evolução
+    if (evolucao === 0)
+    {
+      res.status(200).json({
+        evolucao: null,
+        mensagem: "Faça mais quizzes!"
+      });
+    }
+
+    else
+    {
+      res.status(200).json({
+        evolucao: evolucao,
+        mensagem: null
+      });
     }
 
   });
 }
 
+
+
+
+// KPI: posição no ranking
 function kpiRanking(req, res)
 {
   var fkUsuario = req.params.fkUsuario;
 
-  dashboardModel.kpiRanking(fkUsuario).then((resultado) =>
+  // busca posição no ranking
+  dashboardModel.kpiRanking(fkUsuario).then(function (resultado)
   {
-    res.status(200).json(resultado);
+    // Verifica se algum registro foi encontrado
+    if (resultado.length > 0)
+    {
+      // Retorna os dados encontrados em JSON
+      res.status(200).json(resultado);
+      console.log(resultado);
+    }
+
+    else
+    {
+      // Consulta feita, mas sem dados encontrados
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
   });
 }
 
+
+
+
+// KPI: total de quizzes feitos
 function kpiQuizzesFeitos(req, res)
 {
   var fkUsuario = req.params.fkUsuario;
 
-  dashboardModel.kpiQuizzesFeitos(fkUsuario).then((resultado) =>
+  // conta quizzes do usuário
+  dashboardModel.kpiQuizzesFeitos(fkUsuario).then(function (resultado)
   {
-    res.status(200).json(resultado);
+    // Verifica se algum registro foi encontrado
+    if (resultado.length > 0)
+      {
+      // Retorna os dados encontrados em JSON
+      res.status(200).json(resultado);
+      console.log(resultado);
+    }
+
+    else
+    {
+      // Consulta feita, mas sem dados encontrados
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
   });
 }
 
-function graficoEvolucaoQuiz(req, res) {
 
-    const limite_linhas = 10;
 
-    var fkUsuario = req.params.fkUsuario;
 
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+// Gráfico: evolução dos quizzes
+function graficoEvolucaoQuiz(req, res)
+{
+  const limite_linhas = 10;
 
-    dashboardModel.graficoEvolucaoQuiz(fkUsuario, limite_linhas).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
+  var fkUsuario = req.params.fkUsuario;
 
-function graficoObjetivos(req, res) {
+  // busca 10 últimos quizzes
+  dashboardModel.graficoEvolucaoQuiz(fkUsuario, limite_linhas).then(function (resultado)
+  {
+    if (resultado.length > 0)
+    {
+      res.status(200).json(resultado);
+    }
 
-    console.log(`Recuperando as ultimas medidas`);
+    else
+    {
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
 
-    dashboardModel.graficoObjetivos().then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function graficoGeneroMusical(req, res) {
-
-    console.log(`Recuperando as ultimas medidas`);
-
-    dashboardModel.graficoGeneroMusical().then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
+  }).catch(function (erro)
+  {
+    console.log(erro);
+    console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
 
 
 
 
+// Gráfico: média por objetivo
+function graficoObjetivos(req, res)
+{
+  dashboardModel.graficoObjetivos().then(function (resultado)
+  {
+    if (resultado.length > 0)
+    {
+      res.status(200).json(resultado);
+    }
+    
+    else
+    {
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
+  }).catch(function (erro)
+  {
+    console.log(erro);
+    console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+
+
+
+// Gráfico: média por gênero musical
+function graficoGeneroMusical(req, res)
+{
+  dashboardModel.graficoGeneroMusical().then(function (resultado)
+  {
+    if (resultado.length > 0)
+    {
+      res.status(200).json(resultado);
+    }
+    
+    else
+    {
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
+  }).catch(function (erro)
+  {
+    console.log(erro);
+    console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+
+
+
+// Exportando as funções do controller
+// Outros arquivos podem usar essas funções
 module.exports = {
   kpiPontuacaoAtual,
   kpiEvolucao,
   kpiRanking,
   kpiQuizzesFeitos,
+
   graficoEvolucaoQuiz,
   graficoObjetivos,
   graficoGeneroMusical

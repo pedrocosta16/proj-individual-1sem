@@ -56,10 +56,6 @@
             <button onclick="atualizarUsuario()">Atualizar Dados</button>
         </div>
 
-        <div class="erro" id="cardErro" style="display: none; color: red; margin-top: 10px;">
-            <p id="mensagem_erro"></p>
-        </div>
-
     </div>
 
     <div class="form">
@@ -154,109 +150,84 @@
 
         console.log(nomeVar, emailVar, senhaVar, confirmacaoSenhaVar);
 
-        var campos =
-        [
-            {valor: nomeVar, mensagem: "O campo NOME está vazio!"},
-            {valor: nascimentoVar, mensagem: "O campo NASCIMENTO está vazio!"},
-            {valor: emailVar, mensagem: "O campo EMAIL está vazio!"},
-            {valor: senhaVar, mensagem: "O campo SENHA está vazio!"},
-            {valor: confirmacaoSenhaVar, mensagem: "O campo CONFIRME A SENHA está vazio!"}
-        ];
-
-        for (var i = 0; i < campos.length; i++)
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "")
         {
-            if (campos[i].valor == "")
-            {
-                cardErro.style.display = "block";
-                mensagem_erro.innerHTML = campos[i].mensagem;
-                
-                return false;
-            }
-        }
-        /*
-        // Verificando se há algum campo em branco
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            confirmacaoSenhaVar == ""
-        ) {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
-
-            finalizarAguardar();
+            alert(`Verifique campos em branco`);
             return false;
-        } else {
-            //setInterval(sumirMensagem, 5000);
-        }*/
+        }
 
-        if (nomeVar.length < 1 ||
-            (!emailVar.includes("@") || !emailVar.includes(".")) ||
-            senhaVar.length < 6 ||
-            confirmacaoSenhaVar != senhaVar)
+        else if (nomeVar.length < 3)
         {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para campos não preenchidos corretamente)";
+            alert(`Seu nome deve ter mais de 1 caractere`);
+            return false;
+        }
 
-            //finalizarAguardar();
+        else if (!dataBruta.includes('/'))
+        {
+            alert(`Certifique-se que sua data de nascimento está seguindo esse formato: DD/MM/AAAA`);
+            return false;
+        }
+
+        else if (!emailVar.includes("@") || !emailVar.includes(".com"))
+        {
+            alert(`Certifique-se que seu e-mail contenha "@" e ".com"`);
+            return false;
+        }
+
+        else if (senhaVar.length < 5)
+        {
+            alert(`Sua senha deve conter mais de 5 caracteres`);
+            return false;
+        }
+
+        else if (confirmacaoSenhaVar != senhaVar)
+        {
+            alert(`Sua senha não está igual`)
             return false;
         }
 
         else
         {
-            //setInterval(sumirMensagem, 5000);
-        }
-
-        // Enviando o valor da nova input
-        fetch("/usuario/atualizar-usuario",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                fkUsuarioServer: fkUsuario,
-                nomeServer: nomeVar,
-                dtNascServer: nascimentoVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            }),
-        })
-            .then(function (resposta)
+            // Enviando o valor da nova input
+            fetch("/usuario/atualizar-usuario",
             {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok)
-                {
-                    cardErro.style.display = "block";
-
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                    setTimeout(() => {
-                        window.location = "inicio.html";
-                    }, "2000");
-
-                    //limparFormulario();
-                    //finalizarAguardar();
-                }
-                
-                else
-                {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fkUsuarioServer: fkUsuario,
+                    nomeServer: nomeVar,
+                    dtNascServer: nascimentoVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar
+                }),
             })
-            .catch(function (resposta)
-            {
-                console.log(`#ERRO: ${resposta}`);
-                //finalizarAguardar();
-            });
+                .then(function (resposta)
+                {
+                    console.log("resposta: ", resposta);
 
-        return false;
+                    if (resposta.ok)
+                    {
+                        alert("Dados alterados com sucesso!");
+
+                        setTimeout(() => {
+                            window.location = "inicio.html";
+                        }, 1000);
+                    }
+                    
+                    else
+                    {
+                        throw alert("Houve um erro ao tentar alterar seus dados!");
+                    }
+                })
+                .catch(function (resposta)
+                {
+                    alert(`#ERRO: ${resposta}`);
+                });
+
+            return false;
+        }
     }
 
     function visualizarPreferencias() 
@@ -292,91 +263,67 @@
 
         var fkUsuario = sessionStorage.ID_USUARIO;
 
-        /*
-        // Verificando se há algum campo em branco
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            confirmacaoSenhaVar == ""
-        ) {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
-
-            finalizarAguardar();
-            return false;
-        } else {
-            //setInterval(sumirMensagem, 5000);
-        }*/
-
-        /*if (nomeVar.length < 1 ||
-            (!emailVar.includes("@") || !emailVar.includes(".")) ||
-            senhaVar.length < 6 ||
-            confirmacaoSenhaVar != senhaVar)
+        if (generoMusicalVar == '')
         {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para campos não preenchidos corretamente)";
+            alert("Selecione um gênero musical");
+            return false;
+        }
 
-            //finalizarAguardar();
+        else if (objetivoPilatesVar == '')
+        {
+            alert("Selecione um objetivo");
+            return false;
+        }
+
+        else if (!dataBruta.includes('/'))
+        {
+            alert(`Certifique-se que sua data está seguindo esse formato: DD/MM/AAAA`);
             return false;
         }
 
         else
         {
-            //setInterval(sumirMensagem, 5000);
-        }*/
-
-        // Enviando o valor da nova input
-        fetch("/preferencia/atualizar-preferencias/",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                fkUsuarioServer: fkUsuario,
-                objetivoPilatesServer: objetivoPilatesVar,
-                tempoTreinoServer: tempoTreinoVar,
-                generoMusicalServer: generoMusicalVar
-            }),
-        })
-            .then(function (resposta)
+            // Enviando o valor da nova input
+            fetch("/preferencia/atualizar-preferencias/",
             {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok)
-                {
-                    cardErro.style.display = "block";
-
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                    setTimeout(() => {
-                        //window.location = "inicio.html";
-                        alert('OIIIIIJIJIJJIJ')
-                    }, "2000");
-
-                    //limparFormulario();
-                    //finalizarAguardar();
-                }
-                
-                else
-                {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    fkUsuarioServer: fkUsuario,
+                    objetivoPilatesServer: objetivoPilatesVar,
+                    tempoTreinoServer: tempoTreinoVar,
+                    generoMusicalServer: generoMusicalVar
+                }),
             })
-            .catch(function (resposta)
-            {
-                console.log(`#ERRO: ${resposta}`);
-                //finalizarAguardar();
-            });
+                .then(function (resposta)
+                {
+                    console.log("resposta: ", resposta);
 
-        return false;
+                    if (resposta.ok)
+                    {
+                        alert("Preferências atualizadas com sucesso!")
+
+                        setTimeout(() => {
+                            window.location = "inicio.html";
+                        }, 1000);
+                    }
+                    
+                    else
+                    {
+                        throw alert("Houve um erro ao tentar alterar seus dados!");
+                    }
+                })
+                .catch(function (resposta)
+                {
+                    alert(`#ERRO: ${resposta}`);
+                });
+
+            return false;
+        }
     }
-
 
 </script>

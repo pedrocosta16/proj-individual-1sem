@@ -62,22 +62,6 @@ router.get("/visualizar-usuario/:fkUsuario", function (req, res)
 
 
 
-// Rota POST para atualizar os dados de um usuário
-// POST para enviar dados ao servidor
-router.post("/atualizar-usuario", function (req, res)
-{
-    // Chamando a função atualizarUsuario do usuarioController.js
-
-    // req -> requisição: Possui todas as informações da requisição
-    // res -> resposta: Retornar uma resposta pro usuario
-
-    // Direcionando a requisição pro controller responsavel
-    usuarioController.atualizarUsuario(req, res);
-})
-
-
-
-
 // Exportando o router
-// Permite utilizar essas rotas em outras partes do projeto
+// Outros arquivos podem usar essas funções
 module.exports = router;

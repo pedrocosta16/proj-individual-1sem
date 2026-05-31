@@ -54,10 +54,6 @@
             <button onclick="cadastrarPreferencias()">Salvar Preferências</button>
         </div>
 
-        <div class="erro" id="cardErro" style="display: none; color: red; margin-top: 10px;">
-            <p id="mensagem_erro"></p>
-        </div>
-
     </div>
 
     
@@ -68,8 +64,6 @@
 
     function cadastrarPreferencias()
     {
-        // aguardar();
-
         var generoMusicalVar = ipt_genero_musical.value;
         var objetivoPilatesVar = ipt_objetivo_pilates.value;
         var dataBruta = ipt_tempo_treino.value;
@@ -82,91 +76,69 @@
 
         var fkUsuario = sessionStorage.ID_USUARIO;
 
-        /*
-        // Verificando se há algum campo em branco
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            confirmacaoSenhaVar == ""
-        ) {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
-
-            finalizarAguardar();
-            return false;
-        } else {
-            //setInterval(sumirMensagem, 5000);
-        }*/
-        /*
-        if (nomeVar.length < 1 ||
-            (!emailVar.includes("@") || !emailVar.includes(".")) ||
-            senhaVar.length < 6 ||
-            confirmacaoSenhaVar != senhaVar)
+        if (generoMusicalVar == '')
         {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para campos não preenchidos corretamente)";
+            alert("Selecione um gênero musical");
+            return false;
+        }
 
-            //finalizarAguardar();
+        else if (objetivoPilatesVar == '')
+        {
+            alert("Selecione um objetivo");
+            return false;
+        }
+
+        else if (!dataBruta.includes('/'))
+        {
+            alert(`Certifique-se que sua data está seguindo esse formato: DD/MM/AAAA`);
             return false;
         }
 
         else
         {
-            //setInterval(sumirMensagem, 5000);
-        }*/
-
-        // Enviando o valor da nova input
-        fetch("/preferencia/cadastrar-preferencias",
-        {
-            method: "POST",
-            headers:
+            // Enviando o valor da nova input
+            fetch("/preferencia/cadastrar-preferencias",
             {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                generoMusicalServer: generoMusicalVar,
-                objetivoPilatesServer: objetivoPilatesVar,
-                tempoTreinoServer: tempoTreinoVar,
-                fkUsuarioServer: fkUsuario
-            }),
-        })
-            .then(function (resposta)
-            {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok)
+                method: "POST",
+                headers:
                 {
-                    cardErro.style.display = "block";
-
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                    setTimeout(() => {
-                        window.location = "inicio.html";
-                    }, "2000");
-
-                    //limparFormulario();
-                    //finalizarAguardar();
-                }
-                
-                else
-                {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    generoMusicalServer: generoMusicalVar,
+                    objetivoPilatesServer: objetivoPilatesVar,
+                    tempoTreinoServer: tempoTreinoVar,
+                    fkUsuarioServer: fkUsuario
+                }),
             })
-            .catch(function (resposta)
-            {
-                console.log(`#ERRO: ${resposta}`);
-                //finalizarAguardar();
-            });
+                .then(function (resposta)
+                {
+                    console.log("resposta: ", resposta);
 
-        return false;
+                    if (resposta.ok)
+                    {
+                        alert("Preferências cadastradas com sucesso!");
+                        alert("Saia e entre na sua conta novamente para os dados serem exibidos corretamente!")
+
+                        setTimeout(() => {
+                            window.location = "inicio.html";
+                        }, 1000);
+                    }
+                    
+                    else
+                    {
+                        throw alert("Houve um erro ao tentar realizar o cadastro!");
+                    }
+                })
+                .catch(function (resposta)
+                {
+                    alert(`#ERRO: ${resposta}`);
+                });
+
+            return false;
+        }
     }
-
 
 </script>
