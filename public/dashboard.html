@@ -115,15 +115,30 @@
 
 <script>
 
+    // Define fonte padrão dos gráficos da biblioteca Chart.js
     Chart.defaults.font.family = 'Inter';
+
+    // pega o id do usuário logado salvo no sessionStorage
+    var fkUsuario = sessionStorage.ID_USUARIO;
     
     // KPIS
     function kpiPontuacaoAtual()
     {
-        var fkUsuario = sessionStorage.ID_USUARIO;
+        // elemento que vai aparecer a pontuação
         var idPontuacao = document.getElementById("id_pontuacao_atual");
+
+        // elemento que mostra nível com base na pontuação
         var alerta = document.getElementById("alerta-kpi_1");
 
+        // Busca a pontuação atual do usuário no backend
+
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`dashboard/kpi-pontuacao-atual/${fkUsuario}`)
         .then(function (resposta)
         {
@@ -131,14 +146,17 @@
             {
                 resposta.json().then(function (dados)
                 {
+                    // exibe pontuação atual na tela
                     idPontuacao.innerHTML = `${dados[0].pontuacao_quiz}pts de 100pts`;
 
+                    // verde: desempenho alto
                     if (dados[0].pontuacao_quiz >= 90)
                     {
                         alerta.innerHTML = "nivel avançado";
                         alerta.style.backgroundColor = "#177917";
                     }
 
+                    // amarelo: médio desempenho
                     else if (dados[0].pontuacao_quiz >= 60)
                     {
                         alerta.innerHTML = "nivel intermediário";
@@ -146,6 +164,7 @@
                         alerta.style.color = `#707070`
                     }
 
+                    // vermelho: baixo desempenho
                     else
                     {
                         alerta.innerHTML = "nivel iniciante";
@@ -158,10 +177,21 @@
 
     function kpiEvolucao()
     {
-        var fkUsuario = sessionStorage.ID_USUARIO;
-        var idEvolucao = document.getElementById("id_evolucao");
-        var alerta = document.getElementById("alerta-kpi_2");
+        // elemento que vai aparecer a evolução
+        var idEvolucao = document.getElementById("id_evolucao"); 
 
+        // variavel que mostra nível com base na evolução
+        var alerta = document.getElementById("alerta-kpi_2"); 
+
+        // Busca a evolução do usuário (último quiz - primeiro quiz) no backend
+
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`dashboard/kpi-evolucao/${fkUsuario}`)
         .then(function (resposta)
         {
@@ -169,6 +199,7 @@
             {
                 resposta.json().then(function (dados)
                 {
+                    // Sem dados suficientes: usuário fez menos de 2 quizzes
                     if (dados.evolucao === null)
                     {
                         idEvolucao.innerHTML = dados.mensagem;
@@ -176,6 +207,7 @@
                         alerta.style.backgroundColor = "#555";
                     }
                     
+                    // verde: desempenho alto
                     else if (dados.evolucao > 0)
                     {
                         idEvolucao.innerHTML = "+" + dados.evolucao + " pts";
@@ -183,6 +215,7 @@
                         alerta.style.backgroundColor = "#177917";
                     }
 
+                    // amarelo: médio desempenho
                     else
                     {
                         idEvolucao.innerHTML = dados.evolucao + " pts";
@@ -198,10 +231,18 @@
 
     function kpiRanking()
     {
-        var fkUsuario = sessionStorage.ID_USUARIO;
-        var idRanking = document.getElementById("id_ranking");
-        var alerta = document.getElementById("alerta-kpi_3");
+        var idRanking = document.getElementById("id_ranking"); // elemento que vai aparecer o ranking
+        var alerta = document.getElementById("alerta-kpi_3"); // elemento que mostra nível com base na pontuação
 
+        // chama backend para buscar a posição do usuário no ranking
+
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`dashboard/kpi-ranking/${fkUsuario}`)
         .then(function (resposta)
         {
@@ -209,20 +250,24 @@
             {
                 resposta.json().then(function (dados)
                 {
-                    idRanking.innerHTML = dados[0].posicao + 'º lugar';
+                    // busca posição do usuário no ranking
+                    idRanking.innerHTML = dados[0].posicao + 'º lugar'; 
 
+                    // topo do ranking
                     if (dados[0].posicao == 1)
                     {
                         alerta.innerHTML = "invencível!";
                         alerta.style.backgroundColor = "#177917";
                     }
 
+                    // top 3
                     else if (dados[0].posicao <= 3)
                     {
                         alerta.innerHTML = "você está no pódio";
                         alerta.style.backgroundColor = "#3b82f6";
                     }
 
+                    // top 10
                     else if (dados[0].posicao <= 10)
                     {
                         alerta.innerHTML = "ótimo desempenho";
@@ -230,6 +275,7 @@
                         alerta.style.color = `#707070`
                     }
 
+                    // fora do topo
                     else
                     {
                         alerta.innerHTML = "continue praticando";
@@ -242,10 +288,18 @@
 
     function kpiQuizzesFeitos()
     {
-        var fkUsuario = sessionStorage.ID_USUARIO;
-        var idQuizzes = document.getElementById("id_qtd_quizzes");
-        var alerta = document.getElementById("alerta-kpi_4");
+        var idQuizzes = document.getElementById("id_qtd_quizzes"); // elemento que vai aparecer o ranking
+        var alerta = document.getElementById("alerta-kpi_4"); // elemento que mostra nível com base na quantidade de quizzes
 
+        // Busca a quantidade total de quizzes realizados pelo usuário
+
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`dashboard/kpi-quizzes-feitos/${fkUsuario}`)
         .then(function (resposta)
         {
@@ -253,24 +307,24 @@
             {
                 resposta.json().then(function (dados)
                 {
-                    idQuizzes.innerHTML = dados[0].qtd_quiz;
+                    idQuizzes.innerHTML = dados[0].qtd_quiz; // Exibe a quantidade de quizzes
 
                     if (dados[0].qtd_quiz <= 5)
                     {
-                        alerta.innerHTML = "iniciante promissor";
+                        alerta.innerHTML = "iniciante";
                         alerta.style.backgroundColor = "#f52a2a";
                     }
 
                     else if (dados[0].qtd_quiz <= 15)
                     {
-                        alerta.innerHTML = "amador habilidoso";
+                        alerta.innerHTML = "amador";
                         alerta.style.backgroundColor = "#ffde59";
                         alerta.style.color = `#707070`
                     }
 
                     else if (dados[0].qtd_quiz <= 30)
                     {
-                        alerta.innerHTML = "gênio dos quizzes";
+                        alerta.innerHTML = "gênio";
                         alerta.style.backgroundColor = "#3b82f6";
                     }
 
@@ -287,8 +341,6 @@
 
     
 
-    // BRINCADIERA GRAFICOS  
-
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
     // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
@@ -298,22 +350,31 @@
     // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
     // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
 
-    // Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    // Para ajustar o "select", ajuste o comando sql em src/models
-    //obterDadosGrafico('nommeGraficografico')
-    //obterDadosGrafico(grafico)
 
-    var fkUsuario = sessionStorage.ID_USUARIO;
 
+
+    // GRÁFICO: EVOLUÇÃO DO QUIZ
+
+    // Fluxo: obterDadosGraficoEvolucaoQuiz -> plotarGraficoEvolucaoQuiz
     function obterDadosGraficoEvolucaoQuiz(grafico)
     {
+        // Reseta o timer de atualização automática
         proximaAtualizacao = null;
 
+        // cancela atualização anterior do gráfico
         if (proximaAtualizacao != undefined)
         {
             clearTimeout(proximaAtualizacao);
         }
 
+        // Busca os dados de evolução do usuário (cache desativado para sempre trazer dados recentes)
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`/dashboard/grafico-evolucao-quiz/${fkUsuario}`,
         {
             cache: 'no-store'
@@ -324,8 +385,11 @@
                 response.json().then(function (resposta)
                 {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    // Inverte a ordem para exibição cronológica (do mais antigo pro mais recente)
                     resposta.reverse();
 
+                    // Repassa os dados para a função que monta o gráfico
                     plotarGraficoEvolucaoQuiz(resposta, grafico, fkUsuario);
                 });
             }
@@ -345,11 +409,10 @@
     {
         console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
+        // Eixo X: rótulos de cada tentativa ("1º Quiz" etc)
         let labels = [];
-        let pontuacoes = [];
 
-        // Criando estrutura para plotar gráfico - dados
+        // Estrutura de dados do Chart.js para o gráfico de linha
         let dados = {
             labels: labels,
 
@@ -366,14 +429,14 @@
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        // Percorre os registros e popula labels e dados do gráfico
         for (let i = 0; i < resposta.length; i++)
         {
             let registro = resposta[i];
 
-            labels.push(`${i + 1}º Quiz`);
+            labels.push(`${i + 1}º Quiz`); // Rótulo do eixo X
 
-            dados.datasets[0].data.push(registro.pontuacao_quiz);
+            dados.datasets[0].data.push(registro.pontuacao_quiz); // Pontuação no eixo Y
         }
 
         console.log('----------------------------------------------')
@@ -384,7 +447,7 @@
         console.log(dados.datasets)
         console.log('----------------------------------------------')
 
-        // Criando estrutura para plotar gráfico - config
+        // Configuração completa do gráfico de linha
         const config =
         {
             type: 'line',
@@ -435,7 +498,7 @@
             }   
         };
 
-        // Adicionando gráfico criado em div na tela
+        // Renderiza o gráfico no elemento
         let myChart = new Chart(
             document.getElementById(`id_grafico_linhas`),
             config
@@ -445,9 +508,10 @@
 
     
 
-
+    // GRÁFICO: OBJETIVOS
     function obterDadosGraficoObjetivos(grafico)
     {
+        // Reseta e cancela qualquer atualização automática pendente
         proximaAtualizacao = null;
 
         if (proximaAtualizacao != undefined)
@@ -455,6 +519,14 @@
             clearTimeout(proximaAtualizacao);
         }
 
+        // Busca pontuação média por objetivo (sem cache)
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`/dashboard/grafico-objetivos/`,
         {
             cache: 'no-store'
@@ -486,18 +558,22 @@
     {
         console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
+        // Categorias fixas de objetivos
         let labels = ['Qualidade de Vida', 'Reabilitação', 'Fortalecimento', 'Postura', 'Flexibilidade'];
-        let pontuacoes = [];
+        
+        // Vetor de cores vazio
         let cores = [];
 
-        // Atribuir uma nova cor a depender do objetivo escolhido pelo usuario
+        // Objetivo selecionado pelo user, salvo no sessionStorage
+        var objetivoUsuario = sessionStorage.OBJETIVO_USUARIO;
+
+        // Destaca a barra do objetivo do usuário com cor mais forte, outras ficam mais fracas
         for (let i = 0; i < labels.length; i++)
         {
             console.log('entrei no vetor');
-
-            var objetivoUsuario = sessionStorage.OBJETIVO_USUARIO;
             
+            // se a label que ele ta percorrendo for igual ao objetivo do usuario guardado em session,
+            // adiciona uma cor ao vetor de cores
             if (labels[i] == objetivoUsuario)
             {
                 console.log('achei o objetivo do usuario:', labels[i]);
@@ -505,6 +581,8 @@
                 cores.push('rgba(217, 140, 95, 0.9)');
             }
 
+            // se a label que ele ta percorrendo nao for igual o objetivo armazenado,
+            // adiciona uma outra cor ao vetor
             else
             {
                 console.log('outra cor');
@@ -513,7 +591,7 @@
             }
         }
         
-        // Criando estrutura para plotar gráfico - dados
+        // Estrutura de dados do Chart.js para o gráfico de barras horizontais
         let dados = {
             labels: labels,
 
@@ -526,6 +604,7 @@
                 borderWidth: 2
             },
             {
+                // Dataset visual para legenda "Sua faixa"
                 label: 'Sua faixa',
                 backgroundColor: 'rgba(217, 140, 95, 0.9)',
                 borderColor: '#d98c5f',
@@ -538,15 +617,13 @@
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        // Popula as pontuações médias por objetivo
         for (let i = 0; i < resposta.length; i++)
         {
             let registro = resposta[i];
 
             dados.datasets[0].data.push(registro.media_quiz);
         }
-
-
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -555,8 +632,8 @@
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
-        //console.log(cores);
-        // Criando estrutura para plotar gráfico - config
+        
+        // Configuração do gráfico de barras horizontais
         const config =
         {
             type: 'bar',
@@ -564,7 +641,7 @@
 
             options:
             {
-                indexAxis: 'y',
+                indexAxis: 'y', // Barras na horizontal
                 responsive: true,
                 maintainAspectRatio: false,
 
@@ -608,20 +685,20 @@
             }   
         };
 
-        // Adicionando gráfico criado em div na tela
+        // Renderiza o gráfico no elemento
         let myChart = new Chart(
             document.getElementById(`id_grafico_barras_deitadas`),
             config
         );
-
-        //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
     }
 
 
 
 
+    // GRÁFICO: GÊNERO MUSICAL
     function obterDadosGraficoGeneroMusical(grafico)
     {
+        // Reseta e cancela qualquer atualização automática pendente
         proximaAtualizacao = null;
 
         if (proximaAtualizacao != undefined)
@@ -629,6 +706,14 @@
             clearTimeout(proximaAtualizacao);
         }
 
+        // Busca pontuação média por gênero musical (sem cache)
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`/dashboard/grafico-genero-musical/`,
         {
             cache: 'no-store'
@@ -660,23 +745,25 @@
     {
         console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
+        // Categorias fixas de gêneros musicais
         let labels = ['MPB', 'Funk', 'Sertanejo', 'Hip Hop', 'Reggae', 'Pop', 'Rock'];
-        let pontuacoes = [];
+
+        // Vetor de cores vazio
         let cores = [];
 
-        // Atribuir uma nova cor a depender do objetivo escolhido pelo usuario
+        // Gênero musical preferido do usuário, salvo no sessionStorage
+        var generoMusicalUsuario = sessionStorage.GENERO_USUARIO;
+
+        // Destaca a barra do gênero do usuário com cor mais forte, outras ficam mais fracas
         for (let i = 0; i < labels.length; i++)
         {
             console.log('entrei no vetor');
-
-            var generoMusicalUsuario = sessionStorage.GENERO_USUARIO;
             
             if (labels[i] == generoMusicalUsuario)
             {
                 console.log('achei o objetivo do usuario:', labels[i]);
                 
-                cores.push('rgba(145, 106, 153, 0.7)');
+                cores.push('rgba(145, 106, 153, 0.7)'); // Destaque: gênero do usuário
             }
 
             else
@@ -687,7 +774,7 @@
             }
         }
 
-        // Criando estrutura para plotar gráfico - dados
+        // Estrutura de dados do Chart.js para o gráfico de barras verticais
         let dados = {
             labels: labels,
 
@@ -700,6 +787,7 @@
                 borderWidth: 2
             },
             {
+                // Dataset visual para legenda "Sua faixa"
                 label: 'Sua faixa',
                 data: [],
                 backgroundColor: 'rgba(145, 106, 153, 0.7)',
@@ -713,7 +801,7 @@
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        // Popula as pontuações médias por gênero musical
         for (let i = 0; i < resposta.length; i++)
         {
             let registro = resposta[i];
@@ -729,7 +817,7 @@
         console.log(dados.datasets)
         console.log('----------------------------------------------')
 
-        // Criando estrutura para plotar gráfico - config
+        // Configuração do gráfico de barras verticais
         const config =
         {
             type: 'bar',
@@ -780,13 +868,11 @@
             }   
         };
 
-        // Adicionando gráfico criado em div na tela
+        // Renderiza o gráfico no elemento
         let myChart = new Chart(
             document.getElementById(`id_grafico_barras`),
             config
         );
-
-        //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
     }
 
     

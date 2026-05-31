@@ -108,19 +108,31 @@
 
 <script>
     
-    
-
     function visualizarUsuario()
     {
+        // função que busca os dados do user logado no backend e preenche o form
+
+        // recupera o id do usuário armazenado na sessão (login)
         var fkUsuario = sessionStorage.ID_USUARIO;
 
+        // requisição GET para buscar dados do usuário pelo id
+
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`/usuario/visualizar-usuario/${fkUsuario}`) 
+
+        // trata a resposta do servidor
         .then(function (resposta)
         {
             if (resposta.ok)
             {
                 resposta.json().then(function (dados)
-                {  
+                {
                     document.getElementById("ipt_nome_user").value = dados[0].nome_usuario;
                     document.getElementById("ipt_nascimento_user").value = dados[0].dt_nasc_usuario;
                     document.getElementById("ipt_email_user").value = dados[0].email_usuario;
@@ -133,6 +145,9 @@
 
     function atualizarUsuario()
     {
+        // função responsável por validar e atualizar dados do usuário no backend
+
+        // id do usuário logado
         var fkUsuario = sessionStorage.ID_USUARIO;
 
         var nomeVar = ipt_nome_user.value;
@@ -188,29 +203,38 @@
 
         else
         {
-            // Enviando o valor da nova input
+            // envia dados atualizados para o backend
+
+            // Faz a requisição
+            // quando o servidor responder
+            // verifica se deu ok
+            // converte o conteúdo
+            // usa os dados
+            // se qualquer coisa der errado no caminho -> cai no catch
             fetch("/usuario/atualizar-usuario",
-            {
-                method: "POST",
+            { 
+                method: "POST", // método HTTP POST para atualização
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json", // define envio em JSON
                 },
                 body: JSON.stringify({
-                    fkUsuarioServer: fkUsuario,
-                    nomeServer: nomeVar,
-                    dtNascServer: nascimentoVar,
-                    emailServer: emailVar,
-                    senhaServer: senhaVar
+                    fkUsuarioServer: fkUsuario, // envia id do usuário
+                    nomeServer: nomeVar, // envia nome atualizado
+                    dtNascServer: nascimentoVar, // envia data formatada
+                    emailServer: emailVar, // envia email
+                    senhaServer: senhaVar // envia senha
                 }),
             })
+                // trata resposta do backend
                 .then(function (resposta)
                 {
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok)
                     {
-                        alert("Dados alterados com sucesso!");
+                        alert("Dados alterados com sucesso!"); // mensagem de sucesso
 
+                        // redireciona após 1s
                         setTimeout(() => {
                             window.location = "inicio.html";
                         }, 1000);
@@ -223,6 +247,7 @@
                 })
                 .catch(function (resposta)
                 {
+                    // erro caso backend falhe
                     alert(`#ERRO: ${resposta}`);
                 });
 
@@ -232,13 +257,28 @@
 
     function visualizarPreferencias() 
     {
+        // busca preferências do usuário e preenche inputs
+
+        // id do usuário logado
         var fkUsuario = sessionStorage.ID_USUARIO;
 
+        // requisição GET para buscar preferências
+
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o JSON
+        // usa os dados
+        // Se qualquer coisa der errado no caminho
+        // cai no catch
         fetch(`/preferencia/visualizar-preferencias/${fkUsuario}`)
+
+        // trata resposta do backend
         .then(function (resposta)
         {
             if (resposta.ok)
             {
+                // trata resposta do backend
                 resposta.json().then(function (dados)
                 {
                     document.getElementById("ipt_genero_musical").value = dados[0].genero_musical;
@@ -255,10 +295,11 @@
         var objetivoPilatesVar = ipt_objetivo_pilates.value;
         var dataBruta = ipt_tempo_treino.value;
 
-        var dia = dataBruta[0] + dataBruta[1];
-        var mes = dataBruta[3] + dataBruta[4];
-        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9]
+        var dia = dataBruta[0] + dataBruta[1]; // extrai o dia da string
+        var mes = dataBruta[3] + dataBruta[4]; // extrai o mes da string
+        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9] // extrai o ano da string
 
+        // reorganiza a data para formato AAAA-MM-DD (como deve ser pra inserir uma data no mysql)
         var tempoTreinoVar = ano + `-` + mes + `-` + dia;
 
         var fkUsuario = sessionStorage.ID_USUARIO;
@@ -283,16 +324,21 @@
 
         else
         {
-            // Enviando o valor da nova input
+            // envia atualização para backend
+
+            // Faz a requisição
+            // quando o servidor responder
+            // verifica se deu ok
+            // converte o conteúdo
+            // usa os dados
+            // se qualquer coisa der errado no caminho -> cai no catch
             fetch("/preferencia/atualizar-preferencias/",
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json", // define envio JSON
                 },
                 body: JSON.stringify({
-                    // crie um atributo que recebe o valor recuperado aqui
-                    // Agora vá para o arquivo routes/usuario.js
                     fkUsuarioServer: fkUsuario,
                     objetivoPilatesServer: objetivoPilatesVar,
                     tempoTreinoServer: tempoTreinoVar,
@@ -307,6 +353,7 @@
                     {
                         alert("Preferências atualizadas com sucesso!")
 
+                        // redireciona após 1s
                         setTimeout(() => {
                             window.location = "inicio.html";
                         }, 1000);

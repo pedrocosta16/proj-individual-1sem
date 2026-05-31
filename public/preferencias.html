@@ -64,64 +64,83 @@
 
     function cadastrarPreferencias()
     {
+        // função chamada ao enviar preferências do user
+
+        // captura valores do front
         var generoMusicalVar = ipt_genero_musical.value;
         var objetivoPilatesVar = ipt_objetivo_pilates.value;
         var dataBruta = ipt_tempo_treino.value;
 
-        var dia = dataBruta[0] + dataBruta[1];
-        var mes = dataBruta[3] + dataBruta[4];
-        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9]
+        var dia = dataBruta[0] + dataBruta[1]; // extrai o dia da string
+        var mes = dataBruta[3] + dataBruta[4]; // extrai o mes da string
+        var ano = dataBruta[6] + dataBruta[7] + dataBruta[8] + dataBruta[9] // extrai o ano da string
 
+        // reorganiza a data para formato AAAA-MM-DD (como deve ser pra inserir uma data no mysql)
         var tempoTreinoVar = ano + `-` + mes + `-` + dia;
 
+        // pega id do user logado salvo na sessão do navegador
         var fkUsuario = sessionStorage.ID_USUARIO;
 
+        // valida se gênero foi selecionado
         if (generoMusicalVar == '')
         {
             alert("Selecione um gênero musical");
             return false;
         }
 
+        // valida se objetivo foi selecionado
         else if (objetivoPilatesVar == '')
         {
             alert("Selecione um objetivo");
             return false;
         }
 
+        // valida a data digitada
         else if (!dataBruta.includes('/'))
         {
             alert(`Certifique-se que sua data está seguindo esse formato: DD/MM/AAAA`);
             return false;
         }
 
+        // envia dados para o backend caso validações passem
         else
         {
             // Enviando o valor da nova input
+
+            // Faz a requisição
+            // quando o servidor responder
+            // verifica se deu ok
+            // converte o conteúdo
+            // usa os dados
+            // se qualquer coisa der errado no caminho -> cai no catch
             fetch("/preferencia/cadastrar-preferencias",
             {
-                method: "POST",
+                method: "POST", // define método HTTP como POST para envio de dados
                 headers:
                 {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json", // informa que o corpo da requisição está em JSON
                 },
                 body: JSON.stringify({
-                    // crie um atributo que recebe o valor recuperado aqui
-                    // Agora vá para o arquivo routes/usuario.js
-                    generoMusicalServer: generoMusicalVar,
-                    objetivoPilatesServer: objetivoPilatesVar,
-                    tempoTreinoServer: tempoTreinoVar,
-                    fkUsuarioServer: fkUsuario
+                    // converte os dados JS para JSON para envio ao backend
+
+                    generoMusicalServer: generoMusicalVar, // envia gênero musical
+                    objetivoPilatesServer: objetivoPilatesVar, // envia objetivo do usuário
+                    tempoTreinoServer: tempoTreinoVar, // envia data formatada
+                    fkUsuarioServer: fkUsuario // envia fk do usuário logado
                 }),
             })
                 .then(function (resposta)
                 {
-                    console.log("resposta: ", resposta);
+                    // executa quando o backend responde
+
+                    console.log("resposta: ", resposta); // log da resposta do servidor
 
                     if (resposta.ok)
                     {
                         alert("Preferências cadastradas com sucesso!");
                         alert("Saia e entre na sua conta novamente para os dados serem exibidos corretamente!")
 
+                        // redireciona para página inicial após 1s
                         setTimeout(() => {
                             window.location = "inicio.html";
                         }, 1000);
@@ -129,11 +148,13 @@
                     
                     else
                     {
+                        // erro caso resposta não seja ok
                         throw alert("Houve um erro ao tentar realizar o cadastro!");
                     }
                 })
                 .catch(function (resposta)
                 {
+                    // captura erro no fetch
                     alert(`#ERRO: ${resposta}`);
                 });
 

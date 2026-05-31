@@ -85,6 +85,8 @@
 
 <script>
 
+    // Questões do quiz
+    // cada objeto representa uma questão com alternativas e resposta correta
     let questoes = [
         // 1
         {
@@ -178,23 +180,26 @@
         }
     ]
 
-    // variáveis globais    
+    // Variáveis globais
     let numero_da_questao_atual = 0;
     let pontuacao_final = 0;
-    let tentativa_incorreta = 0;
     let certas = 0;
     let erradas = 0;
     let qtd_questoes = questoes.length;
 
     function iniciarQuiz()
     {
+        // esconde tela inicial e mostra perguntas
         document.getElementById('form').classList.add('escondido');
         document.getElementById('perguntas').classList.remove('escondido');
 
+        // mostra quantidade total de questões
         document.getElementById('qtdQuestoes').innerHTML = qtd_questoes
 
+        // carrega primeira questão
         preencherHTMLcomQuestao_atual(0);
 
+        // controla botões iniciais
         btnSubmeter.disabled = false;
         btnProx.disabled = true;
         btnTentarNovamente.disabled = true;
@@ -202,15 +207,17 @@
 
     function preencherHTMLcomQuestao_atual(index)
     {
-        habilitarAlternativas(true);
+        habilitarAlternativas(true); // libera alternativas
 
-        const questao_atual = questoes[index];
-        numero_da_questao_atual = index;
+        const questao_atual = questoes[index]; // pega questão atual
+        numero_da_questao_atual = index; // atualiza o indice
 
         console.log("questao_atual")
         console.log(questao_atual)
 
-        document.getElementById("spanNumeroDaQuestao_atual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+         // mostra número da questão (index começa em 0)
+        document.getElementById("spanNumeroDaQuestao_atual").innerHTML = Number(index) + 1;
+
         document.getElementById("enunciado").innerHTML = questao_atual.pergunta;
         document.getElementById("opcao_a").innerHTML = questao_atual.alt_a;
         document.getElementById("opcao_b").innerHTML = questao_atual.alt_b;
@@ -220,9 +227,10 @@
 
     function submeter()
     {
-        const opcoes = document.getElementsByName("opcao"); // recupera alternativas no html
+        const opcoes = document.getElementsByName("opcao"); // pega radios (alternativas)
         let alternativa_selecionada = false;
         
+        // verifica se alguma alternativa foi marcada
         for (let i = 0; i < opcoes.length; i++)
         {
             if (opcoes[i].checked)
@@ -242,14 +250,16 @@
             btnSubmeter.disabled = true
             btnProx.disabled = false
 
-            habilitarAlternativas(false)
-            checarResposta()
+            habilitarAlternativas(false) // bloqueia mudança
+            checarResposta() // valida resposta
         }
     }
 
     function habilitarAlternativas(trueOrFalse)
     {
         let opcao_escolhida = trueOrFalse ? false : true
+
+        // controla enable/disable dos radios
 
         alternativa_a.disabled = opcao_escolhida;
         alternativa_b.disabled = opcao_escolhida;
@@ -259,6 +269,8 @@
 
     function avancar() 
     {
+        // controla fluxo do quiz e avanço de questões
+
         btnProx.disabled = true
         btnSubmeter.disabled = false
 
@@ -277,7 +289,7 @@
         
         else
         {
-            finalizarJogo()
+            finalizarJogo() // fim do quiz
         }
 
         limparCoresBackgroundOpcoes()
@@ -298,6 +310,7 @@
 
         let alternativa_correta = null // variável para armazenar a alternativa correta
 
+        // encontra qual label corresponde à correta
         opcoes.forEach((option) => {
             if (option.value === resposta_questao_atual)
             {
@@ -312,11 +325,9 @@
             if (option.checked === true && option.value === resposta_questao_atual)
             {
                 document.getElementById(alternativa_correta).classList.add("pergunta_certa")
-                
 
                 pontuacao_final += 10;
                 certas++
-                //document.getElementById("spanCertas").innerHTML = certas
                 numero_da_questao_atual++
             }
             
@@ -326,15 +337,14 @@
 
                 document.getElementById(wrongLabelId).classList.add("pergunta_errada")
                 document.getElementById(alternativa_correta).classList.add("pergunta_certa")
-                tentativa_incorreta++
                 erradas++
-                //document.getElementById("spanErradas").innerHTML = erradas
                 numero_da_questao_atual++
             }
         })
     }
 
-    function limparCoresBackgroundOpcoes() {
+    function limparCoresBackgroundOpcoes()
+    {
         const opcoes = document.getElementsByName("opcao");
         opcoes.forEach((option) => {
             document.getElementById(option.labels[0].id).classList.remove("pergunta_errada")
@@ -354,36 +364,23 @@
 
     function finalizarJogo()
     {
+        // calcula resultado final e envia pro backend
         let textoParaMensagemFinal = null
-        let classComCoresParaMensagemFinal = null
-        const porcentagemFinalDeAcertos = pontuacao_final / qtd_questoes
+        const porcentagemFinalDeAcertos = (certas / qtd_questoes) * 100;
 
-        if (porcentagemFinalDeAcertos <= 0.3) {
+        if (porcentagemFinalDeAcertos <= 30) {
             textoParaMensagemFinal = "<br>Parece que você não estudou..."
-            //classComCoresParaMensagemFinal = "text-danger-with-bg"
         }
-        else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+        else if (porcentagemFinalDeAcertos > 30 && porcentagemFinalDeAcertos < 60)
+        {
             textoParaMensagemFinal = "<br>Pode melhorar na próxima, hein!"
-            //classComCoresParaMensagemFinal = "text-warning-with-bg"
         }
-        else if (porcentagemFinalDeAcertos >= 0.9) {
+        else if (porcentagemFinalDeAcertos >= 60) {
             textoParaMensagemFinal = "<br>Uau, parabéns!"
-            //classComCoresParaMensagemFinal = "text-success-with-bg"
         }
-
-        //textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
 
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        //document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
-        /*document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
-
-        document.getElementById('jogo').classList.add("text-new-gray") 
-
-        btnProx.disabled = true
-        btnSubmeter.disabled = true
-        // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = false*/
 
         document.getElementById('btnSubmeter').classList.add('escondido') 
         document.getElementById('btnProx').classList.add('escondido') 
@@ -397,14 +394,21 @@
         spanErradas.innerHTML = `<b>${erradas}</b>`;
         spanPontuacaoFinal.innerHTML = `<b>${pontuacao_final}</b>pts de um máximo de 100pts`;
 
-        realizarQuiz(pontuacao_final);
+        realizarQuiz(pontuacao_final); // salva no banco
     }
 
     function realizarQuiz(pontuacao)
     {
+        // envia resultado pro backend via fetch
         var pontuacaoFinalVar = pontuacao;
         var fkUsuario = sessionStorage.ID_USUARIO;
 
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o conteúdo
+        // usa os dados
+        // se qualquer coisa der errado no caminho -> cai no catch
         fetch("/quiz/realizar-quiz/",
         {
             method: "POST",
@@ -436,7 +440,6 @@
             .catch(function (resposta)
             {
                 console.log(`#ERRO: ${resposta}`);
-                //finalizarAguardar();
             });
 
         return false;

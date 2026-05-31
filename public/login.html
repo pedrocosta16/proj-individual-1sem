@@ -72,11 +72,12 @@
 
     function entrar()
     {
-        aguardar();
+        // função que realiza o login do usuário
 
-        var emailVar = ipt_email_user.value;
-        var senhaVar = ipt_senha_user.value;
+        var emailVar = ipt_email_user.value; // captura email digitado no input
+        var senhaVar = ipt_senha_user.value; // captura senha digitada no input
 
+        // valida se algum campo está vazio
         if (emailVar == "" || senhaVar == "")
         {
             alert(`Verifique campos em branco`)
@@ -86,34 +87,49 @@
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
+        document.getElementById("div_aguardar").style.display = "block";
+
+        // Faz a requisição
+        // quando o servidor responder
+        // verifica se deu ok
+        // converte o conteúdo
+        // usa os dados
+        // se qualquer coisa der errado no caminho -> cai no catch
         fetch("/usuario/autenticar-usuario",
         {
-            method: "POST",
+            method: "POST", // define método HTTP como POST para envio de dados
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json" // informa que o corpo da requisição está em JSON
             },
             body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
+                // converte os dados JS para JSON para envio ao backend
+
+                emailServer: emailVar, // envia email
+                senhaServer: senhaVar // envia senha
             })
         }).then(function (resposta)
         {
+            // trata resposta do backend após login
+
             console.log("ESTOU NO THEN DO entrar()!")
 
+            // login autorizado
             if (resposta.ok)
             {
                 console.log(resposta);
 
                 resposta.json().then(json => {
+                    // converte resposta em JSON
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.OBJETIVO_USUARIO = json.objetivo;
-                    sessionStorage.GENERO_USUARIO = json.genero;
+                    sessionStorage.EMAIL_USUARIO = json.email; // armazena email na sessão
+                    sessionStorage.NOME_USUARIO = json.nome; // armazena nome na sessão
+                    sessionStorage.ID_USUARIO = json.id; // armazena id na sessão
+                    sessionStorage.OBJETIVO_USUARIO = json.objetivo; // armazena objetivo na sessão
+                    sessionStorage.GENERO_USUARIO = json.genero; // armazena genero na sessão
 
+                    // redireciona para página inicial após login
                     setTimeout(function ()
                     {
                         window.location = "inicio.html";
@@ -127,14 +143,21 @@
             
             else
             {
+                // caso login falhe
                 resposta.text().then(texto => {
+                    // Esconde o loading se der erro
+                    document.getElementById("div_aguardar").style.display = "none";
+
                     console.error(texto);
-                    finalizarAguardar(texto);
                 });
             }
 
         }).catch(function (erro)
         {
+            // Esconde o loading se cair no catch
+            document.getElementById("div_aguardar").style.display = "none";
+
+            // erro na requisição
             console.log(erro);
         })
 
