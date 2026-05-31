@@ -31,12 +31,6 @@
 
     <div class="form">
 
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
-
         <h1>Entre em sua conta</h1>
 
         <div class="campo">
@@ -59,10 +53,8 @@
         <p>Não possui conta? <a href="cadastro.html">Cadastre-se aqui!</a></p>
 
         <div id="div_aguardar" class="loading-div">
-            <img src="assets/icons/loading.gif" id="loading-gif">
+            <img src="assets/icons/circle-loading.gif" id="loading-gif">
         </div>
-
-        <div class="erro" id="div_erros_login"></div>
 
     </div>
 
@@ -87,15 +79,8 @@
 
         if (emailVar == "" || senhaVar == "")
         {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
+            alert(`Verifique campos em branco`)
             return false;
-        }
-
-        else
-        {
-            setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
@@ -122,26 +107,26 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id; 
-
-                    console.log("SALVEI:", sessionStorage.EMAIL_USUARIO, sessionStorage.NOME_USUARIO, sessionStorage.ID_USUARIO);
+                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.OBJETIVO_USUARIO = json.objetivo;
+                    sessionStorage.GENERO_USUARIO = json.genero;
 
                     setTimeout(function ()
                     {
                         window.location = "inicio.html";
+                        alert(`Seja bem vindo(a), ${sessionStorage.NOME_USUARIO}`)
                     }, 1000); // apenas para exibir o loading
-                    console.log("ANTES DE REDIRECIONAR:", sessionStorage);
+
+                    console.log("SALVEI:", sessionStorage);
                 });
 
             }
             
             else
             {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
                 resposta.text().then(texto => {
                     console.error(texto);
                     finalizarAguardar(texto);
@@ -154,10 +139,6 @@
         })
 
         return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none"
     }
 
 </script>

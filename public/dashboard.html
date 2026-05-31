@@ -606,12 +606,10 @@
             document.getElementById(`id_grafico_linhas`),
             config
         );
-
-        //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
     }
 
 
-
+    
 
 
     function obterDadosGraficoObjetivos(grafico)
@@ -655,9 +653,32 @@
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labels = [];
+        let labels = ['Qualidade de Vida', 'Reabilitação', 'Fortalecimento', 'Postura', 'Flexibilidade'];
         let pontuacoes = [];
+        let cores = [];
 
+        // Atribuir uma nova cor a depender do objetivo escolhido pelo usuario
+        for (let i = 0; i < labels.length; i++)
+        {
+            console.log('entrei no vetor');
+
+            var objetivoUsuario = sessionStorage.OBJETIVO_USUARIO;
+            
+            if (labels[i] == objetivoUsuario)
+            {
+                console.log('achei o objetivo do usuario:', labels[i]);
+                
+                cores.push('rgba(217, 140, 95, 0.9)');
+            }
+
+            else
+            {
+                console.log('outra cor');
+                
+                cores.push('rgba(217, 140, 95, 0.3)');
+            }
+        }
+        
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
@@ -665,6 +686,13 @@
             datasets: [{
                 label: 'Pontuação média',
                 data: [],
+                backgroundColor: cores,
+                borderColor: '#d98c5f',
+                fill: true,
+                borderWidth: 2
+            },
+            {
+                label: 'Sua faixa',
                 backgroundColor: 'rgba(217, 140, 95, 0.9)',
                 borderColor: '#d98c5f',
                 fill: true,
@@ -681,10 +709,10 @@
         {
             let registro = resposta[i];
 
-            labels.push(registro.objetivo_pilates);
-
             dados.datasets[0].data.push(registro.media_quiz);
         }
+
+
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -693,7 +721,7 @@
         console.log('Dados:')
         console.log(dados.datasets)
         console.log('----------------------------------------------')
-
+        //console.log(cores);
         // Criando estrutura para plotar gráfico - config
         const config =
         {
@@ -799,8 +827,31 @@
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labels = [];
+        let labels = ['MPB', 'Funk', 'Sertanejo', 'Hip Hop', 'Reggae', 'Pop', 'Rock'];
         let pontuacoes = [];
+        let cores = [];
+
+        // Atribuir uma nova cor a depender do objetivo escolhido pelo usuario
+        for (let i = 0; i < labels.length; i++)
+        {
+            console.log('entrei no vetor');
+
+            var generoMusicalUsuario = sessionStorage.GENERO_USUARIO;
+            
+            if (labels[i] == generoMusicalUsuario)
+            {
+                console.log('achei o objetivo do usuario:', labels[i]);
+                
+                cores.push('rgba(145, 106, 153, 0.7)');
+            }
+
+            else
+            {
+                console.log('outra cor');
+                
+                cores.push('rgba(145, 106, 153, 0.3)');
+            }
+        }
 
         // Criando estrutura para plotar gráfico - dados
         let dados = {
@@ -808,6 +859,14 @@
 
             datasets: [{
                 label: 'Pontuação média',
+                data: [],
+                backgroundColor: cores,
+                borderColor: '#916a99',
+                fill: true,
+                borderWidth: 2
+            },
+            {
+                label: 'Sua faixa',
                 data: [],
                 backgroundColor: 'rgba(145, 106, 153, 0.7)',
                 borderColor: '#916a99',
@@ -824,8 +883,6 @@
         for (let i = 0; i < resposta.length; i++)
         {
             let registro = resposta[i];
-
-            labels.push(registro.genero_musical);
 
             dados.datasets[0].data.push(registro.media_quiz);
         }
@@ -898,8 +955,6 @@
         //setTimeout(() => atualizarGrafico(fkUsuario, dados, myChart), 2000);
     }
 
-
-
-
+    
 
 </script>

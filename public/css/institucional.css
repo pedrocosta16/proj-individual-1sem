@@ -37,6 +37,12 @@ header
     font-weight: bold; /* Negrito */
 }
 
+/*.header-botao
+{
+    display: flex;
+    gap: 14px;
+}*/
+
 .header-botao a
 {
     background-color: #222222; /* Cor do botão */
